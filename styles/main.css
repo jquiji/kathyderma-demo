@@ -77,10 +77,10 @@ button, .btn-cta, .btn-contact, .nav-btn {
 }
 
 /* Asegurar que la versión web mantenga su altura completa */
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .hero {
     min-height: 100vh; /* Altura completa para pantallas grandes */
-    padding: 80px 40px 60px;
+    padding: 80px 40px 60px; /* Solo navbar en escritorio */
     flex-direction: row; /* Layout horizontal para web */
     text-align: left;
   }
@@ -99,15 +99,146 @@ button, .btn-cta, .btn-contact, .nav-btn {
   
   /* Restaurar el canvas de burbujas para web */
   .floating-bubbles-canvas {
-    top: 80px;
+    top: 80px; /* Solo navbar en escritorio */
     height: calc(100% - 80px);
+  }
+}
+
+/* Barra superior con información dinámica */
+.top-info-bar {
+  /* Estilos base para móvil (position fixed) */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+/* En escritorio: integrar dentro del header */
+@media (min-width: 1024px) {
+  .top-info-bar {
+    position: static; /* Cambiar de fixed a static */
+    height: auto;
+    background: transparent; /* Sin fondo en escritorio */
+    border-bottom: none;
+    box-shadow: none;
+    z-index: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinear a la derecha */
+    animation: none; /* Sin animación en escritorio */
+    flex: 1; /* Tomar espacio disponible */
+    margin: 0 20px; /* Espaciado del logo y menú */
+    padding-left: 20px; /* Espacio adicional entre logo y barra */
+  }
+  
+  .top-info-content {
+    font-size: 0.95rem !important; /* Mismo tamaño que los enlaces del navbar */
+    gap: 20px !important; /* Espaciado armonioso */
+    font-weight: 600 !important; /* Mismo peso que los enlaces */
+    color: #c4308b !important; /* Mismo color que el logo y enlaces */
+    font-family: 'Poppins', sans-serif !important; /* Misma fuente */
+    text-shadow: none !important; /* Sin sombra en escritorio para integración */
+    letter-spacing: 0.3px !important;
+  }
+  
+  .location-info {
+    color: #c4308b !important; /* Mismo color que el header */
+    opacity: 1 !important;
+    text-shadow: none !important;
+    font-weight: 600 !important; /* Mismo peso que los enlaces */
+    font-size: 0.95rem !important; /* Mismo tamaño */
+  }
+  
+  .time-info {
+    color: #c4308b !important; /* Mismo color que el header */
+    font-weight: 600 !important; /* Mismo peso */
+    text-shadow: none !important;
+    font-size: 0.95rem !important; /* Mismo tamaño */
+  }
+  
+  .weather-info {
+    font-size: 0.95rem !important; /* Mismo tamaño que los otros elementos */
+    opacity: 1 !important;
+    color: #c4308b !important; /* Mismo color que el header */
+    text-shadow: none !important;
+    font-weight: 600 !important; /* Mismo peso que los enlaces */
+    font-family: 'Poppins', sans-serif !important; /* Misma fuente */
+  }
+  
+  /* Sobrescribir estilos inline del JavaScript */
+  .weather-info span {
+    color: #c4308b !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.95rem !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Estilos base para móvil - serán sobrescritos en escritorio */
+.top-info-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 1;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.time-info {
+  font-weight: 600;
+  color: #ffb6d9;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  font-size: 15px;
+}
+
+/* Estilos base para móvil - serán sobrescritos en escritorio */
+.weather-info {
+  opacity: 1;
+  font-size: 14px;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Animación de entrada */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 /* Navbar */
 .navbar {
   position: fixed;
-  top: 0;
+  top: 0; /* En escritorio no necesita ajuste, en móvil se ajustará */
   left: 0;
   right: 0;
   display: flex;
@@ -119,6 +250,20 @@ button, .btn-cta, .btn-contact, .nav-btn {
   box-shadow: 0 2px 20px rgba(0,0,0,0.08);
   z-index: 1000;
   transition: all 0.3s ease;
+}
+
+/* En escritorio: navbar normal sin ajuste de top */
+@media (min-width: 1024px) {
+  .navbar {
+    top: 0;
+  }
+}
+
+/* En móvil: navbar debajo de la barra superior */
+@media (max-width: 1023px) {
+  .navbar {
+    top: 40px; /* Ajustar para que esté debajo de la barra superior móvil */
+  }
 }
 
 /* Mobile menu toggle button */
@@ -1275,8 +1420,42 @@ html {
 }
 
 /* Móviles */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+  .top-info-bar {
+    height: 40px;
+  }
+  
+  .top-info-content {
+    gap: 15px;
+    font-size: 13px; /* Aumentado de 0.8rem a 13px para mejor legibilidad */
+    color: #ffffff; /* Blanco puro en móvil también */
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3); /* Sombra consistente */
+    font-family: 'Poppins', sans-serif; /* Misma fuente que el header */
+    font-weight: 500; /* Peso medio para móvil */
+  }
+  
+  .location-info {
+    opacity: 1; /* Máximo contraste en móvil */
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .time-info {
+    color: #ffb6d9; /* Mantener rosado para la hora */
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    font-size: 13px; /* Tamaño consistente */
+    font-weight: 600; /* Peso medio-fuerte para la hora */
+  }
+  
+  .weather-info {
+    font-size: 12px; /* Aumentado de 0.75rem a 12px */
+    opacity: 1; /* Máximo contraste */
+    color: #ffffff;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  
   .navbar {
+    top: 40px; /* Ajustado para barra superior móvil */
     padding: 15px 20px;
   }
   
@@ -1289,7 +1468,7 @@ html {
   }
   
   .hero {
-    padding: 100px 20px 40px; /* Aumentado para dar espacio al navbar móvil */
+    padding: 140px 20px 40px; /* Ajustado para barra superior (40px) + navbar móvil (100px) */
     text-align: center;
     min-height: 80vh; /* Aumentado para mejor proporción en móvil */
     flex-direction: column;
@@ -1299,8 +1478,8 @@ html {
   
   /* Ajustar el canvas de burbujas para móviles */
   .floating-bubbles-canvas {
-    top: 100px; /* Ajustar para el nuevo padding */
-    height: calc(100% - 100px);
+    top: 140px; /* Ajustado para barra superior (40px) + navbar móvil (100px) */
+    height: calc(100% - 140px);
   }
   
   .hero-text {

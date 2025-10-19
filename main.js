@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Inicializar barra superior dinámica
+  initTopInfoBar();
+  
   // Navbar scroll effect
   const navbar = document.querySelector('.navbar');
   let lastScrollY = window.scrollY;
@@ -1025,4 +1028,80 @@ function initFloatingCardsInteraction() {
   document.head.appendChild(style);
 
   console.log('✅ Interacciones avanzadas con cards y parallax 3D iniciadas');
+}
+
+// Sistema de barra superior dinámica con información contextual
+function initTopInfoBar() {
+  console.log('🌅 Iniciando barra superior dinámica...');
+  
+  const timeElement = document.getElementById('timeInfo');
+  const weatherElement = document.getElementById('weatherInfo');
+  
+  if (!timeElement || !weatherElement) {
+    console.log('❌ Elementos de la barra superior no encontrados');
+    return;
+  }
+
+  // Función para formatear la hora
+  function formatTime(date) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 || 12;
+    const displayMinutes = minutes.toString().padStart(2, '0');
+    return `${displayHours}:${displayMinutes} ${ampm}`;
+  }
+
+  // Función para obtener información contextual según la hora
+  function getContextualInfo(date) {
+    const hour = date.getHours();
+    
+    if (hour >= 6 && hour < 18) {
+      // Día (6:00 AM - 6:00 PM)
+      return {
+        icon: '☀️',
+        message: 'Índice UV: Alto — Usa protector solar 😎',
+        color: '#c4308b' // Mismo color que el header
+      };
+    } else {
+      // Noche (6:00 PM - 6:00 AM)
+      return {
+        icon: '🌙',
+        message: 'Rutina nocturna: limpieza + hidratación 💧',
+        color: '#c4308b' // Mismo color que el header
+      };
+    }
+  }
+
+  // Función para actualizar la información
+  function updateInfo() {
+    const now = new Date();
+    const timeString = formatTime(now);
+    const contextInfo = getContextualInfo(now);
+    
+    // Actualizar hora
+    timeElement.textContent = timeString;
+    
+    // Actualizar información contextual
+    weatherElement.innerHTML = `
+      <span style="color: ${contextInfo.color}">
+        ${contextInfo.icon} ${contextInfo.message}
+      </span>
+    `;
+    
+    console.log(`🕐 Hora actualizada: ${timeString} - ${contextInfo.message}`);
+  }
+
+  // Actualizar inmediatamente
+  updateInfo();
+  
+  // Actualizar cada minuto
+  const updateInterval = setInterval(updateInfo, 60000);
+  
+  // Limpiar intervalo cuando se cierre la página
+  window.addEventListener('beforeunload', () => {
+    clearInterval(updateInterval);
+  });
+  
+  console.log('✅ Barra superior dinámica iniciada');
 }
