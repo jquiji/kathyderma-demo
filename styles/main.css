@@ -208,9 +208,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
     box-shadow: 0 5px 15px rgba(196, 48, 139, 0.3);
   }
   
-  .navbar nav a::after {
-    display: none;
-  }
+  /* Pseudo-elemento ::after ya eliminado del CSS principal */
   
   /* Prevent body scroll when menu is open */
   body.menu-open {
@@ -228,25 +226,14 @@ button, .btn-cta, .btn-contact, .nav-btn {
   padding: 8px 0;
 }
 
-.navbar a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #c4308b, #ff66c4);
-  transition: width 0.3s ease;
-}
+/* Eliminado el pseudo-elemento ::after que causaba el rectángulo blanco */
 
 .navbar a:hover {
   color: #c4308b;
   transform: translateY(-1px);
 }
 
-.navbar a:hover::after {
-  width: 100%;
-}
+/* Eliminado el hover del pseudo-elemento ::after */
 
 /* Hero - Piel humana en corte transversal completa */
 .hero {
