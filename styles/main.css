@@ -20,6 +20,26 @@ body {
   box-sizing: border-box;
 }
 
+/* Eliminar el efecto azul (tap highlight) en dispositivos móviles */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Permitir selección de texto solo en elementos de texto */
+p, span, h1, h2, h3, h4, h5, h6, a, .hero-text, .about-text {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 /* Mejorar el rendimiento en móviles */
 .hero, .about, #services, #contact {
   will-change: transform;
