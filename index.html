@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kathy Derma</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Kathy Derma</div>
+    <nav>
+      <a href="#services">Servicios</a>
+      <a href="#about">Sobre mí</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <!-- Canvas para burbujas flotantes -->
+    <canvas id="floating-bubbles" class="floating-bubbles-canvas"></canvas>
+    
+    <div class="hero-text" data-aos="fade-right">
+      <h1>Cuida tu piel</h1>
+      <p>Dermatología especializada, cercana y confiable</p>
+      <a href="https://wa.me/50246895757" class="btn-cta">Agenda tu cita</a>
+    </div>
+    <div class="hero-illustration" data-aos="fade-left">
+      <!-- Ilustración de piel integrada en el fondo -->
+    </div>
+  </section>
+<!-- Servicios -->
+<section id="services" class="horizontal-scroll">
+  <h2 data-aos="fade-up">Servicios</h2>
+  
+  <!-- Botones de navegación -->
+  <button class="nav-btn nav-btn-left" id="prevBtn" aria-label="Anterior">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <button class="nav-btn nav-btn-right" id="nextBtn" aria-label="Siguiente">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <div class="services-track">
+    
+   <!-- Cada caso = un "slide" -->
+    <div class="service-card">
+      <h3>Rosácea</h3>
+      <div class="antes-despues">
+        <img src="assets/rosacea-antes.jpg" alt="Antes - Rosácea">
+        <img src="assets/rosacea-despues.jpg" alt="Después - Rosácea">
+      </div>
+    </div>
+
+    <div class="service-card">
+      <h3>Acné</h3>
+      <div class="antes-despues">
+        <img src="assets/acne-antes1.png" alt="Antes - Acné">
+        <img src="assets/acne-antes2.png" alt="Después - Acné">
+      </div>
+    </div>
+
+    <div class="service-card">
+      <h3>Psoriasis</h3>
+      <div class="antes-despues">
+        <img src="assets/psoriasis-antes.jpg" alt="Antes - Psoriasis">
+        <img src="assets/psoriasis-despues.jpg" alt="Después - Psoriasis">
+      </div>
+    </div>
+
+    <div class="service-card">
+      <h3>Alopecia Areata</h3>
+      <div class="antes-despues">
+        <img src="assets/alopecia-areata-antes.jpg" alt="Antes - Alopecia Areata">
+        <img src="assets/alopecia-areata.jpg" alt="Después - Alopecia Areata">
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll-indicator">Desliza para ver más casos</div>
+</section>
+
+
+<section id="about" class="section about">
+  <!-- Barra de búsqueda decorativa -->
+  <div class="decorative-search-bar">
+    <div class="search-icon">🔍</div>
+    <span class="search-text">@kathyderma</span>
+  </div>
+  
+  <!-- Contenedor principal de la vitrina digital -->
+  <div class="digital-showcase">
+    <!-- Doctora central - Solo imagen PNG sin card -->
+    <div class="central-doctor">
+      <img src="assets/kathy-profile.png" alt="Doctora Katherine Klussmann" class="doctor-image">
+    </div>
+
+    <!-- Cards flotantes tipo redes sociales -->
+    <div class="floating-cards">
+      <!-- Card 1: Publicación destacada -->
+      <div class="floating-card card-1">
+        <div class="card-icon"></div>
+        <h3>Publicación destacada</h3>
+        <p>Artículo en Revista Dermatológica</p>
+        <div class="card-tag">Investigación</div>
+      </div>
+
+      <!-- Card 2: Entrevista TV -->
+      <div class="floating-card card-2">
+        <div class="card-icon"></div>
+        <h3>Entrevista TV Médica</h3>
+        <p>Especialista en dermatología</p>
+        <div class="card-tag">Medios</div>
+      </div>
+
+      <!-- Card 3: Reconocimiento Hospital -->
+      <div class="floating-card card-3">
+        <div class="card-icon"></div>
+        <h3>Reconocimiento Hospital</h3>
+        <p>Hospital San Juan de Dios</p>
+        <div class="card-tag">Excelencia</div>
+      </div>
+
+      <!-- Card 4: Cuidado de la piel -->
+      <div class="floating-card card-4">
+        <div class="card-icon"></div>
+        <h3>Cuidado de la piel</h3>
+        <p>Tratamientos especializados</p>
+        <div class="card-tag">Especialidad</div>
+      </div>
+
+      <!-- Card 5: Caso clínico -->
+      <div class="floating-card card-5">
+        <div class="card-icon">👩‍⚕️</div>
+        <h3>Caso clínico</h3>
+        <p>Resultados exitosos</p>
+        <div class="card-tag">Experiencia</div>
+      </div>
+
+      <!-- Card 6: Formación médica -->
+      <div class="floating-card card-6">
+        <div class="card-icon">🧠</div>
+        <h3>Formación médica</h3>
+        <p>Dermatología avanzada</p>
+        <div class="card-tag">Educación</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+  <h2>Contacto</h2>
+  <div class="contact-buttons">
+    <a href="https://wa.me/50246895757" target="_blank" class="btn-contact whatsapp">WhatsApp</a>
+    <a href="https://instagram.com/kathyderma" target="_blank" class="btn-contact instagram">Instagram</a>
+    <a href="mailto:info@kathyderma.com" class="btn-contact email">info@kathyderma.com</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Kathy Derma · Todos los derechos reservados</p>
+  <div class="legal-links">
+    <a href="politica-privacidad.html">Política de Privacidad</a> · 
+    <a href="condiciones-servicio.html">Condiciones de Servicio</a> · 
+    <a href="eliminacion-datos.html">Eliminación de Datos</a>
+  </div>
+</footer>
+
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+  <script src="main.js"></script>
+
+</body>
+</html>

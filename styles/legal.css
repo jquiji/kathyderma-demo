@@ -1,0 +1,47 @@
+/* legal.css - estilo minimalista para páginas legales */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  color: #333;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.7;
+  font-size: 0.9rem; /* más pequeño */
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #111;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-top: 25px;
+  margin-bottom: 8px;
+  color: #c4308b; /* color brand */
+  font-weight: 600;
+}
+
+p, li {
+  margin-bottom: 10px;
+}
+
+ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+a {
+  color: #c4308b;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
