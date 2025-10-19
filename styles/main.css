@@ -238,7 +238,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
 
 .navbar a {
   text-decoration: none;
-  color: #333;
+  color: #c4308b; /* Mismo color que el logo */
   font-weight: 600;
   font-size: 0.95rem;
   position: relative;
@@ -249,7 +249,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
 /* Eliminado el pseudo-elemento ::after que causaba el rectángulo blanco */
 
 .navbar a:hover {
-  color: #c4308b;
+  color: #ff66c4; /* Mismo color de hover que el logo */
   transform: translateY(-1px);
 }
 
@@ -1524,6 +1524,14 @@ footer .legal-links a:hover::after {
   scroll-snap-type: x mandatory;
   overflow-x: hidden;
   position: relative;
+  /* Mejorar la experiencia táctil */
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+  user-select: none;
+}
+
+.services-track:active {
+  cursor: grabbing;
 }
 
 .service-card {

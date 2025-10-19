@@ -107,6 +107,112 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Soporte táctil (swipe) para dispositivos móviles
+  let startX = 0;
+  let startY = 0;
+  let endX = 0;
+  let endY = 0;
+  let isDragging = false;
+  const minSwipeDistance = 50; // Distancia mínima para considerar un swipe
+  const maxVerticalDistance = 100; // Máxima distancia vertical para considerar swipe horizontal
+
+  // Event listeners para touch
+  track.addEventListener('touchstart', (e) => {
+    if (isScrolling) return;
+    
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isDragging = true;
+    
+    // Prevenir scroll vertical durante el swipe
+    e.preventDefault();
+  }, { passive: false });
+
+  track.addEventListener('touchmove', (e) => {
+    if (!isDragging || isScrolling) return;
+    
+    // Prevenir scroll vertical durante el swipe
+    e.preventDefault();
+  }, { passive: false });
+
+  track.addEventListener('touchend', (e) => {
+    if (!isDragging || isScrolling) return;
+    
+    endX = e.changedTouches[0].clientX;
+    endY = e.changedTouches[0].clientY;
+    
+    const deltaX = endX - startX;
+    const deltaY = Math.abs(endY - startY);
+    
+    // Solo procesar swipe si el movimiento vertical es menor que el horizontal
+    if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        // Swipe right - ir al slide anterior
+        if (currentIndex > 0) {
+          goToSlide(currentIndex - 1);
+        }
+      } else {
+        // Swipe left - ir al slide siguiente
+        if (currentIndex < slides.length - 1) {
+          goToSlide(currentIndex + 1);
+        }
+      }
+    }
+    
+    isDragging = false;
+  });
+
+  // Soporte para mouse drag (opcional, para dispositivos con mouse)
+  let mouseStartX = 0;
+  let mouseStartY = 0;
+  let isMouseDragging = false;
+
+  track.addEventListener('mousedown', (e) => {
+    if (isScrolling) return;
+    
+    mouseStartX = e.clientX;
+    mouseStartY = e.clientY;
+    isMouseDragging = true;
+    
+    e.preventDefault();
+  });
+
+  track.addEventListener('mousemove', (e) => {
+    if (!isMouseDragging || isScrolling) return;
+    
+    e.preventDefault();
+  });
+
+  track.addEventListener('mouseup', (e) => {
+    if (!isMouseDragging || isScrolling) return;
+    
+    const deltaX = e.clientX - mouseStartX;
+    const deltaY = Math.abs(e.clientY - mouseStartY);
+    
+    if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        // Drag right - ir al slide anterior
+        if (currentIndex > 0) {
+          goToSlide(currentIndex - 1);
+        }
+      } else {
+        // Drag left - ir al slide siguiente
+        if (currentIndex < slides.length - 1) {
+          goToSlide(currentIndex + 1);
+        }
+      }
+    }
+    
+    isMouseDragging = false;
+  });
+
+  // Prevenir selección de texto durante el drag
+  track.addEventListener('selectstart', (e) => {
+    if (isDragging || isMouseDragging) {
+      e.preventDefault();
+    }
+  });
+
   // Inicializar estado de los botones
   updateNavButtons();
 
