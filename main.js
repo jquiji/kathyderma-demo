@@ -1137,28 +1137,59 @@ function initTopInfoBar() {
 // Ejecutar al cargar la página
 window.addEventListener('load', updateUVIndex);
 
-// Función para obtener el índice UV real desde OpenWeatherMap (API One Call 3.0)
+// Función optimizada para obtener el índice UV con cache local
 async function updateUVIndex() {
   const apiKey = '6667fcadcae70063da98e04f014392a6';
   const lat = 14.6349;
   const lon = -90.5069;
+  const cacheKey = 'uvValue';
+  const cacheTimeKey = 'uvTimestamp';
+  const now = Date.now();
+  const threeHours = 3 * 60 * 60 * 1000; // 3 horas en milisegundos
+
+  // Revisar si hay cache válido
+  const cachedValue = localStorage.getItem(cacheKey);
+  const cachedTime = localStorage.getItem(cacheTimeKey);
+
+  if (cachedValue && cachedTime && now - parseInt(cachedTime) < threeHours) {
+    const weatherElement = document.getElementById('weatherInfo');
+    if (weatherElement) {
+      weatherElement.innerHTML = `
+        <span style="color: #c4308b">
+          Índice UV: ${cachedValue}
+        </span>
+      `;
+    }
+    console.log(`🌞 Usando valor UV del cache: ${cachedValue}`);
+    return;
+  }
+
+  // Si no hay cache o ya expiró, hacer fetch a la API
   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${apiKey}&units=metric`;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error('Error al obtener datos');
     const data = await response.json();
-
-    const uv = data.current?.uvi; // la nueva API guarda el UV aquí
+    const uv = data.current?.uvi;
 
     const weatherElement = document.getElementById('weatherInfo');
     if (weatherElement) {
+      const uvValue = uv ? uv.toFixed(1) : 'N/A';
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: ${uv ? uv.toFixed(1) : 'N/A'}
+          Índice UV: ${uvValue}
         </span>
       `;
-      console.log(`🌞 Índice UV actualizado: ${uv}`);
+      
+      // Guardar en cache solo si el valor es válido
+      if (uv && !isNaN(uv)) {
+        localStorage.setItem(cacheKey, uvValue);
+        localStorage.setItem(cacheTimeKey, now.toString());
+        console.log(`🌞 Nuevo valor UV obtenido y guardado en cache: ${uvValue}`);
+      } else {
+        console.log(`🌞 Valor UV no válido, no se guarda en cache: ${uv}`);
+      }
     }
   } catch (error) {
     console.error('Error al obtener el índice UV:', error);
@@ -1172,4 +1203,39 @@ async function updateUVIndex() {
     }
   }
 }
+
+// Función de utilidad para limpiar el cache del índice UV (útil para debugging)
+function clearUVCache() {
+  localStorage.removeItem('uvValue');
+  localStorage.removeItem('uvTimestamp');
+  console.log('🗑️ Cache del índice UV limpiado');
+}
+
+// Función de utilidad para verificar el estado del cache
+function checkUVCache() {
+  const cachedValue = localStorage.getItem('uvValue');
+  const cachedTime = localStorage.getItem('uvTimestamp');
+  const now = Date.now();
+  const threeHours = 3 * 60 * 60 * 1000;
+  
+  if (cachedValue && cachedTime) {
+    const age = now - parseInt(cachedTime);
+    const isValid = age < threeHours;
+    const ageHours = (age / (60 * 60 * 1000)).toFixed(1);
+    
+    console.log(`📊 Estado del cache UV:`);
+    console.log(`   Valor: ${cachedValue}`);
+    console.log(`   Edad: ${ageHours} horas`);
+    console.log(`   Válido: ${isValid ? 'Sí' : 'No'}`);
+    
+    return { value: cachedValue, age: age, isValid: isValid };
+  } else {
+    console.log('📊 No hay cache del índice UV');
+    return null;
+  }
+}
+
+// Hacer las funciones de utilidad disponibles globalmente para debugging
+window.clearUVCache = clearUVCache;
+window.checkUVCache = checkUVCache;
 
