@@ -982,15 +982,44 @@ footer .legal-links a:hover::after {
     transform: translateX(-50%); /* Centrado horizontal perfecto */
     padding: 0 20px; /* Mismo padding que en escritorio */
     z-index: 15; /* Asegurar que esté por encima de la imagen */
+    /* Prevenir movimiento al enfocarse */
+    position: fixed; /* Cambiar de absolute a fixed para mayor estabilidad */
+    box-sizing: border-box; /* Asegurar que el padding no afecte el ancho */
+    transition: all 0.3s ease; /* Transición suave para animaciones */
+  }
+  
+  /* Estilos de foco para móviles - sin cambios de posición */
+  .decorative-search-bar:focus,
+  .decorative-search-bar:focus-within {
+    transform: translateX(-50%); /* Mantener centrado al enfocarse */
+    width: 90%; /* Mantener ancho fijo */
+    max-width: 500px; /* Mantener ancho máximo */
+    padding: 0 20px; /* Mantener padding fijo */
+    /* Animación sutil de brillo */
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.2),
+      0 0 0 2px rgba(255, 255, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.3); /* Ligeramente más opaco al enfocarse */
   }
   
   .search-text {
     font-size: 1rem; /* Mismo tamaño que en escritorio */
     letter-spacing: 0.5px; /* Mismo espaciado que en escritorio */
+    /* Prevenir zoom en Safari/Chrome */
+    font-size: 16px; /* Tamaño mínimo para evitar zoom automático */
   }
   
   .search-icon {
     font-size: 1.2rem; /* Mismo tamaño que en escritorio */
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  /* Animación del ícono al enfocarse */
+  .decorative-search-bar:focus .search-icon,
+  .decorative-search-bar:focus-within .search-icon {
+    transform: scale(1.1);
+    color: rgba(255, 255, 255, 1);
   }
 }
 
@@ -1004,15 +1033,44 @@ footer .legal-links a:hover::after {
     transform: translateX(-50%); /* Centrado horizontal perfecto */
     padding: 0 15px; /* Padding ajustado para pantallas pequeñas */
     z-index: 15; /* Asegurar que esté por encima de la imagen */
+    /* Prevenir movimiento al enfocarse */
+    position: fixed; /* Cambiar de absolute a fixed para mayor estabilidad */
+    box-sizing: border-box; /* Asegurar que el padding no afecte el ancho */
+    transition: all 0.3s ease; /* Transición suave para animaciones */
+  }
+  
+  /* Estilos de foco para móviles pequeños - sin cambios de posición */
+  .decorative-search-bar:focus,
+  .decorative-search-bar:focus-within {
+    transform: translateX(-50%); /* Mantener centrado al enfocarse */
+    width: 90%; /* Mantener ancho fijo */
+    max-width: 400px; /* Mantener ancho máximo */
+    padding: 0 15px; /* Mantener padding fijo */
+    /* Animación sutil de brillo */
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.2),
+      0 0 0 2px rgba(255, 255, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.3); /* Ligeramente más opaco al enfocarse */
   }
   
   .search-text {
     font-size: 0.9rem; /* Tamaño ligeramente menor para pantallas pequeñas */
     letter-spacing: 0.3px; /* Espaciado ajustado */
+    /* Prevenir zoom en Safari/Chrome */
+    font-size: 16px; /* Tamaño mínimo para evitar zoom automático */
   }
   
   .search-icon {
     font-size: 1.1rem; /* Tamaño ligeramente menor para pantallas pequeñas */
+    transition: all 0.3s ease; /* Transición suave */
+  }
+  
+  /* Animación del ícono al enfocarse */
+  .decorative-search-bar:focus .search-icon,
+  .decorative-search-bar:focus-within .search-icon {
+    transform: scale(1.1);
+    color: rgba(255, 255, 255, 1);
   }
 }
 
