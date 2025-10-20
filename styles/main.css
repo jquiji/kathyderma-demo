@@ -1524,14 +1524,31 @@ footer .legal-links a:hover::after {
   scroll-snap-type: x mandatory;
   overflow-x: hidden;
   position: relative;
-  /* Mejorar la experiencia táctil */
+  /* Permitir scroll vertical y zoom, pero controlar el horizontal */
   touch-action: pan-y pinch-zoom;
-  cursor: grab;
   user-select: none;
 }
 
-.services-track:active {
-  cursor: grabbing;
+/* Cursor personalizado del dermatoscopio para escritorio */
+@media (min-width: 769px) {
+  .services-track {
+    cursor: url("../assets/dermatoscopio.png") 16 16, pointer;
+  }
+  
+  .services-track:active {
+    cursor: url("../assets/dermatoscopio.png") 16 16, pointer;
+  }
+}
+
+/* Cursor de arrastre solo para móviles */
+@media (max-width: 768px) {
+  .services-track {
+    cursor: grab;
+  }
+  
+  .services-track:active {
+    cursor: grabbing;
+  }
 }
 
 .service-card {

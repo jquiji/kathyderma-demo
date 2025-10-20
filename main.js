@@ -124,15 +124,21 @@ document.addEventListener("DOMContentLoaded", () => {
     startY = e.touches[0].clientY;
     isDragging = true;
     
-    // Prevenir scroll vertical durante el swipe
-    e.preventDefault();
-  }, { passive: false });
+    // NO prevenir el scroll vertical por defecto
+  }, { passive: true });
 
   track.addEventListener('touchmove', (e) => {
     if (!isDragging || isScrolling) return;
     
-    // Prevenir scroll vertical durante el swipe
-    e.preventDefault();
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = Math.abs(currentX - startX);
+    const deltaY = Math.abs(currentY - startY);
+    
+    // Solo prevenir scroll vertical si el movimiento horizontal es significativo
+    if (deltaX > deltaY && deltaX > 10) {
+      e.preventDefault();
+    }
   }, { passive: false });
 
   track.addEventListener('touchend', (e) => {
@@ -144,8 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaX = endX - startX;
     const deltaY = Math.abs(endY - startY);
     
-    // Solo procesar swipe si el movimiento vertical es menor que el horizontal
-    if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
+    // Solo procesar swipe si el movimiento horizontal es mayor que el vertical
+    if (deltaX > deltaY && Math.abs(deltaX) > minSwipeDistance) {
       if (deltaX > 0) {
         // Swipe right - ir al slide anterior
         if (currentIndex > 0) {
@@ -162,56 +168,64 @@ document.addEventListener("DOMContentLoaded", () => {
     isDragging = false;
   });
 
-  // Soporte para mouse drag (opcional, para dispositivos con mouse)
+  // Soporte para mouse drag solo en dispositivos móviles/tablets
   let mouseStartX = 0;
   let mouseStartY = 0;
   let isMouseDragging = false;
+  
+  // Detectar si es un dispositivo táctil
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+  // Solo agregar soporte de mouse drag en dispositivos táctiles
+  if (isTouchDevice) {
+    track.addEventListener('mousedown', (e) => {
+      if (isScrolling) return;
+      
+      mouseStartX = e.clientX;
+      mouseStartY = e.clientY;
+      isMouseDragging = true;
+      
+      e.preventDefault();
+    });
 
-  track.addEventListener('mousedown', (e) => {
-    if (isScrolling) return;
-    
-    mouseStartX = e.clientX;
-    mouseStartY = e.clientY;
-    isMouseDragging = true;
-    
-    e.preventDefault();
-  });
+    track.addEventListener('mousemove', (e) => {
+      if (!isMouseDragging || isScrolling) return;
+      
+      e.preventDefault();
+    });
 
-  track.addEventListener('mousemove', (e) => {
-    if (!isMouseDragging || isScrolling) return;
-    
-    e.preventDefault();
-  });
-
-  track.addEventListener('mouseup', (e) => {
-    if (!isMouseDragging || isScrolling) return;
-    
-    const deltaX = e.clientX - mouseStartX;
-    const deltaY = Math.abs(e.clientY - mouseStartY);
-    
-    if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
-      if (deltaX > 0) {
-        // Drag right - ir al slide anterior
-        if (currentIndex > 0) {
-          goToSlide(currentIndex - 1);
-        }
-      } else {
-        // Drag left - ir al slide siguiente
-        if (currentIndex < slides.length - 1) {
-          goToSlide(currentIndex + 1);
+    track.addEventListener('mouseup', (e) => {
+      if (!isMouseDragging || isScrolling) return;
+      
+      const deltaX = e.clientX - mouseStartX;
+      const deltaY = Math.abs(e.clientY - mouseStartY);
+      
+      if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          // Drag right - ir al slide anterior
+          if (currentIndex > 0) {
+            goToSlide(currentIndex - 1);
+          }
+        } else {
+          // Drag left - ir al slide siguiente
+          if (currentIndex < slides.length - 1) {
+            goToSlide(currentIndex + 1);
+          }
         }
       }
-    }
-    
-    isMouseDragging = false;
-  });
+      
+      isMouseDragging = false;
+    });
+  }
 
-  // Prevenir selección de texto durante el drag
-  track.addEventListener('selectstart', (e) => {
-    if (isDragging || isMouseDragging) {
-      e.preventDefault();
-    }
-  });
+  // Prevenir selección de texto durante el drag (solo en dispositivos táctiles)
+  if (isTouchDevice) {
+    track.addEventListener('selectstart', (e) => {
+      if (isDragging || isMouseDragging) {
+        e.preventDefault();
+      }
+    });
+  }
 
   // Inicializar estado de los botones
   updateNavButtons();
