@@ -882,12 +882,12 @@ footer .legal-links a:hover::after {
     margin-right: -50vw;
     overflow: hidden; /* Cambiar de overflow-x a overflow para controlar ambos ejes */
     /* Cambios específicos para móviles */
-    background-size: contain; /* Cambiar a contain para ver imagen completa */
+    background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
     background-repeat: no-repeat;
-    background-position: center top; /* Posicionar arriba para mostrar cabeza completa */
+    background-position: center 30%; /* Centrar verticalmente, posicionando un poco arriba */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
     position: relative; /* Asegurar posicionamiento relativo */
-    object-fit: contain; /* Asegurar que la imagen se adapte sin recortes */
+    object-fit: cover; /* Usar cover para llenar mejor el espacio */
   }
 }
 
@@ -906,12 +906,12 @@ footer .legal-links a:hover::after {
     margin-right: -50vw;
     overflow: hidden; /* Cambiar de overflow-x a overflow para controlar ambos ejes */
     /* Cambios específicos para móviles pequeños */
-    background-size: contain; /* Cambiar a contain para ver imagen completa */
+    background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
     background-repeat: no-repeat;
-    background-position: center top; /* Posicionar arriba para mostrar cabeza completa */
+    background-position: center 30%; /* Centrar verticalmente, posicionando un poco arriba */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
     position: relative; /* Asegurar posicionamiento relativo */
-    object-fit: contain; /* Asegurar que la imagen se adapte sin recortes */
+    object-fit: cover; /* Usar cover para llenar mejor el espacio */
   }
 }
 
@@ -976,8 +976,8 @@ footer .legal-links a:hover::after {
   .decorative-search-bar {
     width: 300px;
     height: 45px;
-    top: 35%; /* Mover hacia arriba para alinearse con la cabeza */
-    left: 40%; /* Desplazar hacia la izquierda para alinearse con la cabeza */
+    top: 25%; /* Posicionar por encima de los hombros */
+    left: 25%; /* Alinear ligeramente a la izquierda */
     transform: translate(-50%, -50%); /* Mantener centrado relativo */
     padding: 0 15px;
     z-index: 15; /* Asegurar que esté por encima de la imagen */
@@ -997,8 +997,8 @@ footer .legal-links a:hover::after {
   .decorative-search-bar {
     width: 280px;
     height: 40px;
-    top: 35%; /* Mantener alineación con la cabeza */
-    left: 40%; /* Mantener desplazamiento hacia la izquierda */
+    top: 25%; /* Mantener posicionamiento por encima de los hombros */
+    left: 25%; /* Mantener alineación a la izquierda */
     transform: translate(-50%, -50%); /* Mantener centrado relativo */
     padding: 0 12px;
     z-index: 15; /* Asegurar que esté por encima de la imagen */
