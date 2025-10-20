@@ -974,43 +974,45 @@ footer .legal-links a:hover::after {
 /* Media queries para la barra de búsqueda en móviles */
 @media (max-width: 768px) {
   .decorative-search-bar {
-    width: 300px;
-    height: 45px;
-    top: 25%; /* Posicionar por encima de los hombros */
-    left: 25%; /* Alinear ligeramente a la izquierda */
-    transform: translate(-50%, -50%); /* Mantener centrado relativo */
-    padding: 0 15px;
+    width: 90%; /* Adaptarse al ancho de pantalla con máximo 90% */
+    max-width: 500px; /* Mantener el ancho máximo de escritorio */
+    height: 50px; /* Mantener la misma altura que en escritorio */
+    top: 80px; /* Misma posición vertical que en escritorio */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Centrado horizontal perfecto */
+    padding: 0 20px; /* Mismo padding que en escritorio */
     z-index: 15; /* Asegurar que esté por encima de la imagen */
   }
   
   .search-text {
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
+    font-size: 1rem; /* Mismo tamaño que en escritorio */
+    letter-spacing: 0.5px; /* Mismo espaciado que en escritorio */
   }
   
   .search-icon {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Mismo tamaño que en escritorio */
   }
 }
 
 @media (max-width: 480px) {
   .decorative-search-bar {
-    width: 280px;
-    height: 40px;
-    top: 25%; /* Mantener posicionamiento por encima de los hombros */
-    left: 25%; /* Mantener alineación a la izquierda */
-    transform: translate(-50%, -50%); /* Mantener centrado relativo */
-    padding: 0 12px;
+    width: 90%; /* Adaptarse al ancho de pantalla con máximo 90% */
+    max-width: 400px; /* Ancho máximo ligeramente menor para pantallas muy pequeñas */
+    height: 45px; /* Altura ligeramente menor para pantallas pequeñas */
+    top: 80px; /* Misma posición vertical que en escritorio */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Centrado horizontal perfecto */
+    padding: 0 15px; /* Padding ajustado para pantallas pequeñas */
     z-index: 15; /* Asegurar que esté por encima de la imagen */
   }
   
   .search-text {
-    font-size: 0.85rem;
-    letter-spacing: 0.2px;
+    font-size: 0.9rem; /* Tamaño ligeramente menor para pantallas pequeñas */
+    letter-spacing: 0.3px; /* Espaciado ajustado */
   }
   
   .search-icon {
-    font-size: 1rem;
+    font-size: 1.1rem; /* Tamaño ligeramente menor para pantallas pequeñas */
   }
 }
 
