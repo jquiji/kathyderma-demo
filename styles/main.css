@@ -869,8 +869,8 @@ footer .legal-links a:hover::after {
 /* Responsive Design para móviles */
 @media (max-width: 768px) {
   .about {
-    height: auto; /* Cambiar de min-height a height auto para eliminar espacio vacío */
-    min-height: auto; /* Eliminar min-height fijo */
+    height: 100vh; /* Usar altura completa de viewport */
+    min-height: 100vh; /* Asegurar altura mínima */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -881,19 +881,18 @@ footer .legal-links a:hover::after {
     margin-right: -50vw;
     overflow-x: hidden;
     /* Cambios específicos para móviles */
-    background-size: contain; /* Cambiar de cover a contain para ver imagen completa */
+    background-size: cover; /* Usar cover para llenar el espacio */
     background-repeat: no-repeat;
-    background-position: center top; /* Centrar horizontalmente y posicionar arriba */
+    background-position: center center; /* Centrar completamente */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
-    /* Ajustar altura para que coincida con la imagen */
-    aspect-ratio: 1 / 1.2; /* Proporción que se adapte a la imagen */
+    position: relative; /* Asegurar posicionamiento relativo */
   }
 }
 
 @media (max-width: 480px) {
   .about {
-    height: auto; /* Cambiar de min-height a height auto para eliminar espacio vacío */
-    min-height: auto; /* Eliminar min-height fijo */
+    height: 100vh; /* Mantener altura completa */
+    min-height: 100vh; /* Asegurar altura mínima */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -904,12 +903,11 @@ footer .legal-links a:hover::after {
     margin-right: -50vw;
     overflow-x: hidden;
     /* Cambios específicos para móviles pequeños */
-    background-size: contain; /* Cambiar de cover a contain para ver imagen completa */
+    background-size: cover; /* Usar cover para llenar el espacio */
     background-repeat: no-repeat;
-    background-position: center top; /* Centrar horizontalmente y posicionar arriba */
+    background-position: center center; /* Centrar completamente */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
-    /* Ajustar altura para que coincida con la imagen */
-    aspect-ratio: 1 / 1.2; /* Proporción que se adapte a la imagen */
+    position: relative; /* Asegurar posicionamiento relativo */
   }
 }
 
@@ -974,10 +972,11 @@ footer .legal-links a:hover::after {
   .decorative-search-bar {
     width: 300px;
     height: 45px;
-    top: 70px; /* Ajustar margen superior para móviles */
-    left: 50%; /* Centrar en móviles */
-    transform: translateX(-50%); /* Centrado automático en móviles */
+    top: 50%; /* Centrar verticalmente en la imagen */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Centrado perfecto */
     padding: 0 15px;
+    z-index: 15; /* Asegurar que esté por encima de la imagen */
   }
   
   .search-text {
@@ -994,10 +993,11 @@ footer .legal-links a:hover::after {
   .decorative-search-bar {
     width: 280px;
     height: 40px;
-    top: 60px; /* Margen superior más pequeño para pantallas pequeñas */
-    left: 50%; /* Centrar en móviles pequeños */
-    transform: translateX(-50%); /* Centrado automático en móviles pequeños */
+    top: 50%; /* Mantener centrado vertical */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Centrado perfecto */
     padding: 0 12px;
+    z-index: 15; /* Asegurar que esté por encima de la imagen */
   }
   
   .search-text {
