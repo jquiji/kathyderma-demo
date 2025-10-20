@@ -724,7 +724,8 @@ footer .legal-links a:hover::after {
 /* Responsive Design para móviles */
 @media (max-width: 768px) {
   .about {
-    min-height: 100vh;
+    height: auto; /* Cambiar de min-height a height auto para eliminar espacio vacío */
+    min-height: auto; /* Eliminar min-height fijo */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -739,12 +740,15 @@ footer .legal-links a:hover::after {
     background-repeat: no-repeat;
     background-position: center top; /* Centrar horizontalmente y posicionar arriba */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
+    /* Ajustar altura para que coincida con la imagen */
+    aspect-ratio: 1 / 1.2; /* Proporción que se adapte a la imagen */
   }
 }
 
 @media (max-width: 480px) {
   .about {
-    min-height: 100vh;
+    height: auto; /* Cambiar de min-height a height auto para eliminar espacio vacío */
+    min-height: auto; /* Eliminar min-height fijo */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -759,6 +763,8 @@ footer .legal-links a:hover::after {
     background-repeat: no-repeat;
     background-position: center top; /* Centrar horizontalmente y posicionar arriba */
     background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
+    /* Ajustar altura para que coincida con la imagen */
+    aspect-ratio: 1 / 1.2; /* Proporción que se adapte a la imagen */
   }
 }
 
