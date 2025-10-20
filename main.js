@@ -304,7 +304,7 @@ function initFloatingBubbles() {
 
   // Configuración mejorada
   const config = {
-    cellCount: 35,  // ← CANTIDAD: Aumentado para un fondo más dinámico y lleno
+    cellCount: getCellCount(),  // ← CANTIDAD: Dinámica según tamaño de pantalla
     colors: [
       'rgba(196, 48, 139, 0.6)',   // Rosa principal
       'rgba(255, 102, 196, 0.5)',  // Rosa claro
@@ -319,6 +319,16 @@ function initFloatingBubbles() {
     fleeDistance: 200,    // ← DISTANCIA: 100=cerca, 200=lejos
     mouseSmoothness: 0.15 // ← SUAVIDAD DEL MOUSE: 0.1=muy suave, 0.3=más rápido
   };
+
+  // Función para determinar el número de células según el tamaño de pantalla
+  function getCellCount() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      return 20; // Versión móvil: 20 células
+    } else {
+      return 35; // Versión escritorio: 35 células (mantener actual)
+    }
+  }
 
   // Clase simple para células
   class Cell {
@@ -533,6 +543,9 @@ function initFloatingBubbles() {
       // Recalcular límites usando la función centralizada
       recalculateSkinBounds();
       
+      // Recrear células si es necesario según el nuevo tamaño de pantalla
+      recreateCells();
+      
       // Ajustar células existentes si están fuera de los nuevos límites
       cells.forEach(cell => {
         // Límites horizontales
@@ -593,6 +606,26 @@ function initFloatingBubbles() {
     console.log('🛡️ Margen superior de seguridad:', safeTopMargin);
     
     return skinBounds;
+  }
+
+  // Función para recrear células cuando cambie el tamaño de pantalla
+  function recreateCells() {
+    const newCellCount = getCellCount();
+    const currentCount = cells.length;
+    
+    console.log(`📱 Cambio de tamaño detectado. Células actuales: ${currentCount}, nuevas: ${newCellCount}`);
+    
+    if (newCellCount !== currentCount) {
+      // Limpiar células existentes
+      cells = [];
+      
+      // Crear nuevas células con la cantidad correcta
+      for (let i = 0; i < newCellCount; i++) {
+        cells.push(new Cell());
+      }
+      
+      console.log(`✅ Células recreadas: ${cells.length} células`);
+    }
   }
 
   // Inicializar
