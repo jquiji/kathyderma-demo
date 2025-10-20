@@ -1110,19 +1110,14 @@ function initTopInfoBar() {
   function updateInfo() {
     const now = new Date();
     const timeString = formatTime(now);
-    const contextInfo = getContextualInfo(now);
     
     // Actualizar hora
     timeElement.textContent = timeString;
     
-    // Actualizar información contextual
-    weatherElement.innerHTML = `
-      <span style="color: ${contextInfo.color}">
-        ${contextInfo.icon} ${contextInfo.message}
-      </span>
-    `;
+    // Actualizar índice UV desde la API
+    updateUVIndex();
     
-    console.log(`🕐 Hora actualizada: ${timeString} - ${contextInfo.message}`);
+    console.log(`🕐 Hora actualizada: ${timeString}`);
   }
 
   // Actualizar inmediatamente
@@ -1138,3 +1133,43 @@ function initTopInfoBar() {
   
   console.log('✅ Barra superior dinámica iniciada');
 }
+
+// Ejecutar al cargar la página
+window.addEventListener('load', updateUVIndex);
+
+// Función para obtener el índice UV real desde OpenWeatherMap (API One Call 3.0)
+async function updateUVIndex() {
+  const apiKey = '6667fcadcae70063da98e04f014392a6';
+  const lat = 14.6349;
+  const lon = -90.5069;
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${apiKey}&units=metric`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Error al obtener datos');
+    const data = await response.json();
+
+    const uv = data.current?.uvi; // la nueva API guarda el UV aquí
+
+    const weatherElement = document.getElementById('weatherInfo');
+    if (weatherElement) {
+      weatherElement.innerHTML = `
+        <span style="color: #c4308b">
+          Índice UV: ${uv ? uv.toFixed(1) : 'N/A'}
+        </span>
+      `;
+      console.log(`🌞 Índice UV actualizado: ${uv}`);
+    }
+  } catch (error) {
+    console.error('Error al obtener el índice UV:', error);
+    const weatherElement = document.getElementById('weatherInfo');
+    if (weatherElement) {
+      weatherElement.innerHTML = `
+        <span style="color: #c4308b">
+          Índice UV: N/A
+        </span>
+      `;
+    }
+  }
+}
+
