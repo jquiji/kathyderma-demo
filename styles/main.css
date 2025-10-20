@@ -734,6 +734,11 @@ footer .legal-links a:hover::after {
     margin-left: -50vw;
     margin-right: -50vw;
     overflow-x: hidden;
+    /* Cambios específicos para móviles */
+    background-size: contain; /* Cambiar de cover a contain para ver imagen completa */
+    background-repeat: no-repeat;
+    background-position: center top; /* Centrar horizontalmente y posicionar arriba */
+    background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
   }
 }
 
@@ -749,6 +754,19 @@ footer .legal-links a:hover::after {
     margin-left: -50vw;
     margin-right: -50vw;
     overflow-x: hidden;
+    /* Cambios específicos para móviles pequeños */
+    background-size: contain; /* Cambiar de cover a contain para ver imagen completa */
+    background-repeat: no-repeat;
+    background-position: center top; /* Centrar horizontalmente y posicionar arriba */
+    background-color: #f9c6d9; /* Color de fondo rosa para cubrir bordes sobrantes */
+  }
+}
+
+/* Media query adicional para orientación horizontal en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+  .about {
+    background-position: center center; /* Centrar completamente en orientación horizontal */
+    background-size: contain; /* Mantener contain para ver imagen completa */
   }
 }
 
