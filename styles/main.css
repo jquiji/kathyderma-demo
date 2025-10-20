@@ -1524,8 +1524,8 @@ footer .legal-links a:hover::after {
   scroll-snap-type: x mandatory;
   overflow-x: hidden;
   position: relative;
-  /* Permitir scroll vertical y zoom, pero controlar el horizontal */
-  touch-action: pan-y pinch-zoom;
+  /* Permitir scroll en ambas direcciones y zoom */
+  touch-action: manipulation;
   user-select: none;
 }
 

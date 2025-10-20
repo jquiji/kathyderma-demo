@@ -123,8 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
     isDragging = true;
-    
-    // NO prevenir el scroll vertical por defecto
   }, { passive: true });
 
   track.addEventListener('touchmove', (e) => {
@@ -135,8 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaX = Math.abs(currentX - startX);
     const deltaY = Math.abs(currentY - startY);
     
-    // Solo prevenir scroll vertical si el movimiento horizontal es significativo
-    if (deltaX > deltaY && deltaX > 10) {
+    // Solo prevenir scroll si el movimiento horizontal es claramente mayor que el vertical
+    if (deltaX > deltaY && deltaX > 20) {
       e.preventDefault();
     }
   }, { passive: false });
@@ -150,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaX = endX - startX;
     const deltaY = Math.abs(endY - startY);
     
-    // Solo procesar swipe si el movimiento horizontal es mayor que el vertical
-    if (deltaX > deltaY && Math.abs(deltaX) > minSwipeDistance) {
+    // Procesar swipe horizontal si es significativo
+    if (Math.abs(deltaX) > minSwipeDistance && deltaX > deltaY) {
       if (deltaX > 0) {
         // Swipe right - ir al slide anterior
         if (currentIndex > 0) {
