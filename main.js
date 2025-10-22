@@ -1067,57 +1067,17 @@ function initFloatingCardsInteraction() {
 function initTopInfoBar() {
   console.log('🌅 Iniciando barra superior dinámica...');
   
-  const timeElement = document.getElementById('timeInfo');
   const weatherElement = document.getElementById('weatherInfo');
   
-  if (!timeElement || !weatherElement) {
-    console.log('❌ Elementos de la barra superior no encontrados');
+  if (!weatherElement) {
+    console.log('❌ Elemento del índice UV no encontrado');
     return;
-  }
-
-  // Función para formatear la hora
-  function formatTime(date) {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const displayHours = hours % 12 || 12;
-    const displayMinutes = minutes.toString().padStart(2, '0');
-    return `${displayHours}:${displayMinutes} ${ampm}`;
-  }
-
-  // Función para obtener información contextual según la hora
-  function getContextualInfo(date) {
-    const hour = date.getHours();
-    
-    if (hour >= 6 && hour < 18) {
-      // Día (6:00 AM - 6:00 PM)
-      return {
-        icon: '☀️',
-        message: 'Índice UV: Alto — Usa protector solar 😎',
-        color: '#c4308b' // Mismo color que el header
-      };
-    } else {
-      // Noche (6:00 PM - 6:00 AM)
-      return {
-        icon: '🌙',
-        message: 'Rutina nocturna: limpieza + hidratación 💧',
-        color: '#c4308b' // Mismo color que el header
-      };
-    }
   }
 
   // Función para actualizar la información
   function updateInfo() {
-    const now = new Date();
-    const timeString = formatTime(now);
-    
-    // Actualizar hora
-    timeElement.textContent = timeString;
-    
     // Actualizar índice UV desde la API
     updateUVIndex();
-    
-    console.log(`🕐 Hora actualizada: ${timeString}`);
   }
 
   // Actualizar inmediatamente
@@ -1169,27 +1129,30 @@ async function updateUVIndex() {
 
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error('Error al obtener datos');
-    const data = await response.json();
-    const uv = data.current?.uvi;
+    
+    // Verificar si la respuesta es exitosa (status 200)
+    if (response.ok) {
+      const data = await response.json();
+      const uv = data.current?.uvi;
 
-    const weatherElement = document.getElementById('weatherInfo');
-    if (weatherElement) {
-      const uvValue = uv ? uv.toFixed(1) : 'N/A';
-      weatherElement.innerHTML = `
-        <span style="color: #c4308b">
-          Índice UV: ${uvValue}
-        </span>
-      `;
-      
-      // Guardar en cache solo si el valor es válido
-      if (uv && !isNaN(uv)) {
+      const weatherElement = document.getElementById('weatherInfo');
+      if (weatherElement) {
+        // Mostrar el valor real del campo uvi, incluyendo 0.0 si es de noche
+        const uvValue = uv !== undefined && uv !== null ? uv.toFixed(1) : '0';
+        weatherElement.innerHTML = `
+          <span style="color: #c4308b">
+            Índice UV: ${uvValue}
+          </span>
+        `;
+        
+        // Guardar en cache el valor obtenido (incluyendo 0.0)
         localStorage.setItem(cacheKey, uvValue);
         localStorage.setItem(cacheTimeKey, now.toString());
         console.log(`🌞 Nuevo valor UV obtenido y guardado en cache: ${uvValue}`);
-      } else {
-        console.log(`🌞 Valor UV no válido, no se guarda en cache: ${uv}`);
       }
+    } else {
+      // Si la respuesta no es exitosa, mostrar "NA"
+      throw new Error(`Error de API: ${response.status} ${response.statusText}`);
     }
   } catch (error) {
     console.error('Error al obtener el índice UV:', error);
@@ -1197,7 +1160,7 @@ async function updateUVIndex() {
     if (weatherElement) {
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: N/A
+          Índice UV: NA
         </span>
       `;
     }
@@ -1238,4 +1201,72 @@ function checkUVCache() {
 // Hacer las funciones de utilidad disponibles globalmente para debugging
 window.clearUVCache = clearUVCache;
 window.checkUVCache = checkUVCache;
+
+// ===== DECORATIVE SCROLL GAUGE =====
+
+// Función para inicializar el gauge decorativo basado en scroll
+function initMiniUVGauge() {
+  console.log('🌡️ Iniciando gauge decorativo basado en scroll...');
+  
+  const miniGauge = document.getElementById('miniUvGauge');
+  const miniNeedle = document.getElementById('miniGaugeNeedle');
+  
+  if (!miniGauge || !miniNeedle) {
+    console.log('❌ Elementos del gauge decorativo no encontrados');
+    return;
+  }
+
+  // Mostrar el gauge con animación
+  setTimeout(() => {
+    miniGauge.classList.add('visible');
+  }, 500);
+
+  // Función para actualizar el gauge basado en scroll
+  function updateGaugeByScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = Math.min(scrollTop / documentHeight, 1);
+    
+    // Calcular rotación de la aguja basada en scroll
+    // Rango: -90° (izquierda) a +90° (derecha)
+    // Scroll 0% = -90°, Scroll 100% = +90°
+    const rotation = -90 + (scrollProgress * 180);
+    
+    // Aplicar rotación con animación suave
+    miniNeedle.style.transform = `rotate(${rotation}deg)`;
+    
+    console.log(`🎯 Gauge decorativo rotado a ${rotation.toFixed(1)}° (scroll: ${(scrollProgress * 100).toFixed(1)}%)`);
+  }
+
+  // Función optimizada para scroll con throttling
+  let scrollTimeout;
+  function handleScroll() {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    
+    scrollTimeout = setTimeout(() => {
+      updateGaugeByScroll();
+    }, 16); // ~60fps
+  }
+
+  // Inicializar gauge en posición inicial (izquierda)
+  updateGaugeByScroll();
+
+  // Event listener para scroll
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Actualizar gauge cuando cambie el tamaño de ventana
+  window.addEventListener('resize', () => {
+    updateGaugeByScroll();
+  });
+
+  console.log('✅ Gauge decorativo inicializado');
+}
+
+// Inicializar el mini gauge cuando se carga la página
+document.addEventListener('DOMContentLoaded', () => {
+  // Pequeño delay para asegurar que todos los elementos estén cargados
+  setTimeout(initMiniUVGauge, 1000);
+});
 
