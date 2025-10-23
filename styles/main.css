@@ -388,7 +388,30 @@ button, .btn-cta, .btn-contact, .nav-btn {
     line-height: 1.1;
   }
   
-  /* Integrar el índice UV y gauge en la misma barra */
+  /* Reorganizar el layout del header móvil en tres zonas equilibradas */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: #FFF8F8;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin: 0 !important;
+    top: 0 !important;
+    min-height: 60px; /* Altura mínima para acomodar el contenido en dos líneas */
+  }
+  
+  /* Zona izquierda: Logo dividido en dos líneas */
+  .logo {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-right: 10px;
+  }
+  
+  /* Zona central: Índice UV reorganizado */
   .top-info-bar {
     position: static;
     height: auto;
@@ -407,55 +430,86 @@ button, .btn-cta, .btn-contact, .nav-btn {
   
   .top-info-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 2px;
     font-family: 'Poppins', sans-serif;
-    font-size: 12px; /* Reducido para móvil */
+    font-size: 11px;
     font-weight: 600;
     color: #c4308b;
     text-shadow: none;
     letter-spacing: 0.2px;
+    line-height: 1.2;
   }
   
+  /* Dividir el texto del índice UV en dos líneas */
   .weather-info {
-    font-size: 12px;
+    font-size: 11px;
     opacity: 1;
     color: #c4308b;
     text-shadow: none;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
+    text-align: center;
+    line-height: 1.2;
   }
   
-  /* Sobrescribir estilos inline del JavaScript para móvil */
+  /* Crear estructura de dos líneas para el índice UV */
+  .weather-info::before {
+    content: "Índice UV:";
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #c4308b;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  /* Ocultar el texto original y mostrar solo el valor */
+  .weather-info {
+    font-size: 0;
+  }
+  
   .weather-info span {
+    font-size: 11px !important;
     color: #c4308b !important;
     font-weight: 600 !important;
     font-family: 'Poppins', sans-serif !important;
-    font-size: 12px !important;
     opacity: 1 !important;
     text-shadow: none !important;
+    display: block;
+    text-align: center;
+    line-height: 1.2;
   }
   
-  /* Ajustar el gauge para móvil */
+  /* Gauge más grande y posicionado junto al texto */
   .mini-uv-gauge {
     margin-left: 8px;
+    margin-top: 2px; /* Alinear con la segunda línea del texto */
   }
   
   .gauge-container {
-    width: 35px;
-    height: 35px;
+    width: 40px; /* Aumentado de 35px a 40px (14% más grande) */
+    height: 40px;
   }
   
   .gauge-image {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
   
   .gauge-needle {
-    width: 1.5px;
-    height: 14px;
-    top: 10.5px;
-    left: 16.5px;
+    width: 1.8px; /* Ligeramente más grueso */
+    height: 16px; /* Aumentado proporcionalmente */
+    top: 12px;
+    left: 19px;
+  }
+  
+  /* Zona derecha: Menú hamburguesa */
+  .mobile-menu-toggle {
+    flex: 0 0 auto;
+    margin-left: 10px;
   }
   
   .mobile-menu-toggle {

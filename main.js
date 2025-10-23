@@ -1128,7 +1128,7 @@ async function updateUVIndex() {
       const riskLevel = getRiskLevel(cachedValue);
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: ${cachedValue} ${riskLevel}
+          ${cachedValue} ${riskLevel}
         </span>
       `;
     }
@@ -1154,7 +1154,7 @@ async function updateUVIndex() {
         const riskLevel = getRiskLevel(uvValue);
         weatherElement.innerHTML = `
           <span style="color: #c4308b">
-            Índice UV: ${uvValue} ${riskLevel}
+            ${uvValue} ${riskLevel}
           </span>
         `;
         
@@ -1173,7 +1173,7 @@ async function updateUVIndex() {
     if (weatherElement) {
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: No disponible
+          No disponible
         </span>
       `;
     }
