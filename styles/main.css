@@ -430,9 +430,9 @@ button, .btn-cta, .btn-contact, .nav-btn {
   
   .top-info-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Cambiar a horizontal para alinear texto y gauge */
     align-items: center;
-    gap: 2px;
+    gap: 8px; /* Espacio entre texto y gauge */
     font-family: 'Poppins', sans-serif;
     font-size: 11px;
     font-weight: 600;
@@ -442,16 +442,13 @@ button, .btn-cta, .btn-contact, .nav-btn {
     line-height: 1.2;
   }
   
-  /* Dividir el texto del índice UV en dos líneas */
+  /* Contenedor para el texto del índice UV en dos líneas */
   .weather-info {
-    font-size: 11px;
-    opacity: 1;
-    color: #c4308b;
-    text-shadow: none;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     line-height: 1.2;
+    font-size: 0; /* Ocultar el texto original */
   }
   
   /* Crear estructura de dos líneas para el índice UV */
@@ -464,13 +461,10 @@ button, .btn-cta, .btn-contact, .nav-btn {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     line-height: 1.2;
+    margin-bottom: 1px;
   }
   
-  /* Ocultar el texto original y mostrar solo el valor */
-  .weather-info {
-    font-size: 0;
-  }
-  
+  /* Estilo para el span que contiene el valor y nivel */
   .weather-info span {
     font-size: 11px !important;
     color: #c4308b !important;
@@ -483,27 +477,29 @@ button, .btn-cta, .btn-contact, .nav-btn {
     line-height: 1.2;
   }
   
-  /* Gauge más grande y posicionado junto al texto */
+  /* Gauge más grande y alineado horizontalmente con el texto */
   .mini-uv-gauge {
-    margin-left: 8px;
-    margin-top: 2px; /* Alinear con la segunda línea del texto */
+    margin-left: 0; /* Sin margen izquierdo ya que está en flexbox */
+    margin-top: 0; /* Sin margen superior para centrado vertical */
+    display: flex;
+    align-items: center; /* Centrar verticalmente con el texto */
   }
   
   .gauge-container {
-    width: 40px; /* Aumentado de 35px a 40px (14% más grande) */
-    height: 40px;
+    width: 42px; /* Aumentado a 42px (20% más grande que 35px) */
+    height: 42px;
   }
   
   .gauge-image {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
   
   .gauge-needle {
-    width: 1.8px; /* Ligeramente más grueso */
-    height: 16px; /* Aumentado proporcionalmente */
-    top: 12px;
-    left: 19px;
+    width: 2px; /* Ligeramente más grueso */
+    height: 17px; /* Aumentado proporcionalmente */
+    top: 12.5px;
+    left: 20px;
   }
   
   /* Zona derecha: Menú hamburguesa */
