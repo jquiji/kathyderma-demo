@@ -428,26 +428,26 @@ button, .btn-cta, .btn-contact, .nav-btn {
     padding: 0;
   }
   
+  /* Contenedor que agrupa texto UV + gauge en fila */
   .top-info-content {
     display: flex;
-    flex-direction: row; /* Cambiar a horizontal para alinear texto y gauge */
-    align-items: center;
-    gap: 8px; /* Espacio entre texto y gauge */
+    flex-direction: row; /* texto a la izquierda, gauge a la derecha */
+    align-items: center; /* centra verticalmente texto y gauge */
+    gap: 8px;
+    flex-wrap: nowrap; /* evita que el gauge salte abajo */
     font-family: 'Poppins', sans-serif;
     font-size: 11px;
     font-weight: 600;
     color: #c4308b;
     text-shadow: none;
     letter-spacing: 0.2px;
-    line-height: 1.2;
   }
   
-  /* Contenedor para el texto del índice UV en dos líneas */
+  /* Bloque de texto del UV en dos líneas */
   .weather-info {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.2;
+    flex-direction: column; /* 2 líneas */
+    line-height: 1.05;
     font-size: 0; /* Ocultar el texto original */
   }
   
@@ -455,18 +455,18 @@ button, .btn-cta, .btn-contact, .nav-btn {
   .weather-info::before {
     content: "Índice UV:";
     display: block;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: #c4308b;
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.05;
     margin-bottom: 1px;
   }
   
   /* Estilo para el span que contiene el valor y nivel */
   .weather-info span {
-    font-size: 11px !important;
+    font-size: 12px !important;
     color: #c4308b !important;
     font-weight: 600 !important;
     font-family: 'Poppins', sans-serif !important;
@@ -474,32 +474,34 @@ button, .btn-cta, .btn-contact, .nav-btn {
     text-shadow: none !important;
     display: block;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.05;
+    white-space: nowrap; /* mantener "0.0 Bajo" en una sola línea */
   }
   
-  /* Gauge más grande y alineado horizontalmente con el texto */
+  /* Gauge más grande y alineado horizontalmente */
   .mini-uv-gauge {
-    margin-left: 0; /* Sin margen izquierdo ya que está en flexbox */
-    margin-top: 0; /* Sin margen superior para centrado vertical */
+    margin: 0;
     display: flex;
-    align-items: center; /* Centrar verticalmente con el texto */
+    align-items: center;
+    transform: scale(1.12); /* ~12% más grande */
+    transform-origin: left center;
   }
   
   .gauge-container {
-    width: 42px; /* Aumentado a 42px (20% más grande que 35px) */
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
   
   .gauge-image {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
   }
   
   .gauge-needle {
-    width: 2px; /* Ligeramente más grueso */
-    height: 17px; /* Aumentado proporcionalmente */
-    top: 12.5px;
-    left: 20px;
+    width: 2px;
+    height: 16px;
+    top: 12px;
+    left: 19px;
   }
   
   /* Zona derecha: Menú hamburguesa */
