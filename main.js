@@ -152,14 +152,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaY = Math.abs(endY - startY);
     
     // Procesar swipe horizontal si es significativo
-    if (Math.abs(deltaX) > minSwipeDistance && deltaX > deltaY) {
+    // Corregido: usar Math.abs(deltaX) > Math.abs(deltaY) para detectar movimiento horizontal
+    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > deltaY) {
       if (deltaX > 0) {
         // Swipe right - ir al slide anterior
+        console.log('👆 Swipe derecha detectado, navegando al slide anterior');
         if (currentIndex > 0) {
           goToSlide(currentIndex - 1);
         }
       } else {
         // Swipe left - ir al slide siguiente
+        console.log('👆 Swipe izquierda detectado, navegando al slide siguiente');
         if (currentIndex < slides.length - 1) {
           goToSlide(currentIndex + 1);
         }
@@ -201,14 +204,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const deltaX = e.clientX - mouseStartX;
       const deltaY = Math.abs(e.clientY - mouseStartY);
       
-      if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance) {
+      // Corregido: verificar que el movimiento horizontal sea mayor que el vertical
+      if (deltaY < maxVerticalDistance && Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > deltaY) {
         if (deltaX > 0) {
           // Drag right - ir al slide anterior
+          console.log('🖱️ Drag derecha detectado, navegando al slide anterior');
           if (currentIndex > 0) {
             goToSlide(currentIndex - 1);
           }
         } else {
           // Drag left - ir al slide siguiente
+          console.log('🖱️ Drag izquierda detectado, navegando al slide siguiente');
           if (currentIndex < slides.length - 1) {
             goToSlide(currentIndex + 1);
           }
