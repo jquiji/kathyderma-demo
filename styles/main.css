@@ -259,10 +259,10 @@ button, .btn-cta, .btn-contact, .nav-btn {
   }
 }
 
-/* En móvil: navbar debajo de la barra superior */
+/* En móvil: navbar en la parte superior (sin barra superior separada) */
 @media (max-width: 1023px) {
   .navbar {
-    top: 40px; /* Ajustar para que esté debajo de la barra superior móvil */
+    top: 0; /* Sin ajuste, navbar en la parte superior */
   }
 }
 
@@ -329,6 +329,125 @@ button, .btn-cta, .btn-contact, .nav-btn {
 
 /* Mobile navigation styles */
 @media (max-width: 768px) {
+  /* Optimización del header para móvil */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #FFF8F8;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+  
+  /* Logo dividido en dos líneas para móvil */
+  .logo {
+    font-size: 1.44rem; /* 20% menos que 1.8rem */
+    font-weight: 800;
+    color: #c4308b;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  /* Ocultar el span original del logo en móvil */
+  .logo span {
+    display: none;
+  }
+  
+  /* Crear las dos líneas usando pseudo-elementos */
+  .logo::before {
+    content: "Kathy";
+    display: block;
+    font-size: 1.44rem;
+    font-weight: 800;
+    color: #c4308b;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  
+  .logo::after {
+    content: "Derma";
+    display: block;
+    font-size: 1.44rem;
+    font-weight: 800;
+    color: #c4308b;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  
+  /* Integrar el índice UV y gauge en la misma barra */
+  .top-info-bar {
+    position: static;
+    height: auto;
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    z-index: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: none;
+    flex: 1;
+    margin: 0 15px;
+    padding: 0;
+  }
+  
+  .top-info-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; /* Reducido para móvil */
+    font-weight: 600;
+    color: #c4308b;
+    text-shadow: none;
+    letter-spacing: 0.2px;
+  }
+  
+  .weather-info {
+    font-size: 12px;
+    opacity: 1;
+    color: #c4308b;
+    text-shadow: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Sobrescribir estilos inline del JavaScript para móvil */
+  .weather-info span {
+    color: #c4308b !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+  }
+  
+  /* Ajustar el gauge para móvil */
+  .mini-uv-gauge {
+    margin-left: 8px;
+  }
+  
+  .gauge-container {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .gauge-image {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .gauge-needle {
+    width: 1.5px;
+    height: 14px;
+    top: 10.5px;
+    left: 16.5px;
+  }
+  
   .mobile-menu-toggle {
     display: flex;
   }
@@ -372,8 +491,6 @@ button, .btn-cta, .btn-contact, .nav-btn {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(196, 48, 139, 0.3);
   }
-  
-  /* Pseudo-elemento ::after ya eliminado del CSS principal */
   
   /* Prevent body scroll when menu is open */
   body.menu-open {
@@ -1532,7 +1649,7 @@ html {
   }
   
   .hero {
-    padding: 115px 20px 40px; /* Ajustado para header más fino */
+    padding: 80px 20px 40px; /* Ajustado para navbar integrado */
     text-align: center;
     min-height: 80vh; /* Aumentado para mejor proporción en móvil */
     flex-direction: column;
@@ -1542,8 +1659,8 @@ html {
   
   /* Ajustar el canvas de burbujas para móviles */
   .floating-bubbles-canvas {
-    top: 115px; /* Ajustado para header más fino */
-    height: calc(100% - 115px);
+    top: 80px; /* Ajustado para navbar integrado */
+    height: calc(100% - 80px);
   }
   
   .hero-text {
