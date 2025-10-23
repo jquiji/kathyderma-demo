@@ -1107,6 +1107,17 @@ async function updateUVIndex() {
   const now = Date.now();
   const threeHours = 3 * 60 * 60 * 1000; // 3 horas en milisegundos
 
+  // Función para determinar categoría de riesgo
+  function getRiskLevel(uvValue) {
+    const uv = parseFloat(uvValue);
+    if (uv >= 0 && uv <= 2) return 'Bajo';
+    else if (uv >= 3 && uv <= 5) return 'Moderado';
+    else if (uv >= 6 && uv <= 7) return 'Alto';
+    else if (uv >= 8 && uv <= 10) return 'Muy alto';
+    else if (uv > 10) return 'Extremo';
+    else return 'Bajo'; // Default para valores inválidos
+  }
+
   // Revisar si hay cache válido
   const cachedValue = localStorage.getItem(cacheKey);
   const cachedTime = localStorage.getItem(cacheTimeKey);
@@ -1114,13 +1125,14 @@ async function updateUVIndex() {
   if (cachedValue && cachedTime && now - parseInt(cachedTime) < threeHours) {
     const weatherElement = document.getElementById('weatherInfo');
     if (weatherElement) {
+      const riskLevel = getRiskLevel(cachedValue);
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: ${cachedValue}
+          Índice UV: ${cachedValue} ${riskLevel}
         </span>
       `;
     }
-    console.log(`🌞 Usando valor UV del cache: ${cachedValue}`);
+    console.log(`🌞 Usando valor UV del cache: ${cachedValue} (${getRiskLevel(cachedValue)})`);
     return;
   }
 
@@ -1139,16 +1151,17 @@ async function updateUVIndex() {
       if (weatherElement) {
         // Mostrar el valor real del campo uvi, incluyendo 0.0 si es de noche
         const uvValue = uv !== undefined && uv !== null ? uv.toFixed(1) : '0';
+        const riskLevel = getRiskLevel(uvValue);
         weatherElement.innerHTML = `
           <span style="color: #c4308b">
-            Índice UV: ${uvValue}
+            Índice UV: ${uvValue} ${riskLevel}
           </span>
         `;
         
         // Guardar en cache el valor obtenido (incluyendo 0.0)
         localStorage.setItem(cacheKey, uvValue);
         localStorage.setItem(cacheTimeKey, now.toString());
-        console.log(`🌞 Nuevo valor UV obtenido y guardado en cache: ${uvValue}`);
+        console.log(`🌞 Nuevo valor UV obtenido y guardado en cache: ${uvValue} (${riskLevel})`);
       }
     } else {
       // Si la respuesta no es exitosa, mostrar "NA"
@@ -1160,7 +1173,7 @@ async function updateUVIndex() {
     if (weatherElement) {
       weatherElement.innerHTML = `
         <span style="color: #c4308b">
-          Índice UV: NA
+          Índice UV: No disponible
         </span>
       `;
     }
