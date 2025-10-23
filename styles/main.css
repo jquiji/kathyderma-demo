@@ -486,7 +486,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
     margin: 0;
     display: flex;
     align-items: center;
-    transform: scale(1.35); /* ~35% más grande (aumentado de 1.15) */
+    transform: scale(1.55); /* ~55% más grande (aumentado de 1.35 + 15%) */
     transform-origin: left center;
     flex-shrink: 0; /* No permitir que se encoja */
   }
