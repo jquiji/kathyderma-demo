@@ -1126,11 +1126,17 @@ async function updateUVIndex() {
     const weatherElement = document.getElementById('weatherInfo');
     if (weatherElement) {
       const riskLevel = getRiskLevel(cachedValue);
-      weatherElement.innerHTML = `
-        <span style="color: #c4308b">
-          ${cachedValue} ${riskLevel}
-        </span>
-      `;
+      // Detectar si es escritorio o móvil
+      const isDesktop = window.innerWidth >= 1024;
+      if (isDesktop) {
+        weatherElement.innerHTML = `
+          Índice UV: <span style="color: #c4308b">${cachedValue} ${riskLevel}</span>
+        `;
+      } else {
+        weatherElement.innerHTML = `
+          <span style="color: #c4308b">${cachedValue} ${riskLevel}</span>
+        `;
+      }
     }
     console.log(`🌞 Usando valor UV del cache: ${cachedValue} (${getRiskLevel(cachedValue)})`);
     return;
@@ -1152,11 +1158,17 @@ async function updateUVIndex() {
         // Mostrar el valor real del campo uvi, incluyendo 0.0 si es de noche
         const uvValue = uv !== undefined && uv !== null ? uv.toFixed(1) : '0';
         const riskLevel = getRiskLevel(uvValue);
-        weatherElement.innerHTML = `
-          <span style="color: #c4308b">
-            ${uvValue} ${riskLevel}
-          </span>
-        `;
+        // Detectar si es escritorio o móvil
+        const isDesktop = window.innerWidth >= 1024;
+        if (isDesktop) {
+          weatherElement.innerHTML = `
+            Índice UV: <span style="color: #c4308b">${uvValue} ${riskLevel}</span>
+          `;
+        } else {
+          weatherElement.innerHTML = `
+            <span style="color: #c4308b">${uvValue} ${riskLevel}</span>
+          `;
+        }
         
         // Guardar en cache el valor obtenido (incluyendo 0.0)
         localStorage.setItem(cacheKey, uvValue);
@@ -1171,11 +1183,17 @@ async function updateUVIndex() {
     console.error('Error al obtener el índice UV:', error);
     const weatherElement = document.getElementById('weatherInfo');
     if (weatherElement) {
-      weatherElement.innerHTML = `
-        <span style="color: #c4308b">
-          No disponible
-        </span>
-      `;
+      // Detectar si es escritorio o móvil
+      const isDesktop = window.innerWidth >= 1024;
+      if (isDesktop) {
+        weatherElement.innerHTML = `
+          Índice UV: <span style="color: #c4308b">No disponible</span>
+        `;
+      } else {
+        weatherElement.innerHTML = `
+          <span style="color: #c4308b">No disponible</span>
+        `;
+      }
     }
   }
 }

@@ -134,11 +134,11 @@ button, .btn-cta, .btn-contact, .nav-btn {
     z-index: auto;
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Alinear a la derecha */
+    justify-content: center; /* Centrar horizontalmente */
     animation: none; /* Sin animación en escritorio */
     flex: 1; /* Tomar espacio disponible */
-    margin: 0 20px; /* Espaciado del logo y menú */
-    padding-left: 20px; /* Espacio adicional entre logo y barra */
+    margin: 0 40px; /* Mayor espaciado del logo y menú */
+    padding: 0 20px; /* Padding horizontal para separación */
   }
   
   .top-info-content {
@@ -149,6 +149,11 @@ button, .btn-cta, .btn-contact, .nav-btn {
     font-family: 'Poppins', sans-serif !important; /* Misma fuente */
     text-shadow: none !important; /* Sin sombra en escritorio para integración */
     letter-spacing: 0.3px !important;
+    display: flex !important; /* Restaurar display flex para escritorio */
+    align-items: center !important; /* Centrar verticalmente */
+    justify-content: center !important; /* Centrar horizontalmente */
+    margin: 0 auto !important; /* Centrar el bloque en el espacio disponible */
+    max-width: 400px !important; /* Limitar ancho para mejor centrado */
   }
   
   .location-info {
@@ -173,6 +178,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
     text-shadow: none !important;
     font-weight: 600 !important; /* Mismo peso que los enlaces */
     font-family: 'Poppins', sans-serif !important; /* Misma fuente */
+    display: inline !important; /* Restaurar display inline para escritorio */
   }
   
   /* Sobrescribir estilos inline del JavaScript */
@@ -183,6 +189,14 @@ button, .btn-cta, .btn-contact, .nav-btn {
     font-size: 0.95rem !important;
     opacity: 1 !important;
     text-shadow: none !important;
+    display: inline !important; /* Restaurar display inline para escritorio */
+  }
+  
+  /* Restaurar gauge para escritorio */
+  .mini-uv-gauge {
+    display: inline-flex !important; /* Restaurar display inline-flex para escritorio */
+    transform: scale(1) !important; /* Tamaño normal para escritorio */
+    margin-left: 15px !important; /* Margen original para escritorio */
   }
 }
 
