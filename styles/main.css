@@ -1145,7 +1145,7 @@ footer .legal-links a:hover::after {
 .about-card {
   position: absolute;
   top: 150px; /* Debajo de la barra de búsqueda */
-  left: 5%; /* Alineada al lado izquierdo */
+  left: 8%; /* Centrada un poco más para mejor balance */
   width: 30%; /* Ancho del 30% del contenedor */
   max-width: 400px;
   background: #ffffff;
@@ -1295,10 +1295,10 @@ footer .legal-links a:hover::after {
   .about-card {
     position: absolute;
     top: 150px; /* Debajo de la barra de búsqueda */
-    left: 50%; /* Centrar horizontalmente */
-    transform: translateX(-50%); /* Centrado perfecto */
-    width: 90%; /* Ocupar 90% del ancho disponible */
-    max-width: 400px; /* Mantener ancho máximo */
+    left: 10%; /* Mover hacia la izquierda para no tapar a la doctora */
+    transform: none; /* Sin centrado automático */
+    width: 75%; /* Reducir de 90% a 75% para no tapar la imagen */
+    max-width: 320px; /* Ancho máximo reducido */
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -1307,7 +1307,7 @@ footer .legal-links a:hover::after {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    margin: 0 auto; /* Centrado adicional */
+    margin: 0; /* Sin margen automático */
   }
   
   .about-card h3 {
@@ -1374,10 +1374,11 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta para pantallas muy pequeñas */
   .about-card {
-    width: 95%; /* Ocupar casi todo el ancho en pantallas muy pequeñas */
-    max-width: 350px; /* Ancho máximo reducido */
+    width: 70%; /* Reducir aún más para pantallas muy pequeñas */
+    max-width: 280px; /* Ancho máximo más reducido */
     padding: 18px; /* Padding reducido para pantallas pequeñas */
     top: 140px; /* Ajustar posición vertical */
+    left: 8%; /* Mantener posición hacia la izquierda */
   }
   
   .about-card h3 {
