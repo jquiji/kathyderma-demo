@@ -433,7 +433,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
     display: flex;
     flex-direction: row; /* texto a la izquierda, gauge a la derecha */
     align-items: center; /* centra verticalmente texto y gauge */
-    gap: 8px;
+    gap: 6px; /* Reducido de 8px a 6px para ahorrar espacio */
     flex-wrap: nowrap; /* evita que el gauge salte abajo */
     font-family: 'Poppins', sans-serif;
     font-size: 11px;
@@ -441,6 +441,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
     color: #c4308b;
     text-shadow: none;
     letter-spacing: 0.2px;
+    min-width: 0; /* Permitir que se encoja si es necesario */
   }
   
   /* Bloque de texto del UV en dos líneas */
@@ -449,13 +450,15 @@ button, .btn-cta, .btn-contact, .nav-btn {
     flex-direction: column; /* 2 líneas */
     line-height: 1.05;
     font-size: 0; /* Ocultar el texto original */
+    flex-shrink: 1; /* Permitir que se encoja si es necesario */
+    min-width: 0; /* Permitir que se encoja */
   }
   
   /* Crear estructura de dos líneas para el índice UV */
   .weather-info::before {
     content: "Índice UV:";
     display: block;
-    font-size: 12px;
+    font-size: 11px; /* Reducido de 12px a 11px */
     font-weight: 600;
     color: #c4308b;
     font-family: 'Poppins', sans-serif;
@@ -466,7 +469,7 @@ button, .btn-cta, .btn-contact, .nav-btn {
   
   /* Estilo para el span que contiene el valor y nivel */
   .weather-info span {
-    font-size: 12px !important;
+    font-size: 11px !important; /* Reducido de 12px a 11px */
     color: #c4308b !important;
     font-weight: 600 !important;
     font-family: 'Poppins', sans-serif !important;
@@ -483,8 +486,9 @@ button, .btn-cta, .btn-contact, .nav-btn {
     margin: 0;
     display: flex;
     align-items: center;
-    transform: scale(1.12); /* ~12% más grande */
+    transform: scale(1.15); /* ~15% más grande */
     transform-origin: left center;
+    flex-shrink: 0; /* No permitir que se encoja */
   }
   
   .gauge-container {
@@ -2104,17 +2108,19 @@ html {
   }
 }
 
-/* Para pantallas muy pequeñas, mostrar debajo del texto */
+/* Para pantallas muy pequeñas, mantener layout horizontal pero optimizado */
 @media (max-width: 480px) {
   .top-info-content {
-    flex-direction: column;
+    flex-direction: row; /* Mantener horizontal */
     align-items: center;
-    gap: 4px;
+    gap: 6px; /* Reducir gap para ahorrar espacio */
+    flex-wrap: nowrap; /* Evitar wrap */
   }
   
   .mini-uv-gauge {
     margin-left: 0;
-    margin-top: 2px;
+    margin-top: 0; /* Sin margen superior */
+    flex-shrink: 0; /* No permitir que se encoja */
   }
   
   .gauge-container {
