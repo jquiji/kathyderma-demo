@@ -329,6 +329,14 @@ button, .btn-cta, .btn-contact, .nav-btn {
 
 /* Mobile navigation styles */
 @media (max-width: 768px) {
+  /* Eliminar cualquier margen o padding superior que pueda causar espacio blanco */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-top: env(safe-area-inset-top, 0) !important;
+  }
+  
   /* Optimización del header para móvil */
   .navbar {
     display: flex;
@@ -338,6 +346,8 @@ button, .btn-cta, .btn-contact, .nav-btn {
     background: #FFF8F8;
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin: 0 !important;
+    top: 0 !important;
   }
   
   /* Logo dividido en dos líneas para móvil */
@@ -1636,8 +1646,8 @@ html {
   }
   
   .navbar {
-    top: 40px; /* Ajustado para barra superior móvil */
-    padding: 7px 20px;
+    top: 0; /* Sin espacio superior en móvil */
+    padding: 10px 20px;
   }
   
   .navbar nav {
