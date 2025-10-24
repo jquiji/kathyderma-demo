@@ -1156,6 +1156,10 @@ footer .legal-links a:hover::after {
   transition: all 0.3s ease;
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.5);
+  border-top: 2.5px solid #d0d0d0 !important;
+  border-left: 2.5px solid #d0d0d0 !important;
+  border-right: 2.5px solid #d0d0d0 !important;
+  border-bottom: 2.5px solid #d0d0d0 !important;
 }
 
 .about-card:hover {
@@ -1168,8 +1172,8 @@ footer .legal-links a:hover::after {
 .card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
 .card-icon {
@@ -1187,7 +1191,7 @@ footer .legal-links a:hover::after {
 
 .about-card h3 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #D63384;
   margin: 0;
@@ -1211,7 +1215,7 @@ footer .legal-links a:hover::after {
 }
 
 /* Preparación para múltiples tarjetas - Estilos base reutilizables */
-.about-cards-container {
+.about-card-container {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -1264,7 +1268,7 @@ footer .legal-links a:hover::after {
 
 /* Responsive para múltiples tarjetas */
 @media (max-width: 768px) {
-  .about-cards-container {
+  .about-card-container {
     flex-direction: column;
     align-items: center;
     gap: 16px;
@@ -1279,6 +1283,10 @@ footer .legal-links a:hover::after {
     border-radius: 20px;
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 2.5px solid #d0d0d0 !important;
+    border-left: 2.5px solid #d0d0d0 !important;
+    border-right: 2.5px solid #d0d0d0 !important;
+    border-bottom: 2.5px solid #d0d0d0 !important;
   }
 }
 
@@ -1386,21 +1394,10 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta responsive para móviles */
   .about-card {
-    position: absolute;
-    top: 150px; /* Debajo de la barra de búsqueda */
     left: 10%; /* Mover hacia la izquierda para no tapar a la doctora */
-    transform: none; /* Sin centrado automático */
     width: 75%; /* Reducir de 90% a 75% para no tapar la imagen */
     max-width: 320px; /* Ancho máximo reducido */
-    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
     padding: 20px 24px; /* Padding ajustado para móvil */
-    z-index: 15;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    margin: 0; /* Sin margen automático */
   }
   
   .card-header {
@@ -1484,11 +1481,6 @@ footer .legal-links a:hover::after {
     padding: 18px 20px; /* Padding ajustado para pantallas pequeñas */
     top: 140px; /* Ajustar posición vertical */
     left: 8%; /* Mantener posición hacia la izquierda */
-    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
   }
   
   .card-header {
