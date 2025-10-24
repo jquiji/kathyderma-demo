@@ -1144,14 +1144,14 @@ footer .legal-links a:hover::after {
 /* Tarjeta de información moderna tipo Dropbox/McLaren */
 .about-card {
   position: absolute;
-  top: 150px; /* Debajo de la barra de búsqueda */
-  left: 8%; /* Centrada un poco más para mejor balance */
+  top: 280px; /* Bajada 25% más para espacio de tarjetas apiladas */
+  left: 15%; /* Movida hacia la izquierda para no cubrir a la doctora */
   width: 30%; /* Ancho del 30% del contenedor */
   max-width: 400px;
   background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
-  padding: 24px 28px;
+  padding: 16px 28px 24px 28px;
   z-index: 15;
   transition: all 0.3s ease;
   backdrop-filter: blur(4px);
@@ -1173,7 +1173,8 @@ footer .legal-links a:hover::after {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  margin-top: 0.8rem;
 }
 
 .card-icon {
@@ -1191,12 +1192,13 @@ footer .legal-links a:hover::after {
 
 .about-card h3 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #D63384;
   margin: 0;
   line-height: 1.3;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
 }
 
 .about-card p {
@@ -1394,15 +1396,17 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta responsive para móviles */
   .about-card {
-    left: 10%; /* Mover hacia la izquierda para no tapar a la doctora */
+    top: 250px; /* Bajada 25% más para móvil */
+    left: 10%; /* Posicionada hacia la izquierda en móvil */
     width: 75%; /* Reducir de 90% a 75% para no tapar la imagen */
     max-width: 320px; /* Ancho máximo reducido */
-    padding: 20px 24px; /* Padding ajustado para móvil */
+    padding: 14px 24px 20px 24px; /* Padding ajustado para móvil */
   }
   
   .card-header {
     gap: 10px; /* Gap ajustado para móvil */
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* Espacio más amplio para separación */
+    margin-top: 0.6rem; /* Margen superior mínimo para móvil */
   }
   
   .card-icon {
@@ -1411,9 +1415,10 @@ footer .legal-links a:hover::after {
   }
   
   .about-card h3 {
-    font-size: 1.2rem; /* Tamaño ajustado para móvil */
+    font-size: 1.1rem; /* Tamaño ajustado para móvil */
     margin: 0;
-    letter-spacing: 0.3px; /* Reducir letter-spacing para móvil */
+    letter-spacing: 0.2px; /* Reducir letter-spacing para móvil */
+    white-space: nowrap;
   }
   
   .about-card p {
@@ -1478,14 +1483,15 @@ footer .legal-links a:hover::after {
   .about-card {
     width: 70%; /* Reducir aún más para pantallas muy pequeñas */
     max-width: 280px; /* Ancho máximo más reducido */
-    padding: 18px 20px; /* Padding ajustado para pantallas pequeñas */
-    top: 140px; /* Ajustar posición vertical */
-    left: 8%; /* Mantener posición hacia la izquierda */
+    padding: 12px 20px 18px 20px; /* Padding ajustado para pantallas pequeñas */
+    top: 230px; /* Bajada 25% más para pantallas pequeñas */
+    left: 8%; /* Posicionada hacia la izquierda */
   }
   
   .card-header {
     gap: 8px; /* Gap ajustado para pantallas pequeñas */
-    margin-bottom: 8px;
+    margin-bottom: 18px; /* Espacio más amplio para separación */
+    margin-top: 0.5rem; /* Margen superior mínimo para pantallas pequeñas */
   }
   
   .card-icon {
@@ -1494,9 +1500,10 @@ footer .legal-links a:hover::after {
   }
   
   .about-card h3 {
-    font-size: 1.1rem; /* Tamaño ajustado para pantallas pequeñas */
+    font-size: 1rem; /* Tamaño ajustado para pantallas pequeñas */
     margin: 0;
-    letter-spacing: 0.2px; /* Letter-spacing reducido */
+    letter-spacing: 0.1px; /* Letter-spacing reducido */
+    white-space: nowrap;
   }
   
   .about-card p {
