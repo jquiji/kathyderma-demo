@@ -1148,45 +1148,138 @@ footer .legal-links a:hover::after {
   left: 8%; /* Centrada un poco más para mejor balance */
   width: 30%; /* Ancho del 30% del contenedor */
   max-width: 400px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 24px;
+  background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
+  padding: 24px 28px;
   z-index: 15;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .about-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(255, 105, 180, 0.18);
+  background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+}
+
+/* Header de la tarjeta con ícono y título */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+  color: #D63384;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.about-card:hover .card-icon {
+  transform: scale(1.05);
+  color: #ff66c4;
 }
 
 .about-card h3 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #c4308b;
-  margin: 0 0 12px 0;
+  color: #D63384;
+  margin: 0;
   line-height: 1.3;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.5px;
 }
 
 .about-card p {
   font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
-  color: #555;
+  color: #444;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.7;
   letter-spacing: 0.1px;
 }
 
 /* Animaciones adicionales para la tarjeta */
 .about-card {
   animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+/* Preparación para múltiples tarjetas - Estilos base reutilizables */
+.about-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* Estilos para tarjetas adicionales (futuras) con mejoras visuales */
+.about-card:nth-child(2) {
+  /* Segunda tarjeta - Instagram */
+  background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
+}
+
+.about-card:nth-child(3) {
+  /* Tercera tarjeta - WhatsApp */
+  background: linear-gradient(145deg, #ffffff 0%, #f0fff4 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(76, 175, 80, 0.12);
+}
+
+.about-card:nth-child(4) {
+  /* Cuarta tarjeta - TikTok */
+  background: linear-gradient(145deg, #ffffff 0%, #f0f0ff 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(156, 39, 176, 0.12);
+}
+
+.about-card:nth-child(5) {
+  /* Quinta tarjeta - Twitter */
+  background: linear-gradient(145deg, #ffffff 0%, #f0f8ff 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(33, 150, 243, 0.12);
+}
+
+/* Efectos hover mejorados para tarjetas adicionales */
+.about-card:nth-child(2):hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(255, 105, 180, 0.18);
+}
+
+.about-card:nth-child(3):hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(76, 175, 80, 0.18);
+}
+
+.about-card:nth-child(4):hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(156, 39, 176, 0.18);
+}
+
+.about-card:nth-child(5):hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(33, 150, 243, 0.18);
+}
+
+/* Responsive para múltiples tarjetas */
+@media (max-width: 768px) {
+  .about-cards-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+  }
+  
+  .about-card {
+    width: 90%;
+    max-width: 320px;
+    position: static;
+    margin: 0 auto;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
 }
 
 @keyframes fadeInUp {
@@ -1299,25 +1392,37 @@ footer .legal-links a:hover::after {
     transform: none; /* Sin centrado automático */
     width: 75%; /* Reducir de 90% a 75% para no tapar la imagen */
     max-width: 320px; /* Ancho máximo reducido */
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 20px; /* Padding ligeramente reducido para móvil */
+    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
+    padding: 20px 24px; /* Padding ajustado para móvil */
     z-index: 15;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     margin: 0; /* Sin margen automático */
   }
   
-  .about-card h3 {
-    font-size: 1.2rem; /* Tamaño ligeramente menor para móvil */
+  .card-header {
+    gap: 10px; /* Gap ajustado para móvil */
     margin-bottom: 10px;
+  }
+  
+  .card-icon {
+    width: 28px; /* Ícono ajustado para móvil */
+    height: 28px;
+  }
+  
+  .about-card h3 {
+    font-size: 1.2rem; /* Tamaño ajustado para móvil */
+    margin: 0;
+    letter-spacing: 0.3px; /* Reducir letter-spacing para móvil */
   }
   
   .about-card p {
     font-size: 0.9rem; /* Tamaño ligeramente menor para móvil */
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: 0;
   }
 }
   
@@ -1376,19 +1481,36 @@ footer .legal-links a:hover::after {
   .about-card {
     width: 70%; /* Reducir aún más para pantallas muy pequeñas */
     max-width: 280px; /* Ancho máximo más reducido */
-    padding: 18px; /* Padding reducido para pantallas pequeñas */
+    padding: 18px 20px; /* Padding ajustado para pantallas pequeñas */
     top: 140px; /* Ajustar posición vertical */
     left: 8%; /* Mantener posición hacia la izquierda */
+    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(255, 105, 180, 0.12);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  .card-header {
+    gap: 8px; /* Gap ajustado para pantallas pequeñas */
+    margin-bottom: 8px;
+  }
+  
+  .card-icon {
+    width: 26px; /* Ícono ajustado para pantallas pequeñas */
+    height: 26px;
   }
   
   .about-card h3 {
-    font-size: 1.1rem; /* Tamaño aún menor para pantallas muy pequeñas */
-    margin-bottom: 8px;
+    font-size: 1.1rem; /* Tamaño ajustado para pantallas pequeñas */
+    margin: 0;
+    letter-spacing: 0.2px; /* Letter-spacing reducido */
   }
   
   .about-card p {
     font-size: 0.85rem; /* Tamaño menor para pantallas muy pequeñas */
-    line-height: 1.4;
+    line-height: 1.5;
+    margin: 0;
   }
 }
   
