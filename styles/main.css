@@ -1417,10 +1417,12 @@ footer .legal-links a:hover::after {
   }
   
   .about-card h3 {
-    font-size: 1.1rem; /* Tamaño ajustado para móvil */
+    font-size: 1rem; /* Tamaño reducido para evitar desbordamiento */
     margin: 0;
-    letter-spacing: 0.2px; /* Reducir letter-spacing para móvil */
-    white-space: nowrap;
+    letter-spacing: 0.1px; /* Letter-spacing reducido para móvil */
+    white-space: normal; /* Permitir salto de línea automático */
+    text-align: center; /* Centrar el texto horizontalmente */
+    line-height: 1.2; /* Line-height ajustado para múltiples líneas */
   }
   
   .about-card p {
@@ -1506,10 +1508,12 @@ footer .legal-links a:hover::after {
   }
   
   .about-card h3 {
-    font-size: 1rem; /* Tamaño ajustado para pantallas pequeñas */
+    font-size: 0.9rem; /* Tamaño reducido para pantallas pequeñas */
     margin: 0;
-    letter-spacing: 0.1px; /* Letter-spacing reducido */
-    white-space: nowrap;
+    letter-spacing: 0.05px; /* Letter-spacing mínimo para pantallas pequeñas */
+    white-space: normal; /* Permitir salto de línea automático */
+    text-align: center; /* Centrar el texto horizontalmente */
+    line-height: 1.2; /* Line-height ajustado para múltiples líneas */
   }
   
   .about-card p {
