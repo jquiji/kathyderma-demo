@@ -1,6 +1,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px; /* Base font size for better mobile scaling */
+  overflow-x: hidden; /* Prevenir scroll horizontal no deseado */
 }
 
 body {
@@ -1271,7 +1272,7 @@ footer .legal-links a:hover::after {
 /* ===== MÚLTIPLES TARJETAS - CONTENEDOR ===== */
 .about-cards {
   position: absolute;
-  top: 400px; /* Posicionado debajo de la tarjeta principal */
+  top: 320px; /* Posicionado debajo de la tarjeta principal */
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -1283,38 +1284,47 @@ footer .legal-links a:hover::after {
 @media (min-width: 1024px) {
   .about-cards {
     position: absolute;
-    top: 400px;
-    left: 60%; /* Posicionado a la derecha de la tarjeta principal */
-    transform: translateX(-50%);
-    width: 350px;
-    max-width: 350px;
+    top: 320px; /* Posicionado debajo de la tarjeta principal */
+    left: 15%; /* Posicionado a la izquierda de la tarjeta base */
+    width: 300px; /* Ancho fijo para evitar overflow */
+    max-width: 300px;
+    min-height: 500px; /* Altura ajustada */
     z-index: 10;
   }
 
   .about-card--stack {
     position: absolute;
     width: 100%;
-    max-width: 350px;
-    z-index: 1;
+    max-width: 300px;
+    left: 0;
     transition: all 0.3s ease;
   }
 
-  /* Primera tarjeta (fondo) */
+  /* Primera tarjeta (frente) - alineada con la tarjeta base */
   .about-card--1 {
     top: 0;
-    z-index: 1;
+    left: 0;
+    z-index: 3; /* Z-index más alto para estar al frente */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra más sutil para jerarquía */
+    transform: scale(1); /* Escala completa para la tarjeta frontal */
   }
 
-  /* Segunda tarjeta (medio) */
+  /* Segunda tarjeta (medio) - apilada hacia la izquierda */
   .about-card--2 {
-    top: -20px; /* Offset negativo para efecto stack */
-    z-index: 2;
+    top: 20px; /* Desplazamiento hacia abajo */
+    left: -10px; /* Desplazamiento hacia la izquierda */
+    z-index: 2; /* Z-index intermedio */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra intermedia */
+    transform: scale(0.98); /* Ligera reducción de escala */
   }
 
-  /* Tercera tarjeta (frente) */
+  /* Tercera tarjeta (fondo) - más hacia la izquierda */
   .about-card--3 {
-    top: -40px; /* Mayor offset para estar más arriba */
-    z-index: 3;
+    top: 40px; /* Mayor desplazamiento hacia abajo */
+    left: -20px; /* Mayor desplazamiento hacia la izquierda */
+    z-index: 1; /* Z-index más bajo para estar al fondo */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12); /* Sombra más pronunciada para profundidad */
+    transform: scale(0.96); /* Mayor reducción de escala */
   }
 }
 
@@ -1322,7 +1332,7 @@ footer .legal-links a:hover::after {
 @media (min-width: 768px) and (max-width: 1023px) {
   .about-cards {
     position: absolute;
-    top: 350px;
+    top: 320px; /* Posicionado debajo de la tarjeta principal */
     left: 50%;
     transform: translateX(-50%);
     width: 320px;
@@ -1360,7 +1370,7 @@ footer .legal-links a:hover::after {
 @media (max-width: 767px) {
   .about-cards {
     position: absolute;
-    top: 400px; /* Debajo de la tarjeta principal */
+    top: 320px; /* Debajo de la tarjeta principal */
     left: 10%;
     width: 80%;
     max-width: 300px;
