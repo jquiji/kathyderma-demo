@@ -1063,9 +1063,9 @@ footer .legal-links a:hover::after {
 /* ===== ESCRITORIO (≥ 1024px) - SECCIÓN FIJA SIN SCROLL ===== */
 @media (min-width: 1024px) {
   .about {
-    height: 100vh; /* Altura fija del viewport */
-    min-height: 100vh; /* Altura mínima del viewport */
-    max-height: 100vh; /* Limitar altura máxima para evitar scroll */
+    height: 120vh; /* Altura aumentada para dar espacio a las tarjetas expandidas */
+    min-height: 120vh; /* Altura mínima aumentada */
+    max-height: 120vh; /* Limitar altura máxima para evitar scroll excesivo */
     overflow: hidden; /* Eliminar cualquier scroll vertical */
     position: relative;
   }
@@ -1300,7 +1300,7 @@ footer .legal-links a:hover::after {
     width: 30%; /* Ancho exacto de la tarjeta base original */
     max-width: 400px; /* Ancho máximo exacto de la tarjeta base original */
     height: auto; /* Altura automática para evitar overflow */
-    max-height: calc(100vh - 220px); /* Ajustado para la nueva posición */
+    max-height: calc(120vh - 220px); /* Ajustado para la nueva altura de sección */
     overflow: visible; /* Permitir que las tarjetas sean visibles */
     z-index: 10;
   }
@@ -1358,6 +1358,64 @@ footer .legal-links a:hover::after {
     z-index: 1; /* Z-index más bajo para estar al fondo */
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada para profundidad */
     transform: scale(0.94); /* Mayor reducción de escala */
+  }
+
+  /* ===== ANIMACIÓN INTERACTIVA DE EXPLOSIÓN ===== */
+  .about-cards {
+    cursor: pointer; /* Indicar que es interactivo */
+    transition: all 0.6s ease-in-out; /* Transición suave para el contenedor */
+  }
+
+  .about-card--stack {
+    transition: all 0.6s ease-in-out; /* Transición suave para cada tarjeta */
+    cursor: pointer; /* Indicar que es clickeable */
+  }
+
+  /* Estado de explosión - cuando se hace clic */
+  .about-cards.exploded {
+    /* El contenedor mantiene su posición base */
+  }
+
+  /* Distribución equilibrada en cuadrantes */
+  .about-cards.exploded .about-card--1 {
+    top: 50px; /* Cuadrante superior izquierdo */
+    left: -200px; /* Se mueve hacia la izquierda */
+    z-index: 4; /* Mantiene z-index alto */
+    transform: scale(1); /* Escala completa */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  }
+
+  .about-cards.exploded .about-card--2 {
+    top: 50px; /* Cuadrante superior derecho */
+    left: 200px; /* Se mueve hacia la derecha */
+    z-index: 3;
+    transform: scale(1); /* Escala completa */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .about-cards.exploded .about-card--3 {
+    top: 300px; /* Cuadrante inferior izquierdo */
+    left: -200px; /* Se mueve hacia la izquierda */
+    z-index: 3;
+    transform: scale(1); /* Escala completa */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .about-cards.exploded .about-card--4 {
+    top: 300px; /* Cuadrante inferior derecho */
+    left: 200px; /* Se mueve hacia la derecha */
+    z-index: 2;
+    transform: scale(1); /* Escala completa */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Efecto hover para indicar interactividad */
+  .about-cards:hover .about-card--stack {
+    transform: scale(1.02); /* Ligero aumento en hover */
+  }
+
+  .about-cards.exploded:hover .about-card--stack {
+    transform: scale(1); /* Mantener escala normal cuando está explotado */
   }
 }
 

@@ -1373,5 +1373,56 @@ function initMiniUVGauge() {
 document.addEventListener('DOMContentLoaded', () => {
   // Pequeño delay para asegurar que todos los elementos estén cargados
   setTimeout(initMiniUVGauge, 1000);
+  
+  // Inicializar la animación interactiva de las tarjetas
+  initAboutCardsAnimation();
 });
+
+// ===== ANIMACIÓN INTERACTIVA DE TARJETAS =====
+function initAboutCardsAnimation() {
+  const aboutCards = document.querySelector('.about-cards');
+  
+  // Solo aplicar en escritorio (≥ 1024px)
+  if (!aboutCards || window.innerWidth < 1024) {
+    return;
+  }
+
+  let isExploded = false;
+
+  // Función para alternar el estado de explosión
+  function toggleExplosion() {
+    isExploded = !isExploded;
+    
+    if (isExploded) {
+      aboutCards.classList.add('exploded');
+    } else {
+      aboutCards.classList.remove('exploded');
+    }
+  }
+
+  // Event listener para clic en las tarjetas
+  aboutCards.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleExplosion();
+  });
+
+  // Event listener para clic en área vacía (para volver al estado original)
+  document.addEventListener('click', (e) => {
+    // Solo si las tarjetas están explotadas y se hace clic fuera de ellas
+    if (isExploded && !aboutCards.contains(e.target)) {
+      aboutCards.classList.remove('exploded');
+      isExploded = false;
+    }
+  });
+
+  // Event listener para redimensionamiento de ventana
+  window.addEventListener('resize', () => {
+    // Si se cambia a móvil/tablet, remover la clase exploded
+    if (window.innerWidth < 1024 && isExploded) {
+      aboutCards.classList.remove('exploded');
+      isExploded = false;
+    }
+  });
+}
 
