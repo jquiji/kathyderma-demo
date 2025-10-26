@@ -1268,6 +1268,117 @@ footer .legal-links a:hover::after {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(33, 150, 243, 0.18);
 }
 
+/* ===== MÚLTIPLES TARJETAS - CONTENEDOR ===== */
+.about-cards {
+  position: absolute;
+  top: 400px; /* Posicionado debajo de la tarjeta principal */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+/* ===== ESCRITORIO (≥ 1024px) - STACK VERTICAL ===== */
+@media (min-width: 1024px) {
+  .about-cards {
+    position: absolute;
+    top: 400px;
+    left: 60%; /* Posicionado a la derecha de la tarjeta principal */
+    transform: translateX(-50%);
+    width: 350px;
+    max-width: 350px;
+    z-index: 10;
+  }
+
+  .about-card--stack {
+    position: absolute;
+    width: 100%;
+    max-width: 350px;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  /* Primera tarjeta (fondo) */
+  .about-card--1 {
+    top: 0;
+    z-index: 1;
+  }
+
+  /* Segunda tarjeta (medio) */
+  .about-card--2 {
+    top: -20px; /* Offset negativo para efecto stack */
+    z-index: 2;
+  }
+
+  /* Tercera tarjeta (frente) */
+  .about-card--3 {
+    top: -40px; /* Mayor offset para estar más arriba */
+    z-index: 3;
+  }
+}
+
+/* ===== TABLET (768px - 1023px) - STACK CON MENOR OFFSET ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .about-cards {
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    max-width: 320px;
+    z-index: 10;
+  }
+
+  .about-card--stack {
+    position: absolute;
+    width: 100%;
+    max-width: 320px;
+    z-index: 1;
+  }
+
+  /* Primera tarjeta (fondo) */
+  .about-card--1 {
+    top: 0;
+    z-index: 1;
+  }
+
+  /* Segunda tarjeta (medio) */
+  .about-card--2 {
+    top: -15px; /* Offset menor para tablet */
+    z-index: 2;
+  }
+
+  /* Tercera tarjeta (frente) */
+  .about-card--3 {
+    top: -30px; /* Offset menor para tablet */
+    z-index: 3;
+  }
+}
+
+/* ===== MÓVIL (≤ 767px) - LISTA VERTICAL ===== */
+@media (max-width: 767px) {
+  .about-cards {
+    position: absolute;
+    top: 400px; /* Debajo de la tarjeta principal */
+    left: 10%;
+    width: 80%;
+    max-width: 300px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-card--stack {
+    position: static;
+    width: 100%;
+    max-width: 300px;
+    z-index: 1;
+    margin: 0;
+  }
+}
+
 /* Responsive para múltiples tarjetas */
 @media (max-width: 768px) {
   .about-card-container {
