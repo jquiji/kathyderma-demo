@@ -1277,7 +1277,8 @@ footer .legal-links a:hover::after {
     padding: 15px;
   }
   
-  .about-card {
+  /* Esta regla se eliminó porque estaba sobrescribiendo position: absolute con static */
+  /* .about-card {
     width: 90%;
     max-width: 320px;
     position: static;
@@ -1289,7 +1290,7 @@ footer .legal-links a:hover::after {
     border-left: 2.5px solid #d0d0d0 !important;
     border-right: 2.5px solid #d0d0d0 !important;
     border-bottom: 2.5px solid #d0d0d0 !important;
-  }
+  } */
 }
 
 @keyframes fadeInUp {
