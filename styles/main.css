@@ -1401,7 +1401,7 @@ footer .legal-links a:hover::after {
     left: 10%; /* Posicionada hacia la izquierda en móvil */
     width: 60%; /* Reducir aún más el ancho para que solo cubra el brazo */
     max-width: 280px; /* Ancho máximo más reducido */
-    padding: 12px 20px 18px 20px; /* Padding ajustado para móvil */
+    padding: 12px 24px 18px 24px; /* Padding horizontal aumentado para evitar desbordamiento */
     transform: scale(0.9); /* Reducir ligeramente la escala para un tamaño más pequeño */
   }
   
@@ -1427,6 +1427,9 @@ footer .legal-links a:hover::after {
     font-size: 0.9rem; /* Tamaño ligeramente menor para móvil */
     line-height: 1.6;
     margin: 0;
+    word-wrap: break-word; /* Asegurar que las palabras largas se rompan */
+    overflow-wrap: break-word; /* Alternativa moderna para word-wrap */
+    hyphens: auto; /* Permitir guiones automáticos en palabras largas */
   }
 }
   
@@ -1485,7 +1488,7 @@ footer .legal-links a:hover::after {
   .about-card {
     width: 55%; /* Reducir aún más para pantallas muy pequeñas */
     max-width: 250px; /* Ancho máximo más reducido */
-    padding: 10px 18px 16px 18px; /* Padding ajustado para pantallas pequeñas */
+    padding: 10px 22px 16px 22px; /* Padding horizontal aumentado para evitar desbordamiento */
     top: 450px; /* Bajada aproximadamente 100% más para mejor centrado vertical */
     left: 8%; /* Posicionada hacia la izquierda */
     transform: scale(0.85); /* Escala aún más pequeña para pantallas muy pequeñas */
@@ -1513,6 +1516,9 @@ footer .legal-links a:hover::after {
     font-size: 0.85rem; /* Tamaño menor para pantallas muy pequeñas */
     line-height: 1.5;
     margin: 0;
+    word-wrap: break-word; /* Asegurar que las palabras largas se rompan */
+    overflow-wrap: break-word; /* Alternativa moderna para word-wrap */
+    hyphens: auto; /* Permitir guiones automáticos en palabras largas */
   }
 }
   
