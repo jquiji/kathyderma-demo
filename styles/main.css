@@ -1397,12 +1397,12 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta responsive para móviles */
   .about-card {
-    top: 500px; /* Bajada aproximadamente 100% más para mejor centrado vertical */
+    top: 300px; /* Posición más centrada entre barra de búsqueda y doctora */
     left: 10%; /* Posicionada hacia la izquierda en móvil */
-    width: 60%; /* Reducir aún más el ancho para que solo cubra el brazo */
-    max-width: 280px; /* Ancho máximo más reducido */
-    padding: 12px 24px 18px 24px; /* Padding horizontal aumentado para evitar desbordamiento */
-    transform: scale(0.9); /* Reducir ligeramente la escala para un tamaño más pequeño */
+    width: 80%; /* Ancho aumentado para aprovechar mejor el espacio */
+    max-width: 320px; /* Ancho máximo aumentado */
+    padding: 14px 20px 20px 20px; /* Padding ajustado para el nuevo ancho */
+    transform: scale(0.95); /* Escala ligeramente aumentada */
   }
   
   .card-header {
@@ -1486,12 +1486,12 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta para pantallas muy pequeñas */
   .about-card {
-    width: 55%; /* Reducir aún más para pantallas muy pequeñas */
-    max-width: 250px; /* Ancho máximo más reducido */
-    padding: 10px 22px 16px 22px; /* Padding horizontal aumentado para evitar desbordamiento */
-    top: 450px; /* Bajada aproximadamente 100% más para mejor centrado vertical */
-    left: 8%; /* Posicionada hacia la izquierda */
-    transform: scale(0.85); /* Escala aún más pequeña para pantallas muy pequeñas */
+    width: 75%; /* Ancho aumentado para pantallas pequeñas */
+    max-width: 280px; /* Ancho máximo aumentado */
+    padding: 12px 18px 18px 18px; /* Padding ajustado para el nuevo ancho */
+    top: 280px; /* Posición más centrada para pantallas pequeñas */
+    left: 12.5%; /* Centrado horizontalmente (12.5% + 75% + 12.5% = 100%) */
+    transform: scale(0.9); /* Escala ligeramente aumentada */
   }
   
   .card-header {
