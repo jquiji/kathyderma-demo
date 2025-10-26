@@ -1100,6 +1100,21 @@ function initTopInfoBar() {
   console.log('✅ Barra superior dinámica iniciada');
 }
 
+// Función para determinar categoría de riesgo (ámbito global)
+function getRiskLevel(uvValue) {
+  const uv = parseFloat(uvValue);
+  
+  // Redondear al entero más cercano antes de comparar
+  const roundedUV = Math.round(uv);
+  
+  if (roundedUV >= 0 && roundedUV <= 2) return 'Bajo';
+  else if (roundedUV >= 3 && roundedUV <= 5) return 'Moderado';
+  else if (roundedUV >= 6 && roundedUV <= 7) return 'Alto';
+  else if (roundedUV >= 8 && roundedUV <= 10) return 'Muy Alto';
+  else if (roundedUV >= 11) return 'Extremo';
+  else return 'Bajo'; // Default para valores inválidos
+}
+
 // Ejecutar al cargar la página
 window.addEventListener('load', updateUVIndex);
 
@@ -1113,15 +1128,16 @@ async function updateUVIndex() {
   const now = Date.now();
   const threeHours = 3 * 60 * 60 * 1000; // 3 horas en milisegundos
 
-  // Función para determinar categoría de riesgo
-  function getRiskLevel(uvValue) {
-    const uv = parseFloat(uvValue);
-    if (uv >= 0 && uv <= 2) return 'Bajo';
-    else if (uv >= 3 && uv <= 5) return 'Moderado';
-    else if (uv >= 6 && uv <= 7) return 'Alto';
-    else if (uv >= 8 && uv <= 10) return 'Muy alto';
-    else if (uv > 10) return 'Extremo';
-    else return 'Bajo'; // Default para valores inválidos
+  // Función para obtener el color según el nivel de riesgo
+  function getRiskColor(riskLevel) {
+    switch (riskLevel) {
+      case 'Bajo': return '#4CAF50';      // Verde
+      case 'Moderado': return '#FF9800';  // Naranja
+      case 'Alto': return '#FF5722';      // Rojo claro
+      case 'Muy Alto': return '#E91E63';  // Rosa intenso
+      case 'Extremo': return '#9C27B0';   // Morado
+      default: return '#c4308b';          // Color por defecto (rosa original)
+    }
   }
 
   // Revisar si hay cache válido
@@ -1132,15 +1148,16 @@ async function updateUVIndex() {
     const weatherElement = document.getElementById('weatherInfo');
     if (weatherElement) {
       const riskLevel = getRiskLevel(cachedValue);
+      const riskColor = getRiskColor(riskLevel);
       // Detectar si es escritorio o móvil
       const isDesktop = window.innerWidth >= 1024;
       if (isDesktop) {
         weatherElement.innerHTML = `
-          Índice UV: <span style="color: #c4308b">${cachedValue} ${riskLevel}</span>
+          Índice UV: <span style="color: ${riskColor}">${cachedValue} ${riskLevel}</span>
         `;
       } else {
         weatherElement.innerHTML = `
-          <span style="color: #c4308b">${cachedValue} ${riskLevel}</span>
+          <span style="color: ${riskColor}">${cachedValue} ${riskLevel}</span>
         `;
       }
     }
@@ -1164,15 +1181,16 @@ async function updateUVIndex() {
         // Mostrar el valor real del campo uvi, incluyendo 0.0 si es de noche
         const uvValue = uv !== undefined && uv !== null ? uv.toFixed(1) : '0';
         const riskLevel = getRiskLevel(uvValue);
+        const riskColor = getRiskColor(riskLevel);
         // Detectar si es escritorio o móvil
         const isDesktop = window.innerWidth >= 1024;
         if (isDesktop) {
           weatherElement.innerHTML = `
-            Índice UV: <span style="color: #c4308b">${uvValue} ${riskLevel}</span>
+            Índice UV: <span style="color: ${riskColor}">${uvValue} ${riskLevel}</span>
           `;
         } else {
           weatherElement.innerHTML = `
-            <span style="color: #c4308b">${uvValue} ${riskLevel}</span>
+            <span style="color: ${riskColor}">${uvValue} ${riskLevel}</span>
           `;
         }
         
@@ -1235,9 +1253,59 @@ function checkUVCache() {
   }
 }
 
+// Función de utilidad para probar la lógica del índice UV
+function testUVLogic() {
+  console.log('🧪 Probando lógica del índice UV:');
+  
+  const testValues = [
+    { value: 0, expected: 'Bajo' },
+    { value: 1.5, expected: 'Bajo' }, // 1.5 → 2 → Bajo
+    { value: 2.2, expected: 'Bajo' }, // 2.2 → 2 → Bajo
+    { value: 2.9, expected: 'Moderado' }, // 2.9 → 3 → Moderado
+    { value: 3, expected: 'Moderado' },
+    { value: 4.2, expected: 'Moderado' }, // 4.2 → 4 → Moderado
+    { value: 5.6, expected: 'Alto' }, // 5.6 → 6 → Alto
+    { value: 6, expected: 'Alto' },
+    { value: 7.5, expected: 'Muy Alto' }, // 7.5 → 8 → Muy Alto
+    { value: 7.9, expected: 'Muy Alto' }, // 7.9 → 8 → Muy Alto
+    { value: 8, expected: 'Muy Alto' },
+    { value: 9.3, expected: 'Muy Alto' }, // 9.3 → 9 → Muy Alto
+    { value: 10.4, expected: 'Muy Alto' }, // 10.4 → 10 → Muy Alto
+    { value: 11, expected: 'Extremo' },
+    { value: 15.7, expected: 'Extremo' } // 15.7 → 16 → Extremo
+  ];
+  
+  testValues.forEach(test => {
+    const result = getRiskLevel(test.value.toString());
+    const color = getRiskColor(result);
+    const status = result === test.expected ? '✅' : '❌';
+    console.log(`${status} ${test.value} → ${result} (esperado: ${test.expected}) [${color}]`);
+  });
+}
+
+// Función específica para probar los casos decimales mencionados
+function testDecimalCases() {
+  console.log('🔍 Probando casos decimales específicos:');
+  
+  const decimalCases = [
+    { value: 2.2, expected: 'Bajo' },    // 2.2 → 2 → Bajo
+    { value: 5.6, expected: 'Alto' },    // 5.6 → 6 → Alto
+    { value: 7.5, expected: 'Muy Alto' }, // 7.5 → 8 → Muy Alto
+    { value: 10.4, expected: 'Muy Alto' } // 10.4 → 10 → Muy Alto
+  ];
+  
+  decimalCases.forEach(test => {
+    const result = getRiskLevel(test.value.toString());
+    const status = result === test.expected ? '✅' : '❌';
+    console.log(`${status} ${test.value} → ${result} (esperado: ${test.expected})`);
+  });
+}
+
 // Hacer las funciones de utilidad disponibles globalmente para debugging
 window.clearUVCache = clearUVCache;
 window.checkUVCache = checkUVCache;
+window.testUVLogic = testUVLogic;
+window.testDecimalCases = testDecimalCases;
 
 // ===== DECORATIVE SCROLL GAUGE =====
 
