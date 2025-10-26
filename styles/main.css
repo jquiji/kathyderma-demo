@@ -1396,7 +1396,7 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta responsive para móviles */
   .about-card {
-    top: 350px; /* Bajada significativamente más (100-150% más) para no tapar el rostro */
+    top: 500px; /* Bajada aproximadamente 100% más para mejor centrado vertical */
     left: 10%; /* Posicionada hacia la izquierda en móvil */
     width: 60%; /* Reducir aún más el ancho para que solo cubra el brazo */
     max-width: 280px; /* Ancho máximo más reducido */
@@ -1485,7 +1485,7 @@ footer .legal-links a:hover::after {
     width: 55%; /* Reducir aún más para pantallas muy pequeñas */
     max-width: 250px; /* Ancho máximo más reducido */
     padding: 10px 18px 16px 18px; /* Padding ajustado para pantallas pequeñas */
-    top: 320px; /* Bajada significativamente más para pantallas pequeñas */
+    top: 450px; /* Bajada aproximadamente 100% más para mejor centrado vertical */
     left: 8%; /* Posicionada hacia la izquierda */
     transform: scale(0.85); /* Escala aún más pequeña para pantallas muy pequeñas */
   }
