@@ -2933,6 +2933,24 @@ html {
   .about-card--stack {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+    /* Prevenir cualquier comportamiento de scroll */
+    scroll-behavior: auto;
+    /* Asegurar que no haya enlaces o elementos que causen scroll */
+    pointer-events: auto;
+    /* Prevenir zoom en doble tap */
+    touch-action: manipulation;
+  }
+  
+  /* Prevenir que los elementos dentro de las tarjetas causen scroll */
+  .about-card--stack * {
+    pointer-events: none;
+  }
+  
+  /* Restaurar pointer-events solo para elementos interactivos necesarios */
+  .about-card--stack img,
+  .about-card--stack h3,
+  .about-card--stack p {
+    pointer-events: none;
   }
 
   /* Animación de entrada de las tarjetas */

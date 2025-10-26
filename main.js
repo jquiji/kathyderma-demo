@@ -1630,27 +1630,51 @@ function initMobileCardViewer() {
 
   // Función para manejar la interacción con las tarjetas
   function handleCardInteraction(e, index) {
+    // Prevenir TODOS los comportamientos por defecto
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
     
+    // Prevenir scroll hacia arriba
+    e.returnValue = false;
+    
     // Solo abrir el visor en móviles
     if (window.innerWidth <= 768) {
       console.log(`🎯 Tarjeta ${index} tocada en móvil`);
+      console.log(`🎯 Evento: ${e.type}, Target: ${e.target.tagName}`);
+      
+      // Prevenir cualquier scroll adicional
+      window.scrollTo(0, window.scrollY);
+      
       openViewer(index);
     }
+    
+    return false;
   }
 
   // Event listeners para las tarjetas originales
   originalCards.forEach((card, index) => {
-    // Agregar múltiples tipos de eventos para mejor compatibilidad
-    card.addEventListener('click', (e) => handleCardInteraction(e, index), { passive: false });
-    card.addEventListener('touchend', (e) => handleCardInteraction(e, index), { passive: false });
+    // Usar capture: true para interceptar antes que otros listeners
+    card.addEventListener('click', (e) => handleCardInteraction(e, index), { 
+      passive: false, 
+      capture: true 
+    });
+    card.addEventListener('touchend', (e) => handleCardInteraction(e, index), { 
+      passive: false, 
+      capture: true 
+    });
     
     // Prevenir el comportamiento por defecto en touchstart
     card.addEventListener('touchstart', (e) => {
       e.preventDefault();
-    }, { passive: false });
+      e.stopPropagation();
+    }, { passive: false, capture: true });
+    
+    // Agregar también mousedown para prevenir cualquier comportamiento
+    card.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    }, { passive: false, capture: true });
   });
 
   // Event listener para el botón de cierre
@@ -1765,10 +1789,46 @@ function initMobileCardViewer() {
     }
   });
 
+  // Event listener global para interceptar clicks en tarjetas
+  document.addEventListener('click', (e) => {
+    // Solo procesar en móviles
+    if (window.innerWidth > 768) return;
+    
+    const clickedCard = e.target.closest('.about-card--stack');
+    if (clickedCard) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      
+      // Encontrar el índice de la tarjeta clickeada
+      const cardIndex = Array.from(originalCards).indexOf(clickedCard);
+      if (cardIndex !== -1) {
+        console.log(`🎯 Interceptando click en tarjeta ${cardIndex} via listener global`);
+        openViewer(cardIndex);
+      }
+      
+      return false;
+    }
+  }, { capture: true, passive: false });
+
   // Inicializar eventos
   setupTouchEvents();
   setupKeyboardEvents();
 
   console.log('✅ Visor de tarjetas móvil inicializado');
+  
+  // Función de prueba para verificar el estado
+  window.testCardViewer = function() {
+    console.log('🧪 Probando visor de tarjetas...');
+    console.log(`📱 Es móvil: ${window.innerWidth <= 768}`);
+    console.log(`🎯 Tarjetas encontradas: ${originalCards.length}`);
+    console.log(`👁️ Visor existe: ${!!cardViewer}`);
+    console.log(`🔧 Track existe: ${!!viewerTrack}`);
+    
+    if (originalCards.length > 0) {
+      console.log('🎯 Probando apertura del visor...');
+      openViewer(0);
+    }
+  };
 }
 
