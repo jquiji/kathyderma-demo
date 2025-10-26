@@ -1397,7 +1397,7 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta responsive para móviles */
   .about-card {
-    top: 300px; /* Posición más centrada entre barra de búsqueda y doctora */
+    top: 260px; /* Ajuste fino: 40px más arriba para balance perfecto */
     left: 10%; /* Posicionada hacia la izquierda en móvil */
     width: 80%; /* Ancho aumentado para aprovechar mejor el espacio */
     max-width: 320px; /* Ancho máximo aumentado */
@@ -1489,7 +1489,7 @@ footer .legal-links a:hover::after {
     width: 75%; /* Ancho aumentado para pantallas pequeñas */
     max-width: 280px; /* Ancho máximo aumentado */
     padding: 12px 18px 18px 18px; /* Padding ajustado para el nuevo ancho */
-    top: 280px; /* Posición más centrada para pantallas pequeñas */
+    top: 220px; /* Ajuste fino: 60px más arriba para balance perfecto */
     left: 12.5%; /* Centrado horizontalmente (12.5% + 75% + 12.5% = 100%) */
     transform: scale(0.9); /* Escala ligeramente aumentada */
   }
