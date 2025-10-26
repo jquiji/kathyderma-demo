@@ -1382,14 +1382,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function initAboutCardsAnimation() {
   const aboutCards = document.querySelector('.about-cards');
   
-  // Solo aplicar en escritorio (≥ 1024px)
-  if (!aboutCards || window.innerWidth < 1024) {
+  if (!aboutCards) {
     return;
   }
 
   let isExploded = false;
+  let isMobileExpanded = false;
+  let activeCard = null;
 
-  // Función para alternar el estado de explosión
+  // Función para alternar el estado de explosión (escritorio)
   function toggleExplosion() {
     isExploded = !isExploded;
     
@@ -1400,28 +1401,74 @@ function initAboutCardsAnimation() {
     }
   }
 
+  // Función para alternar el estado de expansión móvil
+  function toggleMobileExpansion(clickedCard) {
+    isMobileExpanded = !isMobileExpanded;
+    
+    if (isMobileExpanded) {
+      aboutCards.classList.add('mobile-expanded');
+      // Marcar la tarjeta clickeada como activa
+      if (clickedCard) {
+        activeCard = clickedCard;
+        clickedCard.classList.add('active');
+      }
+    } else {
+      aboutCards.classList.remove('mobile-expanded');
+      // Remover la clase active de todas las tarjetas
+      const allCards = aboutCards.querySelectorAll('.about-card--stack');
+      allCards.forEach(card => card.classList.remove('active'));
+      activeCard = null;
+    }
+  }
+
   // Event listener para clic en las tarjetas
   aboutCards.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleExplosion();
+    
+    const clickedCard = e.target.closest('.about-card--stack');
+    
+    if (window.innerWidth >= 1024) {
+      // Comportamiento de escritorio
+      toggleExplosion();
+    } else if (window.innerWidth <= 767) {
+      // Comportamiento móvil
+      toggleMobileExpansion(clickedCard);
+    }
   });
 
   // Event listener para clic en área vacía (para volver al estado original)
   document.addEventListener('click', (e) => {
-    // Solo si las tarjetas están explotadas y se hace clic fuera de ellas
-    if (isExploded && !aboutCards.contains(e.target)) {
-      aboutCards.classList.remove('exploded');
-      isExploded = false;
+    // Solo si las tarjetas están en estado expandido y se hace clic fuera de ellas
+    if ((isExploded || isMobileExpanded) && !aboutCards.contains(e.target)) {
+      if (window.innerWidth >= 1024 && isExploded) {
+        aboutCards.classList.remove('exploded');
+        isExploded = false;
+      } else if (window.innerWidth <= 767 && isMobileExpanded) {
+        aboutCards.classList.remove('mobile-expanded');
+        const allCards = aboutCards.querySelectorAll('.about-card--stack');
+        allCards.forEach(card => card.classList.remove('active'));
+        isMobileExpanded = false;
+        activeCard = null;
+      }
     }
   });
 
   // Event listener para redimensionamiento de ventana
   window.addEventListener('resize', () => {
-    // Si se cambia a móvil/tablet, remover la clase exploded
+    // Si se cambia de escritorio a móvil/tablet
     if (window.innerWidth < 1024 && isExploded) {
       aboutCards.classList.remove('exploded');
       isExploded = false;
+    }
+    
+    // Si se cambia de móvil a escritorio/tablet
+    if (window.innerWidth >= 768 && isMobileExpanded) {
+      aboutCards.classList.remove('mobile-expanded');
+      const allCards = aboutCards.querySelectorAll('.about-card--stack');
+      allCards.forEach(card => card.classList.remove('active'));
+      isMobileExpanded = false;
+      activeCard = null;
     }
   });
 }
