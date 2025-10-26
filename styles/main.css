@@ -1295,12 +1295,12 @@ footer .legal-links a:hover::after {
 @media (min-width: 1024px) {
   .about-cards {
     position: absolute; /* Cambio a absolute para mantener posición exacta */
-    top: 280px; /* Posición exacta de la tarjeta base original */
-    left: 15%; /* Posición exacta de la tarjeta base original */
+    top: 200px; /* Elevado 80px hacia arriba para alinearse con la doctora */
+    left: 30%; /* Movido más hacia la derecha para equilibrar con la doctora */
     width: 30%; /* Ancho exacto de la tarjeta base original */
     max-width: 400px; /* Ancho máximo exacto de la tarjeta base original */
     height: auto; /* Altura automática para evitar overflow */
-    max-height: calc(100vh - 300px); /* Limitar altura para que quepa en viewport */
+    max-height: calc(100vh - 220px); /* Ajustado para la nueva posición */
     overflow: visible; /* Permitir que las tarjetas sean visibles */
     z-index: 10;
   }
