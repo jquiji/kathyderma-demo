@@ -1466,39 +1466,45 @@ footer .legal-links a:hover::after {
 /* ===== MÓVIL (≤ 767px) - LISTA VERTICAL CON ANIMACIÓN ===== */
 @media (max-width: 767px) {
   .about-cards {
-    position: absolute;
+    position: relative; /* Cambio a relative para contenedor */
     top: 320px; /* Debajo de la tarjeta principal */
-    left: 10%;
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Centrado perfecto */
     width: 80%;
     max-width: 300px;
     z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     cursor: pointer; /* Indicar que es interactivo */
-    transition: all 0.6s ease-in-out; /* Transición suave */
+    transition: all 0.5s ease-in-out; /* Transición suave */
   }
 
   .about-card--stack {
-    position: static;
+    position: absolute; /* Cambio a absolute para control total */
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Centrado perfecto */
     width: 100%;
     max-width: 300px;
     z-index: 1;
     margin: 0;
-    transition: all 0.6s ease-in-out; /* Transición suave para cada tarjeta */
+    transition: all 0.5s ease-in-out; /* Transición suave para cada tarjeta */
     cursor: pointer; /* Indicar que es clickeable */
+    transform-origin: center center; /* Origen de transformación centrado */
   }
 
-  /* Todas las tarjetas en móvil mantienen el mismo comportamiento base */
-  .about-card--1,
-  .about-card--2,
-  .about-card--3,
+  /* Posicionamiento vertical de las tarjetas en estado apilado */
+  .about-card--1 {
+    top: 0; /* Primera tarjeta */
+  }
+
+  .about-card--2 {
+    top: 80px; /* Segunda tarjeta con gap */
+  }
+
+  .about-card--3 {
+    top: 160px; /* Tercera tarjeta con gap */
+  }
+
   .about-card--4 {
-    position: static;
-    width: 100%;
-    max-width: 300px;
-    z-index: 1;
-    margin: 0;
+    top: 240px; /* Cuarta tarjeta con gap */
   }
 
   /* ===== ANIMACIÓN MÓVIL - EXPANSIÓN VERTICAL CENTRADA ===== */
@@ -1509,9 +1515,8 @@ footer .legal-links a:hover::after {
   }
 
   /* Tarjeta destacada (centrada y agrandada) */
-  .about-cards.mobile-expanded .about-card--stack {
-    position: absolute;
-    top: 50%; /* Centrado vertical */
+  .about-cards.mobile-expanded .about-card--stack.active {
+    top: 50vh; /* Centrado vertical del viewport */
     left: 50%; /* Centrado horizontal */
     transform: translate(-50%, -50%) scale(1.05); /* Centrado y agrandado */
     z-index: 10; /* Z-index alto para estar al frente */
@@ -1526,16 +1531,16 @@ footer .legal-links a:hover::after {
   .about-cards.mobile-expanded .about-card--stack:not(.active) {
     opacity: 0; /* Ocultas */
     pointer-events: none; /* Sin interactividad */
-    transform: translate(-50%, -50%) scale(0.8); /* Más pequeñas y centradas */
+    transform: translateX(-50%) scale(0.8); /* Centradas horizontalmente y más pequeñas */
     z-index: 1; /* Z-index bajo */
   }
 
   /* Efecto hover para indicar interactividad */
   .about-cards:hover .about-card--stack {
-    transform: scale(1.02); /* Ligero aumento en hover */
+    transform: translateX(-50%) scale(1.02); /* Centrado y ligero aumento en hover */
   }
 
-  .about-cards.mobile-expanded:hover .about-card--stack {
+  .about-cards.mobile-expanded:hover .about-card--stack.active {
     transform: translate(-50%, -50%) scale(1.05); /* Mantener escala cuando está expandido */
   }
 }
