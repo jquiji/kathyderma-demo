@@ -1424,19 +1424,21 @@ function initAboutCardsAnimation() {
     }
   }
 
-  // Event listener para clic en las tarjetas
+  // Event listener para clic en las tarjetas (solo escritorio)
   aboutCards.addEventListener('click', (e) => {
+    // Solo procesar en escritorio para evitar conflictos con el visor móvil
+    if (window.innerWidth < 1024) {
+      return; // Dejar que el visor móvil maneje los eventos
+    }
+    
     e.preventDefault();
     e.stopPropagation();
     
     const clickedCard = e.target.closest('.about-card--stack');
     
+    // Solo comportamiento de escritorio
     if (window.innerWidth >= 1024) {
-      // Comportamiento de escritorio
       toggleExplosion();
-    } else if (window.innerWidth <= 767) {
-      // Comportamiento móvil
-      toggleMobileExpansion(clickedCard);
     }
   });
 
@@ -1480,8 +1482,12 @@ function initAboutCardsAnimation() {
 function initMobileCardViewer() {
   console.log('📱 Iniciando visor de tarjetas para móvil...');
   
+  // Verificar si estamos en móvil
+  const isMobile = window.innerWidth <= 768;
+  console.log(`📱 Ancho de ventana: ${window.innerWidth}px, es móvil: ${isMobile}`);
+  
   // Solo funcionar en móviles (max-width: 768px)
-  if (window.innerWidth > 768) {
+  if (!isMobile) {
     console.log('💻 Dispositivo no móvil detectado, visor deshabilitado');
     return;
   }
@@ -1622,17 +1628,29 @@ function initMobileCardViewer() {
     document.body.style.width = '';
   }
 
+  // Función para manejar la interacción con las tarjetas
+  function handleCardInteraction(e, index) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    
+    // Solo abrir el visor en móviles
+    if (window.innerWidth <= 768) {
+      console.log(`🎯 Tarjeta ${index} tocada en móvil`);
+      openViewer(index);
+    }
+  }
+
   // Event listeners para las tarjetas originales
   originalCards.forEach((card, index) => {
-    card.addEventListener('click', (e) => {
+    // Agregar múltiples tipos de eventos para mejor compatibilidad
+    card.addEventListener('click', (e) => handleCardInteraction(e, index), { passive: false });
+    card.addEventListener('touchend', (e) => handleCardInteraction(e, index), { passive: false });
+    
+    // Prevenir el comportamiento por defecto en touchstart
+    card.addEventListener('touchstart', (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      
-      // Solo abrir el visor en móviles
-      if (window.innerWidth <= 768) {
-        openViewer(index);
-      }
-    });
+    }, { passive: false });
   });
 
   // Event listener para el botón de cierre
@@ -1730,9 +1748,20 @@ function initMobileCardViewer() {
 
   // Event listener para redimensionamiento de ventana
   window.addEventListener('resize', () => {
+    const newIsMobile = window.innerWidth <= 768;
+    
     // Cerrar el visor si se cambia a escritorio
-    if (window.innerWidth > 768 && isViewerOpen) {
+    if (!newIsMobile && isViewerOpen) {
       closeViewerFunc();
+    }
+    
+    // Reinicializar si se cambia de escritorio a móvil
+    if (newIsMobile && !isMobile) {
+      console.log('📱 Cambio a móvil detectado, reinicializando visor...');
+      // Reinicializar
+      setTimeout(() => {
+        initMobileCardViewer();
+      }, 100);
     }
   });
 
