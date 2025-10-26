@@ -1398,8 +1398,8 @@ footer .legal-links a:hover::after {
   /* Tarjeta responsive para móviles */
   .about-card {
     top: 180px; /* Ajuste final: 40px más arriba para balance visual perfecto */
-    left: 12%; /* Desplazada hacia la izquierda para liberar el rostro de la doctora */
-    width: 70%; /* Ancho reducido para no tapar el rostro de la doctora */
+    left: 10%; /* Microajuste: 2% más a la izquierda para balance lateral perfecto */
+    width: 65%; /* Ancho reducido para composición más ligera y elegante */
     max-width: 320px; /* Ancho máximo aumentado */
     padding: 14px 20px 20px 20px; /* Padding ajustado para el nuevo ancho */
     transform: scale(0.95); /* Escala ligeramente aumentada */
@@ -1486,11 +1486,11 @@ footer .legal-links a:hover::after {
   
   /* Tarjeta para pantallas muy pequeñas */
   .about-card {
-    width: 65%; /* Ancho reducido para no tapar el rostro de la doctora */
+    width: 60%; /* Ancho reducido para composición más ligera y elegante */
     max-width: 280px; /* Ancho máximo aumentado */
     padding: 12px 18px 18px 18px; /* Padding ajustado para el nuevo ancho */
     top: 120px; /* Ajuste final: 50px más arriba para balance visual perfecto */
-    left: 15%; /* Desplazada hacia la izquierda para liberar el rostro de la doctora */
+    left: 13%; /* Microajuste: 2% más a la izquierda para balance lateral perfecto */
     transform: scale(0.9); /* Escala ligeramente aumentada */
   }
   
