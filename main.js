@@ -1376,6 +1376,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Inicializar la animación interactiva de las tarjetas
   initAboutCardsAnimation();
+  
+  // Inicializar el visor de tarjetas para móvil
+  initMobileCardViewer();
 });
 
 // ===== ANIMACIÓN INTERACTIVA DE TARJETAS =====
@@ -1471,5 +1474,272 @@ function initAboutCardsAnimation() {
       activeCard = null;
     }
   });
+}
+
+// ===== VISOR DE TARJETAS PARA MÓVIL =====
+function initMobileCardViewer() {
+  console.log('📱 Iniciando visor de tarjetas para móvil...');
+  
+  // Solo funcionar en móviles (max-width: 768px)
+  if (window.innerWidth > 768) {
+    console.log('💻 Dispositivo no móvil detectado, visor deshabilitado');
+    return;
+  }
+
+  const aboutCards = document.querySelector('.about-cards');
+  const cardViewer = document.getElementById('cardViewer');
+  const closeViewer = document.getElementById('closeViewer');
+  const viewerTrack = document.getElementById('viewerTrack');
+  const viewerIndicators = document.getElementById('viewerIndicators');
+
+  if (!aboutCards || !cardViewer || !closeViewer || !viewerTrack || !viewerIndicators) {
+    console.log('❌ Elementos del visor no encontrados');
+    return;
+  }
+
+  let currentCardIndex = 0;
+  let isViewerOpen = false;
+  let isTransitioning = false;
+  let startX = 0;
+  let startY = 0;
+  let currentX = 0;
+  let isDragging = false;
+  let dragThreshold = 50; // Distancia mínima para considerar swipe
+
+  // Obtener todas las tarjetas originales
+  const originalCards = aboutCards.querySelectorAll('.about-card--stack');
+  const totalCards = originalCards.length;
+
+  // Crear clones de las tarjetas para el visor
+  function createViewerCards() {
+    viewerTrack.innerHTML = '';
+    viewerIndicators.innerHTML = '';
+
+    originalCards.forEach((card, index) => {
+      // Clonar la tarjeta
+      const clonedCard = card.cloneNode(true);
+      clonedCard.classList.remove('about-card--1', 'about-card--2', 'about-card--3', 'about-card--4');
+      clonedCard.classList.add('viewer-card');
+      
+      if (index === 0) {
+        clonedCard.classList.add('active');
+      }
+      
+      viewerTrack.appendChild(clonedCard);
+
+      // Crear indicador
+      const indicator = document.createElement('div');
+      indicator.classList.add('viewer-indicator');
+      if (index === 0) {
+        indicator.classList.add('active');
+      }
+      indicator.addEventListener('click', () => goToCard(index));
+      viewerIndicators.appendChild(indicator);
+    });
+  }
+
+  // Navegar a una tarjeta específica
+  function goToCard(index) {
+    if (isTransitioning || index < 0 || index >= totalCards) return;
+
+    isTransitioning = true;
+    currentCardIndex = index;
+
+    // Actualizar posición del track
+    const translateX = -index * 100;
+    viewerTrack.style.transform = `translateX(${translateX}%)`;
+
+    // Actualizar clases activas
+    const cards = viewerTrack.querySelectorAll('.viewer-card');
+    const indicators = viewerIndicators.querySelectorAll('.viewer-indicator');
+
+    cards.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+    });
+
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === index);
+    });
+
+    // Resetear transición
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 600);
+  }
+
+  // Navegar a la siguiente tarjeta
+  function nextCard() {
+    if (currentCardIndex < totalCards - 1) {
+      goToCard(currentCardIndex + 1);
+    }
+  }
+
+  // Navegar a la tarjeta anterior
+  function prevCard() {
+    if (currentCardIndex > 0) {
+      goToCard(currentCardIndex - 1);
+    }
+  }
+
+  // Abrir el visor
+  function openViewer(clickedCardIndex = 0) {
+    if (isViewerOpen) return;
+
+    console.log('🔍 Abriendo visor de tarjetas...');
+    
+    isViewerOpen = true;
+    currentCardIndex = clickedCardIndex;
+    
+    // Crear las tarjetas del visor
+    createViewerCards();
+    
+    // Ir a la tarjeta clickeada
+    goToCard(clickedCardIndex);
+    
+    // Mostrar el visor
+    cardViewer.classList.add('active');
+    document.body.classList.add('viewer-open');
+    
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  }
+
+  // Cerrar el visor
+  function closeViewerFunc() {
+    if (!isViewerOpen) return;
+
+    console.log('❌ Cerrando visor de tarjetas...');
+    
+    isViewerOpen = false;
+    cardViewer.classList.remove('active');
+    document.body.classList.remove('viewer-open');
+    
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+  }
+
+  // Event listeners para las tarjetas originales
+  originalCards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Solo abrir el visor en móviles
+      if (window.innerWidth <= 768) {
+        openViewer(index);
+      }
+    });
+  });
+
+  // Event listener para el botón de cierre
+  closeViewer.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeViewerFunc();
+  });
+
+  // Event listener para cerrar con clic en el fondo
+  cardViewer.addEventListener('click', (e) => {
+    if (e.target === cardViewer) {
+      closeViewerFunc();
+    }
+  });
+
+  // Soporte táctil (swipe) para navegación
+  function setupTouchEvents() {
+    viewerTrack.addEventListener('touchstart', (e) => {
+      if (isTransitioning) return;
+      
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+      
+      // Remover transición suave durante el drag
+      viewerTrack.classList.remove('smooth-transition');
+    }, { passive: true });
+
+    viewerTrack.addEventListener('touchmove', (e) => {
+      if (!isDragging || isTransitioning) return;
+      
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      const deltaY = Math.abs(e.touches[0].clientY - startY);
+      
+      // Solo procesar si el movimiento es más horizontal que vertical
+      if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 10) {
+        e.preventDefault();
+        
+        // Aplicar transformación en tiempo real
+        const baseTranslate = -currentCardIndex * 100;
+        const dragTranslate = (deltaX / window.innerWidth) * 100;
+        viewerTrack.style.transform = `translateX(${baseTranslate + dragTranslate}%)`;
+      }
+    }, { passive: false });
+
+    viewerTrack.addEventListener('touchend', (e) => {
+      if (!isDragging || isTransitioning) return;
+      
+      const deltaX = currentX - startX;
+      const deltaY = Math.abs(e.changedTouches[0].clientY - startY);
+      
+      // Restaurar transición suave
+      viewerTrack.classList.add('smooth-transition');
+      
+      // Procesar swipe si es significativo
+      if (Math.abs(deltaX) > dragThreshold && Math.abs(deltaX) > deltaY) {
+        if (deltaX > 0) {
+          // Swipe derecha - ir a tarjeta anterior
+          prevCard();
+        } else {
+          // Swipe izquierda - ir a tarjeta siguiente
+          nextCard();
+        }
+      } else {
+        // Volver a la posición original
+        goToCard(currentCardIndex);
+      }
+      
+      isDragging = false;
+    }, { passive: true });
+  }
+
+  // Soporte de teclado para accesibilidad
+  function setupKeyboardEvents() {
+    document.addEventListener('keydown', (e) => {
+      if (!isViewerOpen) return;
+      
+      switch (e.key) {
+        case 'Escape':
+          closeViewerFunc();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          prevCard();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          nextCard();
+          break;
+      }
+    });
+  }
+
+  // Event listener para redimensionamiento de ventana
+  window.addEventListener('resize', () => {
+    // Cerrar el visor si se cambia a escritorio
+    if (window.innerWidth > 768 && isViewerOpen) {
+      closeViewerFunc();
+    }
+  });
+
+  // Inicializar eventos
+  setupTouchEvents();
+  setupKeyboardEvents();
+
+  console.log('✅ Visor de tarjetas móvil inicializado');
 }
 
