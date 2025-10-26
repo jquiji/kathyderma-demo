@@ -1593,6 +1593,10 @@ function initMobileCardViewer() {
 
     console.log('🔍 Abriendo visor de tarjetas...');
     
+    // Guardar la posición actual del scroll ANTES de hacer cualquier cambio
+    const currentScrollY = window.scrollY;
+    console.log(`📍 Posición actual del scroll: ${currentScrollY}px`);
+    
     isViewerOpen = true;
     currentCardIndex = clickedCardIndex;
     
@@ -1606,10 +1610,15 @@ function initMobileCardViewer() {
     cardViewer.classList.add('active');
     document.body.classList.add('viewer-open');
     
-    // Prevenir scroll del body
+    // Estrategia alternativa: solo prevenir scroll sin cambiar position
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
+    document.body.style.height = '100%';
+    
+    // Asegurar que el visor esté en la posición correcta
+    cardViewer.style.top = '0';
+    cardViewer.style.left = '0';
+    
+    console.log(`📍 Visor abierto manteniendo scroll en: ${currentScrollY}px`);
   }
 
   // Cerrar el visor
@@ -1624,8 +1633,9 @@ function initMobileCardViewer() {
     
     // Restaurar scroll del body
     document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
+    document.body.style.height = '';
+    
+    console.log(`📍 Visor cerrado, scroll restaurado`);
   }
 
   // Función para manejar la interacción con las tarjetas
@@ -1824,10 +1834,22 @@ function initMobileCardViewer() {
     console.log(`🎯 Tarjetas encontradas: ${originalCards.length}`);
     console.log(`👁️ Visor existe: ${!!cardViewer}`);
     console.log(`🔧 Track existe: ${!!viewerTrack}`);
+    console.log(`📍 Scroll actual: ${window.scrollY}px`);
     
     if (originalCards.length > 0) {
       console.log('🎯 Probando apertura del visor...');
+      const scrollBefore = window.scrollY;
       openViewer(0);
+      
+      setTimeout(() => {
+        const scrollAfter = window.scrollY;
+        console.log(`📍 Scroll antes: ${scrollBefore}px, después: ${scrollAfter}px`);
+        if (Math.abs(scrollBefore - scrollAfter) > 50) {
+          console.warn('⚠️ ADVERTENCIA: El scroll cambió significativamente!');
+        } else {
+          console.log('✅ Scroll mantenido correctamente');
+        }
+      }, 100);
     }
   };
 }
