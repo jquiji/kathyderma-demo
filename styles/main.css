@@ -1582,8 +1582,8 @@ footer .legal-links a:hover::after {
 @media (max-width: 767px) {
   .about-cards {
     position: relative; /* Cambio a relative para contenedor */
-    top: 150px; /* Movido más arriba, justo debajo de la barra de búsqueda (80px + 50px altura + 20px margen) */
-    left: 10%; /* Alineado hacia la izquierda para balance visual */
+    top: 135px; /* Ajuste fino: movido más arriba para mejor ubicación en el espacio vacío */
+    left: 6%; /* Ajuste fino: desplazado más hacia la izquierda para despegarse del centro */
     transform: none; /* Sin centrado, mantener alineación izquierda */
     width: 80%;
     max-width: 300px;
