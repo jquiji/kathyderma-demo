@@ -1641,18 +1641,24 @@ footer .legal-links a:hover::after {
     z-index: 1; /* Z-index más bajo para estar al fondo */
   }
 
-  /* ===== ANIMACIÓN DE FLOTACIÓN SUTIL PARA PILA COMPACTA (MÓVIL) ===== */
-  /* Animación sutil aplicada a toda la pila como conjunto */
+  /* ===== ANIMACIÓN DE FLOTACIÓN ELEGANTE PARA PILA COMPACTA (MÓVIL) ===== */
+  /* Animación más perceptible aplicada a toda la pila como conjunto */
   @keyframes mobileStackFloat {
     0%, 100% {
       transform: translateY(0);
     }
+    25% {
+      transform: translateY(-7px);
+    }
     50% {
-      transform: translateY(-2px);
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-7px);
     }
   }
 
-  /* Aplicar animación suave a todo el contenedor de la pila */
+  /* Aplicar animación elegante a todo el contenedor de la pila */
   .about-cards {
     animation: mobileStackFloat 4s ease-in-out infinite;
   }
@@ -1690,10 +1696,10 @@ footer .legal-links a:hover::after {
     z-index: 1; /* Z-index bajo */
   }
 
-  /* Efecto hover para indicar interactividad - pausar animación y elevar toda la pila ligeramente */
+  /* Efecto hover para indicar interactividad - pausar animación y elevar toda la pila */
   .about-cards:hover {
     animation-play-state: paused;
-    transform: translateY(-2px) !important; /* Elevar toda la pila sutilmente en hover, sobrescribir animación */
+    transform: translateY(-4px) !important; /* Elevar toda la pila en hover, proporcional a la animación */
   }
 
   /* Efecto hover individual en cada tarjeta - destacar la tarjeta sobre la que se hace hover */
