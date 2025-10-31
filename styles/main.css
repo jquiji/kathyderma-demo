@@ -1583,16 +1583,18 @@ footer .legal-links a:hover::after {
 /* ===== MÓVIL (≤ 767px) - LISTA VERTICAL CON ANIMACIÓN ===== */
 @media (max-width: 767px) {
   .about-cards {
-    position: relative; /* Cambio a relative para contenedor */
-    top: 140px; /* Justo debajo de la barra de búsqueda (80px top + 50px altura + 10px margen) */
-    left: 2.5%; /* Ajuste fino: desplazado un poco más a la izquierda para mejor balance visual */
-    transform: none; /* Sin centrado, mantener alineación izquierda */
+    position: relative; /* Contenedor relativo */
+    top: 140px; /* Justo debajo de la barra de búsqueda */
+    left: 2.5%; /* Alineado a la izquierda de la doctora */
+    transform: none;
     width: 80%;
     max-width: 300px;
-    min-height: clamp(500px, 90vh, 650px); /* Altura dinámica adaptativa: mínimo 500px, preferido 90vh del viewport, máximo 650px para mantener espaciado uniforme en todas las resoluciones móviles */
+    display: flex; /* Layout vertical con flexbox */
+    flex-direction: column;
+    gap: 20px; /* Separación uniforme entre tarjetas */
     z-index: 10;
-    cursor: pointer; /* Indicar que es interactivo */
-    transition: all 0.5s ease-in-out; /* Transición suave */
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
     /* Prevenir scroll y mejorar interacción táctil */
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -1601,41 +1603,45 @@ footer .legal-links a:hover::after {
   }
 
   .about-card--stack {
-    position: absolute; /* Cambio a absolute para control total */
-    left: 0; /* Alineado a la izquierda del contenedor */
-    transform: none; /* Sin transform para mantener alineación izquierda */
+    position: relative; /* Layout normal vertical */
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
     z-index: 1;
     margin: 0;
-    transition: all 0.5s ease-in-out; /* Transición suave para cada tarjeta */
-    cursor: pointer; /* Indicar que es clickeable */
-    transform-origin: center center; /* Origen de transformación centrado */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    transform-origin: center center;
     /* Prevenir scroll y mejorar interacción táctil */
     touch-action: manipulation;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
-    /* Prevenir que las tarjetas causen scroll */
     pointer-events: auto;
     -webkit-tap-highlight-color: transparent;
+    /* Opacidad inicial para animación de entrada */
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  /* Posicionamiento vertical de las tarjetas en estado apilado */
+  /* Animación de entrada secuencial para cada tarjeta */
   .about-card--1 {
-    top: 0; /* Primera tarjeta */
+    animation: slideInUp 0.6s ease-out forwards;
+    animation-delay: 0.1s;
   }
 
   .about-card--2 {
-    top: 110px; /* Segunda tarjeta con gap aumentado para mejor separación visual */
+    animation: slideInUp 0.6s ease-out forwards;
+    animation-delay: 0.3s;
   }
 
   .about-card--3 {
-    top: 220px; /* Tercera tarjeta con gap aumentado para mejor separación visual */
+    animation: slideInUp 0.6s ease-out forwards;
+    animation-delay: 0.5s;
   }
 
   .about-card--4 {
-    top: 330px; /* Cuarta tarjeta con gap aumentado para mejor separación visual */
+    animation: slideInUp 0.6s ease-out forwards;
+    animation-delay: 0.7s;
   }
 
   /* ===== ANIMACIÓN MÓVIL - EXPANSIÓN VERTICAL CENTRADA ===== */
@@ -1647,10 +1653,11 @@ footer .legal-links a:hover::after {
 
   /* Tarjeta destacada (centrada y agrandada) */
   .about-cards.mobile-expanded .about-card--stack.active {
+    position: fixed; /* Cambiar a fixed para centrar en viewport */
     top: 50vh; /* Centrado vertical del viewport */
     left: 50%; /* Centrado horizontal */
     transform: translate(-50%, -50%) scale(1.05); /* Centrado y agrandado */
-    z-index: 10; /* Z-index alto para estar al frente */
+    z-index: 100; /* Z-index alto para estar al frente */
     width: 90%; /* Ancho aumentado */
     max-width: 350px; /* Ancho máximo aumentado */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
@@ -1662,17 +1669,31 @@ footer .legal-links a:hover::after {
   .about-cards.mobile-expanded .about-card--stack:not(.active) {
     opacity: 0; /* Ocultas */
     pointer-events: none; /* Sin interactividad */
-    transform: translateX(-50%) scale(0.8); /* Centradas horizontalmente y más pequeñas */
     z-index: 1; /* Z-index bajo */
   }
 
-  /* Efecto hover para indicar interactividad */
-  .about-cards:hover .about-card--stack {
-    transform: scale(1.02); /* Ligero aumento en hover sin cambiar posición horizontal */
+  /* Efecto hover para indicar interactividad (solo en estado normal) */
+  .about-card--stack:hover {
+    transform: translateY(-4px); /* Elevación sutil en hover */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(255, 105, 180, 0.18);
   }
 
-  .about-cards.mobile-expanded:hover .about-card--stack.active {
-    transform: translate(-50%, -50%) scale(1.05); /* Mantener escala cuando está expandido (centrado solo al expandirse) */
+  /* Evitar hover cuando está expandida */
+  .about-cards.mobile-expanded .about-card--stack.active:hover {
+    transform: translate(-50%, -50%) scale(1.05); /* Mantener transformación de expansión */
+  }
+
+  /* ===== ANIMACIÓN DE ENTRADA SECUENCIAL (MÓVIL) ===== */
+  /* Animación de entrada suave con fade y slide up */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
