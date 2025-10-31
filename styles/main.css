@@ -1339,13 +1339,88 @@ footer .legal-links a:hover::after {
     font-size: 0.95rem; /* Tamaño de fuente mantenido */
   }
 
+  /* ===== ANIMACIÓN DE FLOTACIÓN AUTOMÁTICA ===== */
+  /* Animaciones separadas para cada tarjeta que preservan sus escalas */
+  @keyframes float1 {
+    0%, 100% {
+      transform: scale(1) translateY(0px);
+    }
+    50% {
+      transform: scale(1) translateY(-3px);
+    }
+  }
+
+  @keyframes float2 {
+    0%, 100% {
+      transform: scale(0.98) translateY(0px);
+    }
+    50% {
+      transform: scale(0.98) translateY(-3px);
+    }
+  }
+
+  @keyframes float3 {
+    0%, 100% {
+      transform: scale(0.96) translateY(0px);
+    }
+    50% {
+      transform: scale(0.96) translateY(-3px);
+    }
+  }
+
+  @keyframes float4 {
+    0%, 100% {
+      transform: scale(0.94) translateY(0px);
+    }
+    50% {
+      transform: scale(0.94) translateY(-3px);
+    }
+  }
+
+  /* Aplicar animación de flotación a todas las tarjetas con diferentes delays y escalas */
+  .about-card--stack {
+    will-change: transform; /* Optimización para mejor rendimiento */
+    transform-origin: center center; /* Origen de transformación centrado */
+  }
+
+  /* Desfases de tiempo entre tarjetas para efecto natural - mantener escalas */
+  .about-card--1 {
+    animation: float1 4s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .about-card--2 {
+    animation: float2 4s ease-in-out infinite;
+    animation-delay: 0.4s;
+  }
+
+  .about-card--3 {
+    animation: float3 4s ease-in-out infinite;
+    animation-delay: 0.8s;
+  }
+
+  .about-card--4 {
+    animation: float4 4s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+
+  /* Pausar animación cuando las tarjetas están expandidas (exploded) */
+  .about-cards.exploded .about-card--stack {
+    animation-play-state: paused;
+  }
+
+  /* Asegurar que la animación no interfiera con el hover */
+  .about-card--stack:hover {
+    animation-play-state: paused;
+  }
+
   /* Primera tarjeta (frente) - tarjeta base "Dermatóloga certificada" */
   .about-card--1 {
     top: 0; /* Sin desplazamiento vertical - posición base */
     left: 0; /* Sin desplazamiento horizontal */
     z-index: 4; /* Z-index más alto para estar al frente */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra más sutil para jerarquía */
-    transform: scale(1); /* Escala completa para la tarjeta frontal */
+    /* La transformación scale y translateY se manejan en la animación float1 */
   }
 
   /* Segunda tarjeta (medio) - apilada verticalmente */
@@ -1354,7 +1429,7 @@ footer .legal-links a:hover::after {
     left: 0; /* Sin desplazamiento horizontal */
     z-index: 3; /* Z-index intermedio */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra intermedia */
-    transform: scale(0.98); /* Ligera reducción de escala */
+    /* La transformación scale y translateY se manejan en la animación float2 */
   }
 
   /* Tercera tarjeta (medio-bajo) - más abajo en la pila */
@@ -1363,7 +1438,7 @@ footer .legal-links a:hover::after {
     left: 0; /* Sin desplazamiento horizontal */
     z-index: 2; /* Z-index intermedio-bajo */
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12); /* Sombra más pronunciada para profundidad */
-    transform: scale(0.96); /* Mayor reducción de escala */
+    /* La transformación scale y translateY se manejan en la animación float3 */
   }
 
   /* Cuarta tarjeta (fondo) - al final de la pila */
@@ -1372,7 +1447,7 @@ footer .legal-links a:hover::after {
     left: 0; /* Sin desplazamiento horizontal */
     z-index: 1; /* Z-index más bajo para estar al fondo */
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada para profundidad */
-    transform: scale(0.94); /* Mayor reducción de escala */
+    /* La transformación scale y translateY se manejan en la animación float4 */
   }
 
   /* ===== ANIMACIÓN INTERACTIVA DE EXPLOSIÓN ===== */
