@@ -1624,15 +1624,15 @@ footer .legal-links a:hover::after {
   }
 
   .about-card--2 {
-    top: 80px; /* Segunda tarjeta con gap */
+    top: 110px; /* Segunda tarjeta con gap aumentado para mejor separación visual */
   }
 
   .about-card--3 {
-    top: 160px; /* Tercera tarjeta con gap */
+    top: 220px; /* Tercera tarjeta con gap aumentado para mejor separación visual */
   }
 
   .about-card--4 {
-    top: 240px; /* Cuarta tarjeta con gap */
+    top: 330px; /* Cuarta tarjeta con gap aumentado para mejor separación visual */
   }
 
   /* ===== ANIMACIÓN MÓVIL - EXPANSIÓN VERTICAL CENTRADA ===== */
