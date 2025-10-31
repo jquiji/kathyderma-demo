@@ -1589,7 +1589,7 @@ footer .legal-links a:hover::after {
     transform: none; /* Sin centrado, mantener alineación izquierda */
     width: 80%;
     max-width: 300px;
-    min-height: 550px; /* Altura mínima suficiente para contener todas las tarjetas (330px última tarjeta + ~200px altura tarjeta + 20px margen) */
+    min-height: clamp(500px, 90vh, 650px); /* Altura dinámica adaptativa: mínimo 500px, preferido 90vh del viewport, máximo 650px para mantener espaciado uniforme en todas las resoluciones móviles */
     z-index: 10;
     cursor: pointer; /* Indicar que es interactivo */
     transition: all 0.5s ease-in-out; /* Transición suave */
