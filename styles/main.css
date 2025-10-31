@@ -2114,6 +2114,29 @@ footer .legal-links a:hover::after {
   }
 }
 
+/* ===== ESCRITORIO (≥ 1024px) - SECCIÓN CONTACTO ANCHO COMPLETO ===== */
+@media (min-width: 1024px) {
+  #contact {
+    width: 100vw; /* Ancho completo del viewport */
+    max-width: none !important; /* Anular max-width de .section */
+    margin: 0 !important; /* Anular margin: auto de .section */
+    padding: 100px 20px; /* Mantener padding vertical y horizontal */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+  }
+
+  /* Centrar el contenido interno con un ancho máximo razonable */
+  #contact h2,
+  #contact .contact-buttons {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* ---- Servicios scroll horizontal pantalla por pantalla ---- */
 #services.horizontal-scroll {
   position: relative;
