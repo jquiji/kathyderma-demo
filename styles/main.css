@@ -1299,7 +1299,7 @@ footer .legal-links a:hover::after {
   .about-cards {
     position: absolute; /* Cambio a absolute para mantener posición exacta */
     top: 200px; /* Elevado 80px hacia arriba para alinearse con la doctora */
-    left: 30%; /* Movido más hacia la derecha para equilibrar con la doctora */
+    left: 38%; /* Aumentado de 30% a 38% para agregar espacio lateral desde el borde izquierdo */
     width: 30%; /* Ancho exacto de la tarjeta base original */
     max-width: 400px; /* Ancho máximo exacto de la tarjeta base original */
     height: auto; /* Altura automática para evitar overflow */
