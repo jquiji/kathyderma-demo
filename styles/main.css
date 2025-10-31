@@ -1589,9 +1589,8 @@ footer .legal-links a:hover::after {
     transform: none;
     width: 80%;
     max-width: 300px;
-    display: flex; /* Layout vertical con flexbox */
-    flex-direction: column;
-    gap: 20px; /* Separación uniforme entre tarjetas */
+    height: auto; /* Altura automática basada en contenido */
+    min-height: 280px; /* Altura mínima para mostrar parcialmente las tarjetas inferiores (~200px primera + ~80px visibles de las demás) */
     z-index: 10;
     cursor: pointer;
     transition: all 0.5s ease-in-out;
@@ -1600,13 +1599,14 @@ footer .legal-links a:hover::after {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    overflow: visible; /* Permitir que las tarjetas parcialmente visibles se muestren */
   }
 
   .about-card--stack {
-    position: relative; /* Layout normal vertical */
+    position: absolute; /* Posicionamiento absoluto para stack apilado */
+    left: 0; /* Alineado a la izquierda del contenedor */
     width: 100%;
     max-width: 100%;
-    z-index: 1;
     margin: 0;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
@@ -1618,30 +1618,48 @@ footer .legal-links a:hover::after {
     user-select: none;
     pointer-events: auto;
     -webkit-tap-highlight-color: transparent;
-    /* Opacidad inicial para animación de entrada */
-    opacity: 0;
-    transform: translateY(20px);
   }
 
-  /* Animación de entrada secuencial para cada tarjeta */
+  /* Stack apilado compacto - solo primera tarjeta visible completamente */
   .about-card--1 {
-    animation: slideInUp 0.6s ease-out forwards;
-    animation-delay: 0.1s;
+    top: 0; /* Primera tarjeta completamente visible */
+    z-index: 4; /* Z-index más alto para estar al frente */
   }
 
   .about-card--2 {
-    animation: slideInUp 0.6s ease-out forwards;
-    animation-delay: 0.3s;
+    top: 6px; /* Segunda tarjeta con pequeño desplazamiento vertical */
+    z-index: 3;
   }
 
   .about-card--3 {
-    animation: slideInUp 0.6s ease-out forwards;
-    animation-delay: 0.5s;
+    top: 12px; /* Tercera tarjeta con mayor desplazamiento */
+    z-index: 2;
   }
 
   .about-card--4 {
-    animation: slideInUp 0.6s ease-out forwards;
-    animation-delay: 0.7s;
+    top: 18px; /* Cuarta tarjeta con mayor desplazamiento */
+    z-index: 1; /* Z-index más bajo para estar al fondo */
+  }
+
+  /* ===== ANIMACIÓN DE FLOTACIÓN SUTIL PARA PILA COMPACTA (MÓVIL) ===== */
+  /* Animación sutil aplicada a toda la pila como conjunto */
+  @keyframes mobileStackFloat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Aplicar animación suave a todo el contenedor de la pila */
+  .about-cards {
+    animation: mobileStackFloat 4s ease-in-out infinite;
+  }
+
+  /* Mantener transformaciones individuales pero permitir animación del contenedor */
+  .about-card--stack {
+    will-change: transform;
   }
 
   /* ===== ANIMACIÓN MÓVIL - EXPANSIÓN VERTICAL CENTRADA ===== */
@@ -1672,9 +1690,15 @@ footer .legal-links a:hover::after {
     z-index: 1; /* Z-index bajo */
   }
 
-  /* Efecto hover para indicar interactividad (solo en estado normal) */
+  /* Efecto hover para indicar interactividad - pausar animación y elevar toda la pila ligeramente */
+  .about-cards:hover {
+    animation-play-state: paused;
+    transform: translateY(-2px) !important; /* Elevar toda la pila sutilmente en hover, sobrescribir animación */
+  }
+
+  /* Efecto hover individual en cada tarjeta - destacar la tarjeta sobre la que se hace hover */
   .about-card--stack:hover {
-    transform: translateY(-4px); /* Elevación sutil en hover */
+    z-index: 5 !important; /* Elevar la tarjeta hover al frente */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(255, 105, 180, 0.18);
   }
 
@@ -1683,17 +1707,9 @@ footer .legal-links a:hover::after {
     transform: translate(-50%, -50%) scale(1.05); /* Mantener transformación de expansión */
   }
 
-  /* ===== ANIMACIÓN DE ENTRADA SECUENCIAL (MÓVIL) ===== */
-  /* Animación de entrada suave con fade y slide up */
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Pausar animación de flotación cuando se expande */
+  .about-cards.mobile-expanded {
+    animation-play-state: paused;
   }
 }
 
@@ -3170,4 +3186,5 @@ html {
   .about-card-viewer {
     display: none !important;
   }
+}
 }
