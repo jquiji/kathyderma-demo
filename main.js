@@ -1540,8 +1540,12 @@ function initMobileCardViewer() {
       if (index === currentCardIndex) {
         clonedCard.classList.add('active');
       }
-      
-      viewerTrack.appendChild(clonedCard);
+
+      // Envolver la tarjeta en un slide de 100% de ancho para centrarla
+      const slide = document.createElement('div');
+      slide.className = 'viewer-slide';
+      slide.appendChild(clonedCard);
+      viewerTrack.appendChild(slide);
 
       // Crear indicador
       const indicator = document.createElement('div');
@@ -1564,11 +1568,11 @@ function initMobileCardViewer() {
     currentCardIndex = index;
 
     // Actualizar posición del track
-    const translateX = -index * 100;
+    const translateX = -index * 100; // cada slide ocupa el 100%
     viewerTrack.style.transform = `translateX(${translateX}%)`;
 
     // Actualizar clases activas
-    const cards = viewerTrack.querySelectorAll('.viewer-card, .about-card--stack');
+    const cards = viewerTrack.querySelectorAll('.viewer-slide .viewer-card, .viewer-slide .about-card--stack');
     const indicators = viewerIndicators.querySelectorAll('.viewer-indicator');
 
     cards.forEach((card, i) => {

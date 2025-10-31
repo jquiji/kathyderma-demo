@@ -3039,13 +3039,12 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px; /* Padding mínimo para evitar que el card toque los bordes */
+    padding: 0; /* Sin padding para que no se vea la tarjeta anterior al deslizar */
     position: relative;
     margin: 0;
     /* Asegurar centrado perfecto sin desplazamientos */
     box-sizing: border-box;
-    overflow-y: auto; /* Permitir scroll interno si el contenido es muy largo */
-    overflow-x: hidden;
+    overflow: hidden; /* Recortar cualquier desborde de los slides */
   }
 
   /* Track para las tarjetas deslizables */
@@ -3063,10 +3062,22 @@ html {
     box-sizing: border-box;
   }
 
+  /* Cada slide ocupa el 100% del viewport para que el translateX centre el contenido */
+  .viewer-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0; /* Sin padding para que el centrado sea exacto */
+    overflow: hidden; /* Evitar que se vea contenido lateral (sombra/bordes) del slide vecino */
+  }
+
   /* Tarjetas dentro del visor */
   .viewer-track .about-card--stack {
     position: relative !important;
-    width: 90% !important;
+    width: 90% !important; /* La tarjeta es más angosta que el slide y queda centrada */
     max-width: 350px !important;
     min-width: 280px !important;
     height: auto;
