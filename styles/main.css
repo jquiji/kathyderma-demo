@@ -1106,7 +1106,7 @@ footer .legal-links a:hover::after {
   .about {
     height: 100vh; /* Usar altura completa de viewport */
     min-height: 100vh; /* Asegurar altura mínima */
-    max-height: 100vh; /* Limitar altura máxima para evitar recortes */
+    max-height: none; /* Permitir altura dinámica para que las tarjetas no se corten */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -1115,7 +1115,8 @@ footer .legal-links a:hover::after {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    overflow: hidden; /* Cambiar de overflow-x a overflow para controlar ambos ejes */
+    overflow-x: hidden; /* Solo ocultar overflow horizontal */
+    overflow-y: visible; /* Permitir que el contenido vertical sea visible para las tarjetas */
     /* Cambios específicos para móviles */
     background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
     background-repeat: no-repeat;
@@ -1130,7 +1131,7 @@ footer .legal-links a:hover::after {
   .about {
     height: 100vh; /* Mantener altura completa */
     min-height: 100vh; /* Asegurar altura mínima */
-    max-height: 100vh; /* Limitar altura máxima para evitar recortes */
+    max-height: none; /* Permitir altura dinámica para que las tarjetas no se corten */
     width: 100vw;
     max-width: none;
     margin: 0;
@@ -1139,7 +1140,8 @@ footer .legal-links a:hover::after {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    overflow: hidden; /* Cambiar de overflow-x a overflow para controlar ambos ejes */
+    overflow-x: hidden; /* Solo ocultar overflow horizontal */
+    overflow-y: visible; /* Permitir que el contenido vertical sea visible para las tarjetas */
     /* Cambios específicos para móviles pequeños */
     background-image: url('../assets/sobre-mi-movil.png.png'); /* Asegurar fondo móvil en pantallas pequeñas */
     background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
@@ -1587,6 +1589,7 @@ footer .legal-links a:hover::after {
     transform: none; /* Sin centrado, mantener alineación izquierda */
     width: 80%;
     max-width: 300px;
+    min-height: 550px; /* Altura mínima suficiente para contener todas las tarjetas (330px última tarjeta + ~200px altura tarjeta + 20px margen) */
     z-index: 10;
     cursor: pointer; /* Indicar que es interactivo */
     transition: all 0.5s ease-in-out; /* Transición suave */
