@@ -1522,12 +1522,22 @@ function initMobileCardViewer() {
     viewerIndicators.innerHTML = '';
 
     originalCards.forEach((card, index) => {
-      // Clonar la tarjeta
+      // Clonar la tarjeta manteniendo la clase about-card--stack para los estilos
       const clonedCard = card.cloneNode(true);
+      // Remover solo las clases de posición individual, mantener about-card--stack
       clonedCard.classList.remove('about-card--1', 'about-card--2', 'about-card--3', 'about-card--4');
+      // Asegurar que tenga la clase necesaria para los estilos del visor
+      if (!clonedCard.classList.contains('about-card--stack')) {
+        clonedCard.classList.add('about-card--stack');
+      }
       clonedCard.classList.add('viewer-card');
       
-      if (index === 0) {
+      // Asegurar que la tarjeta sea visible
+      clonedCard.style.display = 'flex';
+      clonedCard.style.visibility = 'visible';
+      clonedCard.style.opacity = index === currentCardIndex ? '1' : '0.7';
+      
+      if (index === currentCardIndex) {
         clonedCard.classList.add('active');
       }
       
@@ -1536,12 +1546,14 @@ function initMobileCardViewer() {
       // Crear indicador
       const indicator = document.createElement('div');
       indicator.classList.add('viewer-indicator');
-      if (index === 0) {
+      if (index === currentCardIndex) {
         indicator.classList.add('active');
       }
       indicator.addEventListener('click', () => goToCard(index));
       viewerIndicators.appendChild(indicator);
     });
+    
+    console.log(`✅ Tarjetas creadas: ${viewerTrack.children.length} tarjetas`);
   }
 
   // Navegar a una tarjeta específica
@@ -1556,11 +1568,18 @@ function initMobileCardViewer() {
     viewerTrack.style.transform = `translateX(${translateX}%)`;
 
     // Actualizar clases activas
-    const cards = viewerTrack.querySelectorAll('.viewer-card');
+    const cards = viewerTrack.querySelectorAll('.viewer-card, .about-card--stack');
     const indicators = viewerIndicators.querySelectorAll('.viewer-indicator');
 
     cards.forEach((card, i) => {
       card.classList.toggle('active', i === index);
+      // Asegurar visibilidad de la tarjeta activa
+      if (i === index) {
+        card.style.opacity = '1';
+        card.style.visibility = 'visible';
+      } else {
+        card.style.opacity = '0.7';
+      }
     });
 
     indicators.forEach((indicator, i) => {
@@ -1600,25 +1619,56 @@ function initMobileCardViewer() {
     isViewerOpen = true;
     currentCardIndex = clickedCardIndex;
     
-    // Crear las tarjetas del visor
+    // Mover el visor temporalmente al final del body para evitar clipping/stacking del contenedor
+    if (!cardViewer.__originalParent) {
+      cardViewer.__originalParent = cardViewer.parentNode;
+      cardViewer.__originalNext = cardViewer.nextSibling;
+    }
+    if (document.body.lastElementChild !== cardViewer) {
+      document.body.appendChild(cardViewer);
+    }
+
+    // Crear las tarjetas del visor PRIMERO antes de bloquear scroll
     createViewerCards();
     
     // Ir a la tarjeta clickeada
     goToCard(clickedCardIndex);
     
-    // Mostrar el visor
+    // Mostrar el visor PRIMERO
     cardViewer.classList.add('active');
     document.body.classList.add('viewer-open');
     
-    // Estrategia alternativa: solo prevenir scroll sin cambiar position
-    document.body.style.overflow = 'hidden';
-    document.body.style.height = '100%';
-    
-    // Asegurar que el visor esté en la posición correcta
+    // Asegurar que el visor esté en la posición correcta y cubra toda la pantalla
+    cardViewer.style.position = 'fixed';
     cardViewer.style.top = '0';
     cardViewer.style.left = '0';
+    cardViewer.style.right = '0';
+    cardViewer.style.bottom = '0';
+    cardViewer.style.width = '100vw';
+    cardViewer.style.height = '100dvh';
+    cardViewer.style.margin = '0';
+    cardViewer.style.padding = '0';
+    cardViewer.style.zIndex = '9999';
+    cardViewer.style.display = 'flex';
+    cardViewer.style.background = 'rgba(0, 0, 0, 0.95)';
+    cardViewer.style.visibility = 'visible';
+    cardViewer.style.opacity = '1';
     
-    console.log(`📍 Visor abierto manteniendo scroll en: ${currentScrollY}px`);
+    // Bloquear scroll del body DESPUÉS de mostrar el visor
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100%';
+    document.body.style.width = '100%';
+    
+    // También bloquear en html para mayor compatibilidad
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100%';
+    
+    console.log(`📍 Visor abierto - scroll bloqueado en: ${scrollY}px`);
   }
 
   // Cerrar el visor
@@ -1628,14 +1678,51 @@ function initMobileCardViewer() {
     console.log('❌ Cerrando visor de tarjetas...');
     
     isViewerOpen = false;
+    
+    // Ocultar el visor primero
     cardViewer.classList.remove('active');
     document.body.classList.remove('viewer-open');
     
-    // Restaurar scroll del body
+    // Limpiar estilos inline del visor
+    cardViewer.style.opacity = '';
+    cardViewer.style.visibility = '';
+    cardViewer.style.display = '';
+    
+    // Restaurar scroll del body de forma más robusta
+    const scrollY = document.body.style.top;
+    const scrollValue = scrollY ? parseInt(scrollY.replace('px', '').replace('-', '')) : 0;
+    
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.overflow = '';
     document.body.style.height = '';
+    document.body.style.width = '';
     
-    console.log(`📍 Visor cerrado, scroll restaurado`);
+    // También restaurar en html
+    document.documentElement.style.overflow = '';
+    document.documentElement.style.height = '';
+    
+    // Devolver el visor a su contenedor original
+    try {
+      if (cardViewer.__originalParent) {
+        if (cardViewer.__originalNext && cardViewer.__originalNext.parentNode === cardViewer.__originalParent) {
+          cardViewer.__originalParent.insertBefore(cardViewer, cardViewer.__originalNext);
+        } else {
+          cardViewer.__originalParent.appendChild(cardViewer);
+        }
+      }
+    } catch (e) { console.warn('No se pudo reinsertar el visor:', e); }
+
+    // Restaurar la posición del scroll después de un pequeño delay para evitar saltos
+    setTimeout(() => {
+      if (scrollValue > 0) {
+        window.scrollTo(0, scrollValue);
+      }
+    }, 100);
+    
+    console.log(`📍 Visor cerrado, scroll restaurado a: ${scrollValue}px`);
   }
 
   // Función para manejar la interacción con las tarjetas

@@ -1712,18 +1712,21 @@ footer .legal-links a:hover::after {
     /* El contenedor mantiene su posición base */
   }
 
-  /* Tarjeta destacada (centrada y agrandada) */
+  /* Tarjeta destacada (centrada y agrandada) - Sistema legacy (no usado en visor móvil) */
+  /* NOTA: Este sistema está siendo reemplazado por about-card-viewer */
   .about-cards.mobile-expanded .about-card--stack.active {
-    position: fixed; /* Cambiar a fixed para centrar en viewport */
-    top: 50vh; /* Centrado vertical del viewport */
-    left: 50%; /* Centrado horizontal */
-    transform: translate(-50%, -50%) scale(1.05); /* Centrado y agrandado */
+    position: fixed !important; /* Cambiar a fixed para centrar en viewport */
+    top: 50% !important; /* Centrado vertical dinámico del viewport */
+    left: 50% !important; /* Centrado horizontal */
+    transform: translate(-50%, -50%) scale(1.05) !important; /* Centrado perfecto vertical y horizontal con escala */
     z-index: 100; /* Z-index alto para estar al frente */
     width: 90%; /* Ancho aumentado */
     max-width: 350px; /* Ancho máximo aumentado */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
     opacity: 1; /* Completamente visible */
     pointer-events: auto; /* Mantener interactividad */
+    margin: 0 !important;
+    padding: 30px 25px !important;
   }
 
   /* Tarjetas no destacadas (ocultas) */
@@ -2962,10 +2965,11 @@ html {
   /* Contenedor overlay que cubre toda la pantalla */
   .about-card-viewer {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0; /* Equivale a top: 0; right: 0; bottom: 0; left: 0; */
     width: 100vw;
-    height: 100vh;
+    height: 100dvh; /* Usar dvh para mejor compatibilidad iOS (dynamic viewport height) */
+    min-height: 100dvh;
+    max-height: 100dvh;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     z-index: 9999;
@@ -2977,12 +2981,20 @@ html {
     visibility: hidden;
     transition: all 0.6s ease-in-out;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    /* Asegurar que no haya transform o margin que desplace el centrado */
+    transform: none;
+    box-sizing: border-box;
   }
 
   /* Estado activo del visor */
   .about-card-viewer.active {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    z-index: 9999 !important;
   }
 
   /* Botón de cierre fijo en la esquina superior derecha */
@@ -3027,8 +3039,13 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 80px 20px 60px; /* Espacio para el botón de cierre */
+    padding: 20px; /* Padding mínimo para evitar que el card toque los bordes */
     position: relative;
+    margin: 0;
+    /* Asegurar centrado perfecto sin desplazamientos */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permitir scroll interno si el contenido es muy largo */
+    overflow-x: hidden;
   }
 
   /* Track para las tarjetas deslizables */
@@ -3038,43 +3055,69 @@ html {
     height: 100%;
     transition: transform 0.6s ease-in-out;
     touch-action: pan-y; /* Permitir scroll vertical pero controlar horizontal */
+    margin: 0;
+    padding: 0;
+    /* El track se mueve horizontalmente - viewer-container centra verticalmente */
+    align-items: center; /* Centrar verticalmente las tarjetas dentro del track */
+    justify-content: flex-start; /* Las tarjetas se alinean horizontalmente según el transform translateX */
+    box-sizing: border-box;
   }
 
   /* Tarjetas dentro del visor */
   .viewer-track .about-card--stack {
-    position: relative;
-    width: 100%;
-    min-width: 100%;
+    position: relative !important;
+    width: 90% !important;
+    max-width: 350px !important;
+    min-width: 280px !important;
     height: auto;
-    max-height: 80vh;
-    margin: 0;
-    padding: 30px 25px;
-    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%);
+    max-height: calc(100dvh - 100px); /* Dejar espacio para botón de cerrar y padding (48px botón + 52px margen) */
+    margin: 0 auto !important; /* Centrado horizontal automático */
+    padding: 30px 25px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #fff0f7 100%) !important;
     border-radius: 25px;
     box-shadow: 
       0 20px 40px rgba(0, 0, 0, 0.3),
       0 8px 20px rgba(255, 105, 180, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
     border: 1px solid rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     transform: scale(0.9);
     opacity: 0.7;
     transition: all 0.6s ease-in-out;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
+    overflow-y: auto; /* Permitir scroll interno si el contenido es muy largo */
+    overflow-x: hidden;
+    /* Asegurar que no haya margin o padding que desplace */
+    box-sizing: border-box;
+    /* Evitar que transformaciones del padre afecten el centrado */
+    flex-shrink: 0;
+    visibility: visible !important;
+    /* Asegurar que sea visible */
+    z-index: 1;
   }
 
   /* Tarjeta activa (centrada) */
   .viewer-track .about-card--stack.active {
-    transform: scale(1);
-    opacity: 1;
+    transform: scale(1) !important; /* Forzar escala sin afectar el centrado */
+    opacity: 1 !important;
     box-shadow: 
       0 25px 50px rgba(0, 0, 0, 0.4),
       0 12px 25px rgba(255, 105, 180, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+    /* Asegurar que no haya reglas que sobrescriban el centrado */
+    position: relative !important;
+    margin: 0 auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    /* Prevenir sobrescritura de reglas del sistema mobile-expanded */
+    width: 90% !important;
+    max-width: 350px !important;
   }
 
   /* Header de la tarjeta en el visor */
