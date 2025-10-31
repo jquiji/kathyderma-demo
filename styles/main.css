@@ -1346,7 +1346,7 @@ footer .legal-links a:hover::after {
       transform: scale(1) translateY(0px);
     }
     50% {
-      transform: scale(1) translateY(-3px);
+      transform: scale(1) translateY(-5px);
     }
   }
 
@@ -1355,7 +1355,7 @@ footer .legal-links a:hover::after {
       transform: scale(0.98) translateY(0px);
     }
     50% {
-      transform: scale(0.98) translateY(-3px);
+      transform: scale(0.98) translateY(-5px);
     }
   }
 
@@ -1364,7 +1364,7 @@ footer .legal-links a:hover::after {
       transform: scale(0.96) translateY(0px);
     }
     50% {
-      transform: scale(0.96) translateY(-3px);
+      transform: scale(0.96) translateY(-5px);
     }
   }
 
@@ -1373,7 +1373,7 @@ footer .legal-links a:hover::after {
       transform: scale(0.94) translateY(0px);
     }
     50% {
-      transform: scale(0.94) translateY(-3px);
+      transform: scale(0.94) translateY(-5px);
     }
   }
 
@@ -1385,23 +1385,23 @@ footer .legal-links a:hover::after {
 
   /* Desfases de tiempo entre tarjetas para efecto natural - mantener escalas */
   .about-card--1 {
-    animation: float1 4s ease-in-out infinite;
+    animation: float1 3.5s ease-in-out infinite;
     animation-delay: 0s;
   }
 
   .about-card--2 {
-    animation: float2 4s ease-in-out infinite;
-    animation-delay: 0.4s;
+    animation: float2 3.5s ease-in-out infinite;
+    animation-delay: 0.35s;
   }
 
   .about-card--3 {
-    animation: float3 4s ease-in-out infinite;
-    animation-delay: 0.8s;
+    animation: float3 3.5s ease-in-out infinite;
+    animation-delay: 0.7s;
   }
 
   .about-card--4 {
-    animation: float4 4s ease-in-out infinite;
-    animation-delay: 1.2s;
+    animation: float4 3.5s ease-in-out infinite;
+    animation-delay: 1.05s;
   }
 
   /* Pausar animación cuando las tarjetas están expandidas (exploded) */
