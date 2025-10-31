@@ -1068,8 +1068,8 @@ footer .legal-links a:hover::after {
     max-height: 120vh; /* Limitar altura máxima para evitar scroll excesivo */
     overflow: hidden; /* Eliminar cualquier scroll vertical */
     position: relative;
-    background-position: right center !important; /* Mover imagen de la doctora completamente hacia la derecha */
-    background-size: 130% auto !important; /* Aumentar ancho significativamente para que la imagen se vea bien desplazada a la derecha */
+    background-position: 100% 50% !important; /* Mover imagen de la doctora claramente hacia el lado derecho */
+    background-size: cover !important; /* Mantener tamaño original */
     background-repeat: no-repeat !important; /* Asegurar que no se repita */
   }
 }
