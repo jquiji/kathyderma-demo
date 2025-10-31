@@ -1644,8 +1644,8 @@ footer .legal-links a:hover::after {
   /* Texto interactivo: "Pulsa aquí" (encima de la primera tarjeta) */
   .about-stack-hint {
     position: absolute;
-    top: 70px; /* Ajustado para quedar justo por encima del borde superior de la tarjeta (bajado 10px adicionales desde 60px) */
-    left: 50%;
+    top: 140px; /* Ajuste fino: bajado 5px adicionales desde 135px para mejor alineación */
+    left: calc(50% - 10px); /* Desplazado 10px hacia la izquierda para alinearse con el borde de la tarjeta */
     transform: translateX(-50%);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
