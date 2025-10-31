@@ -1063,10 +1063,10 @@ footer .legal-links a:hover::after {
 /* ===== ESCRITORIO (≥ 1024px) - SECCIÓN FIJA SIN SCROLL ===== */
 @media (min-width: 1024px) {
   .about {
-    height: 120vh; /* Altura aumentada para dar espacio a las tarjetas expandidas */
-    min-height: 120vh; /* Altura mínima aumentada */
-    max-height: 120vh; /* Limitar altura máxima para evitar scroll excesivo */
-    overflow: hidden; /* Eliminar cualquier scroll vertical */
+    height: calc(120vh + 120px); /* Altura aumentada para dar espacio a las tarjetas expandidas + espacio inferior */
+    min-height: calc(120vh + 120px); /* Altura mínima aumentada con espacio inferior */
+    max-height: none; /* Permitir que la altura incluya el espacio inferior */
+    overflow: visible; /* Permitir que el espacio inferior sea visible */
     position: relative;
     background-position: 100% 50% !important; /* Mover imagen de la doctora claramente hacia el lado derecho */
     background-size: cover !important; /* Mantener tamaño original */
