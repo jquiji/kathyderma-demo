@@ -206,16 +206,54 @@
   <script src="main.js"></script>
 
   <script>
-    // Interacción opcional: al tocar "Pulsa aquí", expandir la pila en móvil
+    // Interacción: al tocar "Pulsa aquí", ejecutar la misma acción que hacer clic en la primera tarjeta
     (function() {
-      var hint = document.querySelector('.about-stack-hint');
-      var cards = document.querySelector('.about-cards');
-      var firstCard = document.querySelector('.about-card--stack.about-card--1');
-      if (hint && cards && firstCard) {
-        hint.addEventListener('click', function() {
-          firstCard.classList.add('active');
-          cards.classList.add('mobile-expanded');
-        });
+      // Esperar a que el DOM y el script principal estén listos
+      function initHintInteraction() {
+        var hint = document.querySelector('.about-stack-hint');
+        var firstCard = document.querySelector('.about-card--stack.about-card--1');
+        
+        if (hint && firstCard) {
+          // Solo funcionar en móvil (max-width: 768px)
+          function isMobile() {
+            return window.innerWidth <= 768;
+          }
+          
+          // Función para disparar el evento en la primera tarjeta
+          function triggerFirstCardEvent(e) {
+            // Solo procesar en móvil
+            if (!isMobile()) return;
+            
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Disparar el mismo evento click en la primera tarjeta
+            // Esto reutiliza toda la lógica existente del visor móvil sin duplicar código
+            var clickEvent = new MouseEvent('click', {
+              bubbles: true,
+              cancelable: true,
+              view: window
+            });
+            
+            firstCard.dispatchEvent(clickEvent);
+          }
+          
+          // Soporte para click (mouse)
+          hint.addEventListener('click', triggerFirstCardEvent);
+          
+          // Soporte para touch (dispositivos táctiles)
+          hint.addEventListener('touchend', function(e) {
+            triggerFirstCardEvent(e);
+          }, { passive: false });
+        }
+      }
+      
+      // Inicializar cuando el DOM esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHintInteraction);
+      } else {
+        // Si el DOM ya está listo, esperar un poco para que main.js haya inicializado
+        setTimeout(initHintInteraction, 100);
       }
     })();
   </script>
