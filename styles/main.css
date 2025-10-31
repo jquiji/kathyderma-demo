@@ -1642,13 +1642,9 @@ footer .legal-links a:hover::after {
   }
 
   /* Texto interactivo: "Pulsa aquí" (encima de la primera tarjeta) */
-  .about-card--1 {
-    position: relative; /* Asegurar que el hint se posicione relativo a la tarjeta */
-  }
-
   .about-stack-hint {
     position: absolute;
-    top: -10px; /* 8–12px por encima del borde superior de la tarjeta */
+    top: 70px; /* Ajustado para quedar justo por encima del borde superior de la tarjeta (bajado 10px adicionales desde 60px) */
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Poppins', sans-serif;
@@ -1656,13 +1652,14 @@ footer .legal-links a:hover::after {
     font-size: 15px; /* 14–16px para legibilidad */
     color: #E63BA8; /* Tono rosa solicitado */
     text-align: center;
-    z-index: 6; /* Por encima de las tarjetas apiladas */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* Sombra mejorada para mejor contraste sobre fondos claros */
+    z-index: 6; /* Por encima de las tarjetas apiladas y del fondo */
     cursor: pointer;
     user-select: none;
     pointer-events: auto;
     opacity: 0.9;
     white-space: nowrap; /* Evitar salto de línea */
-    animation: hintFloat 2s ease-in-out infinite; /* Animación sutil y constante */
+    animation: hintFloat 2s ease-in-out infinite; /* Animación más notoria y constante */
   }
 
   @keyframes hintFloat {
@@ -1671,7 +1668,7 @@ footer .legal-links a:hover::after {
       opacity: 0.9;
     }
     50% {
-      transform: translateX(-50%) translateY(-4px);
+      transform: translateX(-50%) translateY(-6px); /* Amplitud aumentada a -6px para mayor visibilidad */
       opacity: 1;
     }
   }
