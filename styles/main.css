@@ -1086,6 +1086,11 @@ footer .legal-links a:hover::after {
   .decorative-search-bar:hover {
     transform: translateX(-50%) translateY(-2px) !important; /* Mantener centrado y aplicar elevación */
   }
+
+  /* Ocultar texto "Pulsa aquí" en escritorio - solo visible en móvil */
+  .about-stack-hint {
+    display: none !important;
+  }
 }
 
 
@@ -1644,8 +1649,8 @@ footer .legal-links a:hover::after {
   /* Texto interactivo: "Pulsa aquí" (encima de la primera tarjeta) */
   .about-stack-hint {
     position: absolute;
-    top: 140px; /* Ajuste fino: bajado 5px adicionales desde 135px para mejor alineación */
-    left: calc(50% - 10px); /* Desplazado 10px hacia la izquierda para alinearse con el borde de la tarjeta */
+    top: 143px; /* Ajuste fino: bajado 3px adicionales desde 140px para mejor alineación visual */
+    left: calc(50% - 19px); /* Desplazado 19px hacia la izquierda (3px adicionales desde -16px) para alineación perfecta con el borde de la tarjeta */
     transform: translateX(-50%);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
