@@ -1068,9 +1068,21 @@ footer .legal-links a:hover::after {
     max-height: none; /* Permitir que la altura incluya el espacio inferior */
     overflow: visible; /* Permitir que el espacio inferior sea visible */
     position: relative;
+    width: 100vw !important; /* Asegurar ancho completo del viewport para centrado correcto */
     background-position: 100% 50% !important; /* Mover imagen de la doctora claramente hacia el lado derecho */
     background-size: cover !important; /* Mantener tamaño original */
     background-repeat: no-repeat !important; /* Asegurar que no se repita */
+  }
+
+  /* Centrar la barra de búsqueda decorativa horizontalmente en escritorio */
+  .decorative-search-bar {
+    left: 50% !important; /* Centrar horizontalmente - usar !important para sobrescribir estilo base */
+    transform: translateX(-50%) !important; /* Centrado perfecto respecto al ancho total */
+  }
+
+  /* Ajustar el hover para mantener el centrado */
+  .decorative-search-bar:hover {
+    transform: translateX(-50%) translateY(-2px) !important; /* Mantener centrado y aplicar elevación */
   }
 }
 
@@ -1139,8 +1151,8 @@ footer .legal-links a:hover::after {
 .decorative-search-bar {
   position: absolute;
   top: 80px; /* Margen superior para no tapar el menú */
-  left: 15%; /* Mover más hacia la izquierda (15% del ancho total) */
-  transform: translateX(0); /* Sin centrado automático */
+  left: 15%; /* Mover más hacia la izquierda (15% del ancho total) - será sobrescrito en escritorio */
+  transform: translateX(0); /* Sin centrado automático - será sobrescrito en escritorio */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1735,7 +1747,7 @@ footer .legal-links a:hover::after {
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px); /* Solo elevación, sin centrado */
+  /* El transform se maneja en el media query de escritorio */
 }
 
 .search-text {
