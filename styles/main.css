@@ -1043,7 +1043,7 @@ footer .legal-links a:hover::after {
 
 /* Sección Sobre mí - Imagen de fondo completa */
 .about {
-  background-image: url('../assets/sobre-mi-movil.png'); /* Fondo móvil por defecto */
+  background-image: url('../assets/sobre-mi-movil.png.png'); /* Fondo móvil por defecto */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1073,6 +1073,7 @@ footer .legal-links a:hover::after {
     background-position: 100% 50% !important; /* Mover imagen de la doctora claramente hacia el lado derecho */
     background-size: cover !important; /* Mantener tamaño original */
     background-repeat: no-repeat !important; /* Asegurar que no se repita */
+    background-color: transparent !important; /* Asegurar que no haya color de fondo que cubra la imagen */
   }
 
   /* Centrar la barra de búsqueda decorativa horizontalmente en escritorio */
@@ -1094,7 +1095,7 @@ footer .legal-links a:hover::after {
 /* Responsive Design para móviles */
 @media (max-width: 1023px) {
   .about {
-    background-image: url('../assets/sobre-mi-movil.png'); /* Fondo móvil específico */
+    background-image: url('../assets/sobre-mi-movil.png.png'); /* Fondo móvil específico */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1140,7 +1141,7 @@ footer .legal-links a:hover::after {
     margin-right: -50vw;
     overflow: hidden; /* Cambiar de overflow-x a overflow para controlar ambos ejes */
     /* Cambios específicos para móviles pequeños */
-    background-image: url('../assets/sobre-mi-movil.png'); /* Asegurar fondo móvil en pantallas pequeñas */
+    background-image: url('../assets/sobre-mi-movil.png.png'); /* Asegurar fondo móvil en pantallas pequeñas */
     background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
     background-repeat: no-repeat;
     background-position: center; /* Centrar la imagen para mejor visualización */
@@ -1153,7 +1154,7 @@ footer .legal-links a:hover::after {
 /* Media query adicional para orientación horizontal en móviles */
 @media (max-width: 768px) and (orientation: landscape) {
   .about {
-    background-image: url('../assets/sobre-mi-movil.png'); /* Asegurar fondo móvil en orientación horizontal */
+    background-image: url('../assets/sobre-mi-movil.png.png'); /* Asegurar fondo móvil en orientación horizontal */
     background-position: center center; /* Centrar completamente en orientación horizontal */
     background-size: contain; /* Mantener contain para ver imagen completa */
   }
@@ -1581,9 +1582,9 @@ footer .legal-links a:hover::after {
 @media (max-width: 767px) {
   .about-cards {
     position: relative; /* Cambio a relative para contenedor */
-    top: 320px; /* Debajo de la tarjeta principal */
-    left: 50%; /* Centrado horizontal */
-    transform: translateX(-50%); /* Centrado perfecto */
+    top: 150px; /* Movido más arriba, justo debajo de la barra de búsqueda (80px + 50px altura + 20px margen) */
+    left: 10%; /* Alineado hacia la izquierda para balance visual */
+    transform: none; /* Sin centrado, mantener alineación izquierda */
     width: 80%;
     max-width: 300px;
     z-index: 10;
@@ -1598,8 +1599,8 @@ footer .legal-links a:hover::after {
 
   .about-card--stack {
     position: absolute; /* Cambio a absolute para control total */
-    left: 50%; /* Centrado horizontal */
-    transform: translateX(-50%); /* Centrado perfecto */
+    left: 0; /* Alineado a la izquierda del contenedor */
+    transform: none; /* Sin transform para mantener alineación izquierda */
     width: 100%;
     max-width: 300px;
     z-index: 1;
@@ -1664,11 +1665,11 @@ footer .legal-links a:hover::after {
 
   /* Efecto hover para indicar interactividad */
   .about-cards:hover .about-card--stack {
-    transform: translateX(-50%) scale(1.02); /* Centrado y ligero aumento en hover */
+    transform: scale(1.02); /* Ligero aumento en hover sin cambiar posición horizontal */
   }
 
   .about-cards.mobile-expanded:hover .about-card--stack.active {
-    transform: translate(-50%, -50%) scale(1.05); /* Mantener escala cuando está expandido */
+    transform: translate(-50%, -50%) scale(1.05); /* Mantener escala cuando está expandido (centrado solo al expandirse) */
   }
 }
 
