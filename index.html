@@ -123,6 +123,8 @@
   <div class="about-cards">
     <!-- Tarjeta base: Dermatóloga certificada -->
     <div class="about-card about-card--stack about-card--1">
+      <!-- Indicador interactivo para la pila en móvil -->
+      <div class="about-stack-hint">Pulsa aquí</div>
       <div class="card-header">
         <img src="assets/skin-icon.svg" alt="Ícono dermatología" class="card-icon" />
         <h3>Dermatóloga certificada</h3>
@@ -202,6 +204,21 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init();</script>
   <script src="main.js"></script>
+
+  <script>
+    // Interacción opcional: al tocar "Pulsa aquí", expandir la pila en móvil
+    (function() {
+      var hint = document.querySelector('.about-stack-hint');
+      var cards = document.querySelector('.about-cards');
+      var firstCard = document.querySelector('.about-card--stack.about-card--1');
+      if (hint && cards && firstCard) {
+        hint.addEventListener('click', function() {
+          firstCard.classList.add('active');
+          cards.classList.add('mobile-expanded');
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>
