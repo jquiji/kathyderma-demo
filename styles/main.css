@@ -1043,7 +1043,7 @@ footer .legal-links a:hover::after {
 
 /* Sección Sobre mí - Imagen de fondo completa */
 .about {
-  background-image: url('../assets/sobre-mi-movil.png.png'); /* Fondo móvil por defecto */
+  background-image: url('../assets/sobre-mi-movil.png'); /* Fondo móvil por defecto */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1069,7 +1069,7 @@ footer .legal-links a:hover::after {
     overflow: visible; /* Permitir que el espacio inferior sea visible */
     position: relative;
     width: 100vw !important; /* Asegurar ancho completo del viewport para centrado correcto */
-    background-image: url('../assets/sobre-mi.png.png') !important; /* Fondo de escritorio */
+    background-image: url('../assets/sobre-mi.png') !important; /* Fondo de escritorio */
     background-position: 100% 50% !important; /* Mover imagen de la doctora claramente hacia el lado derecho */
     background-size: cover !important; /* Mantener tamaño original */
     background-repeat: no-repeat !important; /* Asegurar que no se repita */
@@ -1100,7 +1100,7 @@ footer .legal-links a:hover::after {
 /* Responsive Design para móviles */
 @media (max-width: 1023px) {
   .about {
-    background-image: url('../assets/sobre-mi-movil.png.png'); /* Fondo móvil específico */
+    background-image: url('../assets/sobre-mi-movil.png'); /* Fondo móvil específico */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1148,7 +1148,7 @@ footer .legal-links a:hover::after {
     overflow-x: hidden; /* Solo ocultar overflow horizontal */
     overflow-y: visible; /* Permitir que el contenido vertical sea visible para las tarjetas */
     /* Cambios específicos para móviles pequeños */
-    background-image: url('../assets/sobre-mi-movil.png.png'); /* Asegurar fondo móvil en pantallas pequeñas */
+    background-image: url('../assets/sobre-mi-movil.png'); /* Asegurar fondo móvil en pantallas pequeñas */
     background-size: cover; /* Usar cover para que la doctora ocupe más espacio */
     background-repeat: no-repeat;
     background-position: center; /* Centrar la imagen para mejor visualización */
@@ -1161,7 +1161,7 @@ footer .legal-links a:hover::after {
 /* Media query adicional para orientación horizontal en móviles */
 @media (max-width: 768px) and (orientation: landscape) {
   .about {
-    background-image: url('../assets/sobre-mi-movil.png.png'); /* Asegurar fondo móvil en orientación horizontal */
+    background-image: url('../assets/sobre-mi-movil.png'); /* Asegurar fondo móvil en orientación horizontal */
     background-position: center center; /* Centrar completamente en orientación horizontal */
     background-size: contain; /* Mantener contain para ver imagen completa */
   }
